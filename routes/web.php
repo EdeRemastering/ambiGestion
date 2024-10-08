@@ -70,5 +70,36 @@ Route::prefix('resultados-aprendizaje')->middleware(['auth'])->group(function ()
 });
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
-    // Rutas de administrador
+    // Usuarios
+    Route::get('/usuarios', [UsuarioController::class, 'index'])->name('usuarios.index');
+    Route::get('/usuarios/create', [UsuarioController::class, 'create'])->name('usuarios.create');
+    Route::post('/usuarios', [UsuarioController::class, 'store'])->name('usuarios.store');
+    Route::get('/usuarios/{id}/edit', [UsuarioController::class, 'edit'])->name('usuarios.edit');
+    Route::put('/usuarios/{id}', [UsuarioController::class, 'update'])->name('usuarios.update');
+    Route::delete('/usuarios/{id}', [UsuarioController::class, 'destroy'])->name('usuarios.delete');
+    
+    // Ambientes
+    Route::get('/ambientes', [AmbienteController::class, 'index'])->name('ambientes.index');
+    Route::get('/ambientes/create', [AmbienteController::class, 'create'])->name('ambientes.create');
+    Route::post('/ambientes', [AmbienteController::class, 'store'])->name('ambientes.store');
+    Route::get('/ambientes/{id}', [AmbienteController::class, 'show'])->name('ambientes.show');
+    Route::get('/ambientes/{id}/edit', [AmbienteController::class, 'edit'])->name('ambientes.edit');
+    Route::put('/ambientes/{id}', [AmbienteController::class, 'update'])->name('ambientes.update');
+    Route::delete('/ambientes/{id}', [AmbienteController::class, 'destroy'])->name('ambientes.destroy');
+    
+    // Recursos
+    Route::get('/recursos', [RecursoController::class, 'index'])->name('recursos.index');
+    Route::get('/recursos/create', [RecursoController::class, 'create'])->name('recursos.create');
+    Route::post('/recursos', [RecursoController::class, 'store'])->name('recursos.store');
+    Route::get('/recursos/{id}/edit', [RecursoController::class, 'edit'])->name('recursos.edit');
+    Route::put('/recursos/{id}', [RecursoController::class, 'update'])->name('recursos.update');
+    Route::delete('/recursos/{id}', [RecursoController::class, 'destroy'])->name('recursos.destroy');
+    
+    // Novedades
+    Route::get('/novedades', [NovedadController::class, 'index'])->name('novedades.index');
+    Route::get('/novedades/create', [NovedadController::class, 'create'])->name('novedades.create');
+    Route::post('/novedades', [NovedadController::class, 'store'])->name('novedades.store');
+    Route::get('/novedades/{id}/edit', [NovedadController::class, 'edit'])->name('novedades.edit');
+    Route::put('/novedades/{id}', [NovedadController::class, 'update'])->name('novedades.update');
+    Route::delete('/novedades/{id}', [NovedadController::class, 'destroy'])->name('novedades.destroy');
 });
