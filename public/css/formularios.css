@@ -1,0 +1,195 @@
+/* Estilos generales para los formularios */
+.contenedor-principal {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    width: 100%;
+    min-height: 100vh; /* Ocupa al menos el alto de la pantalla */
+    background-color: #f8f9fa; /* Color de fondo */
+}
+
+/* Contenedor que ajusta el formulario a diferentes pantallas */
+.contenedor-secundario {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff; /* Fondo blanco */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: fit-content; /* Máximo ancho */
+    min-height: 400px; /* Altura mínima */
+    max-height: fit-content; /* No sobrepasar el 90% del viewport */
+    overflow: hidden; /* Evitar desbordamiento */
+    overflow-y: auto; /* Scroll solo vertical si es necesario */
+    box-sizing: border-box; /* Asegura que el padding no afecte el tamaño */
+}
+
+/* Estructura del formulario en un grid */
+form {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 columnas */
+    gap: 20px; /* Espacio entre filas y columnas */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Ajustar mejor los inputs y evitar que se deformen */
+label {
+    color: #333; /* Color del texto ajustado para fondo blanco */
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+input, textarea, select, .btn-primary {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ced4da; /* Bordes neutros */
+    background-color: #f8f9fa;
+    color: #333; /* Color del texto ajustado para contraste */
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    margin-bottom: 20px;
+    min-height: 40px; /* Asegura que los inputs no sean muy pequeños */
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #6c757d; /* Color de placeholder ajustado para visibilidad */
+}
+
+/* Botón */
+.btn-primary {
+    background-color: #39A900; /* Color verde success */
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 16px;
+    font-weight: 600;
+    grid-column: span 2; /* Botón ocupa ambas columnas */
+    padding: 12px 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.btn-primary:hover {
+    background-color: #007832; /* Color más oscuro en hover */
+}
+
+.btn-success {
+    background-color: #39A900;
+}
+
+/* Estilo personalizado para el select */
+select {
+    appearance: none;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMjhhNzQ1IiBoZWlnaHQ9IjEwIiB2aWV3Qm94PSIwIDAgMjQgMTAiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMSAyTDExIDEzTDIzIDJMMjIgMUwxMSAxMUwxIDEgeiIvPjwvc3ZnPg==');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+}
+
+select:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(40, 167, 69, 0.5); /* Resalta en verde */
+}
+
+select option {
+    background-color: #ffffff;
+    color: #333; /* Texto de las opciones en negro */
+}
+
+/* Textareas ocupan ambas columnas */
+textarea {
+    grid-column: span 2; /* Hace que el textarea ocupe ambas columnas */
+    min-height: 100px; /* Altura mínima para textarea */
+}
+
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 768px) {
+    form {
+        grid-template-columns: 1fr; /* Cambia a 1 columna */
+    }
+
+    .btn-primary {
+        grid-column: span 1; /* Botón ocupa 1 columna en pantallas pequeñas */
+    }
+
+    textarea {
+        grid-column: span 1; /* Textarea también ocupa 1 columna */
+    }
+}
+
+/* Ajustes adicionales para evitar distorsiones */
+form > * {
+    min-width: 0; /* Evita que el contenido rompa el grid */
+}
+
+.contenedor-secundario:before {
+    content: '';
+    display: block;
+    height: 0;
+    flex-shrink: 0;
+}
+
+a .btn {
+    background-color: #39A900; /* Verde success */
+    color: white;
+}
+
+a:hover {
+    background-color: #007832; /* Hover en verde oscuro */
+}
+
+    
+   
+/* Formulario - Modo Claro (por defecto) ya está definido en el CSS actual */
+
+/* Modo Oscuro */
+.modo-oscuro .contenedor-principal {
+    background-color: #333; /* Fondo oscuro */
+    color: #f8f9fa; /* Texto claro */
+}
+
+.modo-oscuro .contenedor-secundario {
+    background-color: #444; /* Fondo oscuro en el formulario */
+    color: #f8f9fa; /* Texto claro */
+    border-color: #555; /* Bordes oscuros */
+}
+
+.modo-oscuro label {
+    color: #f8f9fa; /* Color del texto en oscuro */
+}
+
+.modo-oscuro input, 
+.modo-oscuro textarea, 
+.modo-oscuro select {
+    background-color: #555; /* Fondo oscuro en los campos */
+    color: #f8f9fa; /* Texto claro */
+    border: 1px solid #666; /* Bordes en modo oscuro */
+}
+
+.modo-oscuro input::placeholder, 
+.modo-oscuro textarea::placeholder {
+    color: #999; /* Color del placeholder en oscuro */
+}
+
+.modo-oscuro .btn-primary {
+    background-color: #39A900; /* Botón primario en verde */
+    color: white;
+    border-color: #007832; /* Borde del botón */
+}
+
+.modo-oscuro .btn-primary:hover {
+    background-color: #007832; /* Hover más oscuro */
+}
+
