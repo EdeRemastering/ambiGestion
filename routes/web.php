@@ -70,3 +70,4 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::put('/novedades/{id}', [NovedadController::class, 'update'])->name('novedades.update');
     Route::delete('/novedades/{id}', [NovedadController::class, 'destroy'])->name('novedades.destroy');
 });
+ 

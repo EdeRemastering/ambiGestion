@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('titulo', 'AmbiGestion')</title>
+    <title>@yield('titulo', 'SENA')</title>
 
  
     <!-- Fuentes de Google -->
@@ -76,9 +76,9 @@
 
 <!-- Barra lateral -->
 <div class="barra-lateral" id="barraLateral">
-    <h2><a href="{{ route('home') }}" class="texto-barra-lateral">AmbiGestion</a></h2>
+    <h2><a href="{{ route('home') }}" class="texto-barra-lateral">SENA</a></h2>
     <a href="{{ route('home') }}" class="opcion-barra-navegacion {{ Request::is('home') ? 'active' : '' }}"><i class="bi bi-house"></i> <span class="texto-barra-lateral">Inicio</span></a>
-    <a href="{{ route('personas.index') }}" class="opcion-barra-navegacion {{ Request::is('usuarios*') ? 'active' : '' }}"><i class="bi bi-people"></i> <span class="texto-barra-lateral">Usuarios</span></a>
+    <a href="{{ route('personas.index') }}" class="opcion-barra-navegacion {{ Request::is('personas*') ? 'active' : '' }}"><i class="bi bi-people"></i> <span class="texto-barra-lateral">Personas</span></a>
     <a href="{{ route('ambientes.index') }}" class="opcion-barra-navegacion {{ Request::is('ambientes*') ? 'active' : '' }}"><i class="bi bi-building"></i> <span class="texto-barra-lateral">Ambientes</span></a>
     <a href="{{ route('recursos.index') }}" class="opcion-barra-navegacion {{ Request::is('recursos*') ? 'active' : '' }}"><i class="bi bi-box"></i> <span class="texto-barra-lateral">Recursos</span></a>
     <a href="{{ route('novedades.index') }}" class="opcion-barra-navegacion {{ Request::is('novedades*') ? 'active' : '' }}"><i class="bi bi-bell"></i> <span class="texto-barra-lateral">Novedades</span></a>

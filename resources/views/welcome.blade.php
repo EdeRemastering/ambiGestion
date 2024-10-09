@@ -1,6 +1,4 @@
-@extends('layouts.app')
 
-@section('content')
 <div class="content-container flex">
     <h1 class="text-center mb-4">Bienvenidos al   {{ config('#', 'Complejo') }}</h1>
     <p class="text-center">
@@ -11,4 +9,3 @@
     <!-- Aquí puedes agregar más contenido específico de la página de bienvenida -->
 </div>
 
-@endsection
