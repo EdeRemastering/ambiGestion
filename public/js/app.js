@@ -1,13 +1,12 @@
-// Aquí una función que se encarga de buscar el estado del elemento que se clickea
 document.addEventListener('DOMContentLoaded', function() {
     // Obtener la ruta actual y dividirla
     let partesRuta = window.location.pathname.split('/').filter(part => part);
 
-    // Seleccionar la parte específica de la ruta (asumiendo que la tabla se llama 'ambientesTable')
-    let parteEspecifica = partesRuta.slice(3).join('/');
+    // Seleccionar la última parte de la ruta como identificador (flexible para cualquier cantidad de segmentos)
+    let parteEspecifica = partesRuta[partesRuta.length - 1];
     console.log('Parte específica:', parteEspecifica);
 
-    // Generar el ID de la tabla dinámicamente basado en la ruta
+    // Generar el ID de la tabla dinámicamente basado en la última parte de la ruta
     let tablaID = '#' + parteEspecifica + 'Table';
     console.log('Tabla ID:', tablaID);
 
@@ -53,10 +52,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    let botonesEstadoTotal = this.querySelectorAll('.botonEstadoTotal');
+    // Botones para mostrar todos los estados
+    let botonesEstadoTotal = document.querySelectorAll('.botonEstadoTotal');
     console.log(botonesEstadoTotal);
     
-    botonesEstadoTotal.forEach( (boton) => {
+    botonesEstadoTotal.forEach((boton) => {
         boton.addEventListener('click', () => {
             console.log('Comenzó la segunda función');
             tabla.search('').draw();

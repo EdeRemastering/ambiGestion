@@ -5,7 +5,7 @@
 @section('contenido')
 
 
-    <table class="table">
+<table id="personasTable" class="table table-striped" style="width:100%">
         <thead>
             <tr>
                 <th>Documento</th>

@@ -33,6 +33,7 @@
             <th>Fecha de Registro</th>
             <th>Estado de Novedad</th>
             <th>Fecha de Solución</th>
+            <th>Descripción Solución</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -45,8 +46,9 @@
             <td>{{ $novedad->fecha_registro }}</td>
             <td>{{ $novedad->nombre_estado_novedad }}</td>
             <td>{{ $novedad->fecha_solucion }}</td>
+            <td>{{ $novedad->descripcion_solucion }}</td>
             <td>
-            <a href="{{ route('novedades.edit', $novedad->id) }}" class="btn btn-success btn-sm"><i class="bi bi-pencil-fill"></i></a>
+                <a href="{{ route('novedades.edit', $novedad->id) }}" class="btn btn-success btn-sm"><i class="bi bi-pencil-fill"></i></a>
                 <form id="formularioEliminar-{{ $novedad->id }}" action="{{ route('novedades.destroy', $novedad->id) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')

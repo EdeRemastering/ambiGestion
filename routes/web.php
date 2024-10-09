@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\CheckPersonaRegistration;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard');
 });
 
 Auth::routes();

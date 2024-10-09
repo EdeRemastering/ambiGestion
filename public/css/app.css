@@ -30,6 +30,7 @@ body {
 
 /* Estilos de las tablas */
 table {
+    width: 100%;
     background-color: #ffffff;
     border-radius: 5px;
     border: 1px solid var(--color-borde);

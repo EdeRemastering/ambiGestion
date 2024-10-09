@@ -35,6 +35,11 @@
                 <input type="date" id="fecha_solucion" name="fecha_solucion" class="form-control" value="{{ $novedad->fecha_solucion }}">
             </div>
 
+            <div class="form-group mb-3">
+                <label for="descripcion_solucion">Descripción Solución:</label>
+                <input type="text" id="descripcion_solucion" name="descripcion_solucion" class="form-control" value="{{ $novedad->descripcion_solucion }}">
+            </div>
+
             <button type="submit" class="btn btn-primary">Actualizar Novedad</button>
         </form>
     </div>

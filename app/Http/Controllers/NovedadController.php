@@ -21,7 +21,8 @@ class NovedadController extends Controller
             'novedad.descripcion',
             'novedad.fecha_registro',
             'estado_novedad.nombre AS nombre_estado_novedad',
-            'novedad.fecha_solucion'
+            'novedad.fecha_solucion',
+            'novedad.descripcion_solucion'
         )
         ->get();
         

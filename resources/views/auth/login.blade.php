@@ -1,82 +1,44 @@
+<!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Iniciar Sesión</title>
+        <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+    </head>
+    <body>
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">
-                    
+        <div class="contenedor-login">
+            
+        <header>
+        <h1>Iniciar Sesion</h1>
+</header>
+            @if ($errors->any())
+                <div class="error-message">
+                    Las credenciales no coinciden.
                 </div>
+            @endif
+            
+            <form action="{{ route('login') }}" method="POST">
+                @csrf
+                <input type="email" name="email" placeholder="Correo electrónico" required>
+                <input type="password" name="password" placeholder="Contraseña" required>
+                <button type="submit">Iniciar Sesión</button>
+            </form>
 
-                <div class="card-body row justify-content-center" >
-                <div class="container justify-center">
-                <img src="{{ asset('/img/imagen.jpg') }}" alt="Imagen SENA" class="img-fluid w-50">
-                </div>
-                <div class="container">
-                <h2>Iniciar sesión</h2>
-
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">Correo electrónico *</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>Estas credenciales no coinciden con nuestros registros.</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">Contraseña *</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        Mantener sesión iniciada
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Iniciar sesión
-                                </button>
-                            </div>
-                        </div>
-
-                    </form>
-
-                    <div class="mt-3">
-                        <a href="{{ route('register') }}" class="btn btn-link">Crear nueva cuenta</a>
-                        @if (Route::has('password.request'))
-                            <a href="{{ route('password.request') }}" class="btn btn-link">
-                                ¿Olvidaste tu contraseña?
-                            </a>
-                        @endif
-                    </div>
-                </div>
+            <p>¿No tienes una cuenta? <a href="{{ route('register') }}">Regístrate</a>
+            </p>
+            <div class="mt-3">
+                @if (Route::has('password.request'))
+                    <a href="{{ route('password.request') }}" class="btn btn-link">
+                        ¿Olvidaste tu contraseña?
+                    </a>
+                @endif
             </div>
+        
         </div>
-    </div>
-</div>
+
+    </body>
+    </html>
+
+                  

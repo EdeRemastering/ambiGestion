@@ -79,9 +79,9 @@
     <h2><a href="{{ route('home') }}" class="texto-barra-lateral">SENA</a></h2>
     <a href="{{ route('home') }}" class="opcion-barra-navegacion {{ Request::is('home') ? 'active' : '' }}"><i class="bi bi-house"></i> <span class="texto-barra-lateral">Inicio</span></a>
     <a href="{{ route('personas.index') }}" class="opcion-barra-navegacion {{ Request::is('personas*') ? 'active' : '' }}"><i class="bi bi-people"></i> <span class="texto-barra-lateral">Personas</span></a>
-    <a href="{{ route('ambientes.index') }}" class="opcion-barra-navegacion {{ Request::is('ambientes*') ? 'active' : '' }}"><i class="bi bi-building"></i> <span class="texto-barra-lateral">Ambientes</span></a>
-    <a href="{{ route('recursos.index') }}" class="opcion-barra-navegacion {{ Request::is('recursos*') ? 'active' : '' }}"><i class="bi bi-box"></i> <span class="texto-barra-lateral">Recursos</span></a>
-    <a href="{{ route('novedades.index') }}" class="opcion-barra-navegacion {{ Request::is('novedades*') ? 'active' : '' }}"><i class="bi bi-bell"></i> <span class="texto-barra-lateral">Novedades</span></a>
+    <a href="{{ route('ambientes.index') }}" class="opcion-barra-navegacion {{ Request::is('admin/ambientes*') ? 'active' : '' }}"><i class="bi bi-building"></i> <span class="texto-barra-lateral">Ambientes</span></a>
+    <a href="{{ route('recursos.index') }}" class="opcion-barra-navegacion {{ Request::is('admin/recursos*') ? 'active' : '' }}"><i class="bi bi-box"></i> <span class="texto-barra-lateral">Recursos</span></a>
+    <a href="{{ route('novedades.index') }}" class="opcion-barra-navegacion {{ Request::is('admin/novedades*') ? 'active' : '' }}"><i class="bi bi-bell"></i> <span class="texto-barra-lateral">Novedades</span></a>
 </div>
 
 <!-- Contenido principal -->
@@ -139,6 +139,11 @@
 
     // Al cargar la página, comprobar el estado guardado
     window.addEventListener('load', function() {
+
+        setTimeout(function() {
+             window.dispatchEvent(new Event('resize'));
+        }, 300); 
+        
         const barraLateral = document.getElementById('barraLateral');
         const contenido = document.getElementById('contenido');
         const barraNavegacion = document.querySelector('.barra-navegacion');
@@ -153,7 +158,10 @@
             contenido.classList.remove('minimizado');
             barraNavegacion.classList.remove('minimizada');
         }
+
+       
     });
+
 
     function goBack() {
         window.history.back();
