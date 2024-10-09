@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-10-2024 a las 08:08:12
+-- Tiempo de generación: 09-10-2024 a las 20:49:27
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -80,6 +80,28 @@ CREATE TABLE `cache_locks` (
   `owner` varchar(255) NOT NULL,
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `competencias`
+--
+
+CREATE TABLE `competencias` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `codigo` varchar(255) NOT NULL,
+  `descripcion` varchar(255) NOT NULL,
+  `programa_formacion_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `competencias`
+--
+
+INSERT INTO `competencias` (`id`, `codigo`, `descripcion`, `programa_formacion_id`, `created_at`, `updated_at`) VALUES
+(2, '225547', 'creacion e implementacion del lenguaje HTML, CSS, JAVA SCRIPT, y frenware como BOOTSTRAP', 3, '2024-10-08 12:40:46', '2024-10-08 12:40:46');
 
 -- --------------------------------------------------------
 
@@ -294,18 +316,19 @@ CREATE TABLE `novedad` (
   `descripcion` varchar(256) NOT NULL,
   `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp(),
   `estado` int(11) NOT NULL,
-  `fecha_solucion` timestamp NULL DEFAULT NULL
+  `fecha_solucion` timestamp NULL DEFAULT NULL,
+  `descripcion_solucion` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `novedad`
 --
 
-INSERT INTO `novedad` (`id`, `nombre`, `descripcion`, `fecha_registro`, `estado`, `fecha_solucion`) VALUES
-(1, 'pc dañado', 'se daño porque un niño lo golpfadseo', '2024-09-26 18:04:49', 1, NULL),
-(2, 'pc dañado', 'ruben lo patió', '2024-10-01 19:40:55', 1, NULL),
-(8, 'eder', 'dsfa', '2024-10-06 06:28:38', 1, NULL),
-(9, 'lkjkfas', 'aoksdfj', '2024-10-06 15:51:00', 6, NULL);
+INSERT INTO `novedad` (`id`, `nombre`, `descripcion`, `fecha_registro`, `estado`, `fecha_solucion`, `descripcion_solucion`) VALUES
+(1, 'pc dañado', 'se daño porque un niño lo golpfadseo', '2024-09-26 18:04:49', 1, NULL, ''),
+(2, 'pc dañado', 'ruben lo patió', '2024-10-01 19:40:55', 1, NULL, ''),
+(8, 'eder', 'dsfa', '2024-10-06 06:28:38', 1, NULL, ''),
+(9, 'lkjkfas', 'aoksdfj', '2024-10-06 15:51:00', 6, NULL, '');
 
 -- --------------------------------------------------------
 
@@ -351,10 +374,31 @@ INSERT INTO `personas` (`id`, `documento`, `pnombre`, `snombre`, `papellido`, `s
 (12, '1028038615', 'Sebastian', NULL, 'Montiel', 'Espinosa', '3117887100', 'montiieel3@gmail.com', 'Barrio Nueva Civilizacion', 7, 1, '2024-10-01 23:13:27', '2024-10-01 23:13:27', 12),
 (13, '1040373102', 'jhonny', 'javier', 'mosquera', 'moreno', '3008825320', 'jhonnymosquera16@gmail.com', 'pepe', 7, 1, '2024-10-01 23:54:35', '2024-10-01 23:54:35', 13),
 (14, '1045492185', 'daniela', NULL, 'gomez', 'usuga', '3184998526', 'daniela@gmail.com', 'salvador', 7, 1, '2024-10-02 01:18:59', '2024-10-02 01:18:59', 14),
-(15, '1027950562', 'Jair', 'Stiven', 'Martinez', 'Palacios', '3227469143', 'mjairstiven@gmail.com', 'CAA83-06', 7, 1, '2024-10-02 03:26:08', '2024-10-05 12:42:16', 15),
-(16, '1038805081', 'Sandra', 'Miladys', 'Mora', 'Benitez', '3502768415', 'sandmorbe@gmail.com', 'Carrera 112a # 90a-10 11', 7, 1, '2024-10-05 09:53:21', '2024-10-05 12:43:22', 16),
-(17, '108827194', 'cindy', 'johanna', 'gualtero', NULL, '3145135853', 'cjgualtero@sena.edu.co', 'mz 3 c 1', 1, 1, '2024-10-08 03:15:29', '2024-10-08 03:15:29', 17),
-(18, '1027', 'alexandra', 'yuliet', 'torres', 'viloria', '322', 'ale@gmail.com', 'porvenkr', 1, NULL, '2024-10-08 23:43:44', '2024-10-08 23:43:44', 19);
+(17, '108827194', 'cindy', 'johanna', 'gualtero', NULL, '3145135853', 'cjgualtero@sena.edu.co', 'mz 3 c 1', 1, 1, '2024-10-08 03:15:29', '2024-10-08 03:15:29', 17);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `programa__formacions`
+--
+
+CREATE TABLE `programa__formacions` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `codigo` varchar(255) NOT NULL,
+  `version` varchar(255) NOT NULL,
+  `descripcion` text NOT NULL,
+  `duracion_meses` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `programa__formacions`
+--
+
+INSERT INTO `programa__formacions` (`id`, `nombre`, `codigo`, `version`, `descripcion`, `duracion_meses`, `created_at`, `updated_at`) VALUES
+(3, 'ANALISIS Y DESARROLLO DE SOFTWARE', '2673033', '2024', 'titulada', 27, '2024-10-08 12:19:04', '2024-10-08 12:19:04');
 
 -- --------------------------------------------------------
 
@@ -406,6 +450,29 @@ INSERT INTO `red_de_formacion` (`id_area_formacion`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `resultado_aprendizajes`
+--
+
+CREATE TABLE `resultado_aprendizajes` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `codigo` varchar(255) NOT NULL,
+  `descripcion` text NOT NULL,
+  `intensidad_horaria` int(11) NOT NULL,
+  `competencia_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `resultado_aprendizajes`
+--
+
+INSERT INTO `resultado_aprendizajes` (`id`, `codigo`, `descripcion`, `intensidad_horaria`, `competencia_id`, `created_at`, `updated_at`) VALUES
+(1, '1', 'aplicacion del lenguaje HTML, creacion e identificacion de las principales etiquetas del lenguaje', 15, 2, '2024-10-08 12:59:15', '2024-10-08 12:59:15');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `roles`
 --
 
@@ -444,8 +511,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('7f3Zh7K5jgog0LpiwpE1dLmhNehfgm9axydpc9KY', 10, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoidmppMmNVNVFVUTlzR1BlSkptNkIyVXhZRkttNU5UR0tyTXF2NG8xcSI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjYwOiJodHRwOi8vbG9jYWxob3N0L2xhcmF2ZWwvdHJhYmFqb19maW5hbC9wdWJsaWMvYWRtaW4vcmVjdXJzb3MiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxMDtzOjQ6ImF1dGgiO2E6MTp7czoyMToicGFzc3dvcmRfY29uZmlybWVkX2F0IjtpOjE3Mjg0NDgyNTQ7fX0=', 1728449505),
-('rjXPJAn0kPHibGScxpnpa9EOGLgA8GsWKknNu77c', 10, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoielpxVklRYTZ0bG1jM2RJUGYzU0VVUnprUVh5bTQzVzZWRzhKZkd1dSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NTU6Imh0dHA6Ly9sb2NhbGhvc3QvbGFyYXZlbC9wcm95ZWN0b19maW5hbC9wdWJsaWMvcGVyc29uYXMiO31zOjM6InVybCI7YTowOnt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTA7czo0OiJhdXRoIjthOjE6e3M6MjE6InBhc3N3b3JkX2NvbmZpcm1lZF9hdCI7aToxNzI4NDUyNDEyO319', 1728452424);
+('x6uUyZaciMoQW0HWykATT2xlHa34vTxpKSei5Cce', 10, '::1', 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Mobile Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiVU15dGZydmNiMmhBd0FuUlFyaGtmcWRpeGsyd1Z2eDA1N2dFTXVmZiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NjE6Imh0dHA6Ly9sb2NhbGhvc3QvbGFyYXZlbC90cmFiYWpvX2ZpbmFsL3B1YmxpYy9hZG1pbi9hbWJpZW50ZXMiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxMDtzOjQ6ImF1dGgiO2E6MTp7czoyMToicGFzc3dvcmRfY29uZmlybWVkX2F0IjtpOjE3Mjg0OTIwMjg7fX0=', 1728499501);
 
 -- --------------------------------------------------------
 
@@ -502,7 +568,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `role_id`, `created_at`, `updated_at`) VALUES
-(10, 'Luis Carlos Correa Arrieta', 'pcapacho24@gmail.com', NULL, '$2y$12$/qQSAk4ptfySwchPFcBj1.Wob0EcDaZVpZZknpCx.cMecx5ant7ta', 'DCVMHb53kkix9caipw1Xfk1U5LrhTUViEGp46GH0FVrjw3EngUIWTlvGWJav', 1, '2024-10-01 20:34:50', '2024-10-02 03:09:34'),
+(10, 'Luis Carlos Correa Arrieta', 'pcapacho24@gmail.com', NULL, '$2y$12$/qQSAk4ptfySwchPFcBj1.Wob0EcDaZVpZZknpCx.cMecx5ant7ta', 'lGAV2j2ILAniipUniv0WUtqkbGeLfk1fy1ajlnPkLcJ4ciFyGpi0EbWiAgRd', 1, '2024-10-01 20:34:50', '2024-10-02 03:09:34'),
 (11, 'juaco', 'juaco@gmail.com', NULL, '$2y$12$Pd5leTLwRG5GLHhdgIQuJO7bMSdf3Om9gRpAcQhq4PZuysimxl09q', NULL, 3, '2024-10-01 23:00:50', '2024-10-01 23:00:50'),
 (12, 'Sebastian', 'montiieel3@gmail.com', NULL, '$2y$12$PyT4Rg89rGVcAdgyd2bjSeKosA95jM6AsmbtZDdjTMQ8/NgusHiwK', NULL, 3, '2024-10-01 23:09:42', '2024-10-02 03:14:40'),
 (13, 'jhonny mosquera', 'jhonnymosquera16@gmail.com', NULL, '$2y$12$0xw0LzvTZD5ZSItgXF96IuCjYFKc1KxXRtOmA26.o1BeVv1V3bXjm', NULL, 3, '2024-10-01 23:52:54', '2024-10-01 23:52:54'),
@@ -521,6 +587,8 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 --
 ALTER TABLE `ambientes`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `numero` (`numero`),
+  ADD UNIQUE KEY `alias` (`alias`),
   ADD KEY `estado` (`estado`),
   ADD KEY `s` (`red_de_conocimiento`),
   ADD KEY `tipo` (`tipo`),
@@ -537,6 +605,14 @@ ALTER TABLE `cache`
 --
 ALTER TABLE `cache_locks`
   ADD PRIMARY KEY (`key`);
+
+--
+-- Indices de la tabla `competencias`
+--
+ALTER TABLE `competencias`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `competencias_codigo_unique` (`codigo`),
+  ADD KEY `competencias_programa_formacion_id_foreign` (`programa_formacion_id`);
 
 --
 -- Indices de la tabla `contratos`
@@ -618,6 +694,13 @@ ALTER TABLE `personas`
   ADD KEY `personas_user_id_foreign` (`user_id`);
 
 --
+-- Indices de la tabla `programa__formacions`
+--
+ALTER TABLE `programa__formacions`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `programa__formacions_codigo_unique` (`codigo`);
+
+--
 -- Indices de la tabla `recurso`
 --
 ALTER TABLE `recurso`
@@ -630,6 +713,14 @@ ALTER TABLE `recurso`
 --
 ALTER TABLE `red_de_formacion`
   ADD PRIMARY KEY (`id_area_formacion`);
+
+--
+-- Indices de la tabla `resultado_aprendizajes`
+--
+ALTER TABLE `resultado_aprendizajes`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `resultado_aprendizajes_codigo_unique` (`codigo`),
+  ADD KEY `resultado_aprendizajes_competencia_id_foreign` (`competencia_id`);
 
 --
 -- Indices de la tabla `roles`
@@ -675,6 +766,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `ambientes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93242;
+
+--
+-- AUTO_INCREMENT de la tabla `competencias`
+--
+ALTER TABLE `competencias`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `contratos`
@@ -737,10 +834,22 @@ ALTER TABLE `personas`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
+-- AUTO_INCREMENT de la tabla `programa__formacions`
+--
+ALTER TABLE `programa__formacions`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT de la tabla `recurso`
 --
 ALTER TABLE `recurso`
   MODIFY `id_recurso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32337;
+
+--
+-- AUTO_INCREMENT de la tabla `resultado_aprendizajes`
+--
+ALTER TABLE `resultado_aprendizajes`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -778,6 +887,12 @@ ALTER TABLE `ambientes`
   ADD CONSTRAINT `ambientes_ibfk_2` FOREIGN KEY (`tipo`) REFERENCES `tipo_ambiente` (`id`) ON DELETE CASCADE;
 
 --
+-- Filtros para la tabla `competencias`
+--
+ALTER TABLE `competencias`
+  ADD CONSTRAINT `competencias_programa_formacion_id_foreign` FOREIGN KEY (`programa_formacion_id`) REFERENCES `programa__formacions` (`id`) ON DELETE CASCADE;
+
+--
 -- Filtros para la tabla `novedad`
 --
 ALTER TABLE `novedad`
@@ -797,6 +912,12 @@ ALTER TABLE `personas`
 ALTER TABLE `recurso`
   ADD CONSTRAINT `recurso_ibfk_1` FOREIGN KEY (`id_ambiente`) REFERENCES `ambientes` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `recurso_ibfk_2` FOREIGN KEY (`estado`) REFERENCES `estado_recurso` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `resultado_aprendizajes`
+--
+ALTER TABLE `resultado_aprendizajes`
+  ADD CONSTRAINT `resultado_aprendizajes_competencia_id_foreign` FOREIGN KEY (`competencia_id`) REFERENCES `competencias` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `users`
