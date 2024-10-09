@@ -41,36 +41,7 @@ Route::prefix('personas')->group(function () {
     });
 });
 
-// Rutas para ProgramaFormacion
-Route::prefix('programas')->middleware(['auth'])->group(function () {
-    Route::get('/', [ProgramaFormacionController::class, 'index'])->name('programas.index');
-    Route::get('/create', [ProgramaFormacionController::class, 'create'])->name('programas.create');
-    Route::post('/', [ProgramaFormacionController::class, 'store'])->name('programas.store');
-    Route::post('/', [ProgramaFormacionController::class, 'store'])->name('programas.store');
-    Route::get('/{programa}', [ProgramaFormacionController::class, 'show'])->name('programas.show');
-    Route::get('/{programa}/edit', [ProgramaFormacionController::class, 'edit'])->name('programas.edit');
-    Route::put('/{programa}', [ProgramaFormacionController::class, 'update'])->name('programas.update');
-    Route::delete('/{programa}', [ProgramaFormacionController::class, 'destroy'])->name('programas.destroy');
-});
-Route::prefix('competencias')->middleware(['auth'])->group(function () {
-    Route::get('/', [CompetenciaController::class, 'index'])->name('competencias.index');
-    Route::get('/create', [CompetenciaController::class, 'create'])->name('competencias.create');
-    Route::post('/', [CompetenciaController::class, 'store'])->name('competencias.store');
-    Route::get('/{competencia}', [CompetenciaController::class, 'show'])->name('competencias.show');
-    Route::get('/{competencia}/edit', [CompetenciaController::class, 'edit'])->name('competencias.edit');
-    Route::put('/{competencia}', [CompetenciaController::class, 'update'])->name('competencias.update');
-    Route::delete('/{competencia}', [CompetenciaController::class, 'destroy'])->name('competencias.destroy');
-});
 
-Route::prefix('resultados-aprendizaje')->middleware(['auth'])->group(function () {
-    Route::get('/', [ResultadoAprendizajeController::class, 'index'])->name('resultados_aprendizaje.index');
-    Route::get('/create', [ResultadoAprendizajeController::class, 'create'])->name('resultados_aprendizaje.create');
-    Route::post('/', [ResultadoAprendizajeController::class, 'store'])->name('resultados_aprendizaje.store');
-    Route::get('/{resultado}', [ResultadoAprendizajeController::class, 'show'])->name('resultados_aprendizaje.show');
-    Route::get('/{resultado}/edit', [ResultadoAprendizajeController::class, 'edit'])->name('resultados_aprendizaje.edit');
-    Route::put('/{resultado}', [ResultadoAprendizajeController::class, 'update'])->name('resultados_aprendizaje.update');
-    Route::delete('/{resultado}', [ResultadoAprendizajeController::class, 'destroy'])->name('resultados_aprendizaje.destroy');
-});
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 
