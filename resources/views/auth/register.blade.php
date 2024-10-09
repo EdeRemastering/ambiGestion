@@ -1,6 +1,4 @@
-@extends('layouts.app')
 
-@section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -209,9 +207,9 @@
         </div>
     </div>
 </div>
-@endsection
 
-@section('scripts')
+
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     const rolSelect = document.getElementById('rol_id');
@@ -234,4 +232,3 @@ document.addEventListener('DOMContentLoaded', function () {
     toggleTipoContrato(); // Llamada inicial para establecer el estado correcto
 });
 </script>
-@endsection

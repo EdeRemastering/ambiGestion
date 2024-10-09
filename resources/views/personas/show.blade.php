@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
-@section('content')
+@section('titulo', 'Ver')
+
+@section('contenido')
 <div class="container">
     <h1 class="mb-4">Detalles de la Persona</h1>
     <div class="card">
