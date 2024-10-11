@@ -104,10 +104,28 @@ thead {
 }
 .opcion-barra-navegacion {
     border-radius: 5px;
+    position: relative;
 }
+
 .barra-lateral a:hover {
     background-color: var(--color-hover);
     border-radius: 5px;
+}
+.opcion-barra-navegacion::after  {
+    content: '';
+    background-color: #39A900;
+    position: absolute;
+    width: 0%;
+    height: 1px;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all .3s ease;
+    
+}
+.opcion-barra-navegacion:hover::after {
+    width: 100%;
+    
 }
 .opcion-barra-navegacion.active {
     border-left: 5px solid var(--color-principal);
@@ -150,6 +168,23 @@ thead {
 }
 .barra-navegacion h2 {
     font-weight: 600;
+    position: relative; 
+}
+.barra-navegacion h2::after {
+    content: '';
+    background-color: #007832;
+    position: absolute;
+    width: 0%;
+    height: 5px;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all .3s ease;
+    
+}
+.barra-navegacion h2:hover::after {
+    width: 100%;
+    
 }
 .barra-navegacion.minimizada {
     margin-left: 60px;
