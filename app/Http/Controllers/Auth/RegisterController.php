@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Log;
 
 class RegisterController extends Controller
 {
-    
+    use RegistersUsers;
 
     protected $redirectTo = '/home';  // Ajusta esta ruta según tus necesidades
 
@@ -41,7 +41,6 @@ class RegisterController extends Controller
             'direccion' => ['required', 'string'],
             'tipo_sangre_id' => ['required', 'exists:grupo_sanguineos,id'],
             'rol_id' => ['required', 'exists:roles,id'],
-            'tipo_contrato_id' => ['required', 'exists:tipo_contratos,id'],
         ];
 
         // Si el rol no es aprendiz, requiere tipo_contrato_id
