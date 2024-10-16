@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-10-2024 a las 18:53:52
+-- Tiempo de generación: 17-10-2024 a las 00:30:25
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -390,9 +390,9 @@ CREATE TABLE `personas` (
 --
 
 INSERT INTO `personas` (`id`, `documento`, `pnombre`, `snombre`, `papellido`, `sapellido`, `telefono`, `correo`, `direccion`, `tipo_sangre_id`, `tipo_contrato_id`, `created_at`, `updated_at`, `user_id`) VALUES
-(8, '8437347', 'Luis', 'Carlos', 'Correa', 'Arrieta', '3012481020', 'pcapacho24@gmail.com', 'Carrera 112a # 90a-10', 7, 1, '2024-10-01 20:35:29', '2024-10-08 03:49:40', 10),
-(12, '1028038615', 'Sebastian', NULL, 'Montiel', 'Espinosa', '3117887100', 'montiieel3@gmail.com', 'Barrio Nueva Civilizacion', 7, 1, '2024-10-01 23:13:27', '2024-10-01 23:13:27', 12),
-(13, '1040373102', 'jhonny', 'javier', 'mosquera', 'moreno', '3008825320', 'jhonnymosquera16@gmail.com', 'pepe', 7, 1, '2024-10-01 23:54:35', '2024-10-01 23:54:35', 13),
+(8, '1032178212', 'Eder', 'Luis', 'Mestra', 'Morelo', '3113391450', 'ederluismestra9@gmail.com', 'Carrera 112a # 90a-10', 7, 1, '2024-10-01 20:35:29', '2024-10-17 03:27:57', 10),
+(12, '15516281', 'Ruben', 'De Jesús', 'Zapata', 'Quiroz', '3204359110', 'rubens2809@gmail.com', 'Barrio Laureles', 7, 1, '2024-10-01 23:13:27', '2024-10-17 03:29:05', 12),
+(13, '1032177822', 'Luisa', 'Fernanda', 'Galvis', 'Fernandez', '3218505134', 'fernandagalvis.f.23@gmail.com', 'Jhon García', 8, 1, '2024-10-01 23:54:35', '2024-10-17 03:30:16', 13),
 (14, '1045492185', 'daniela', NULL, 'gomez', 'usuga', '3184998526', 'daniela@gmail.com', 'salvador', 7, 1, '2024-10-02 01:18:59', '2024-10-02 01:18:59', 14),
 (17, '108827194', 'cindy', 'johanna', 'gualtero', NULL, '3145135853', 'cjgualtero@sena.edu.co', 'mz 3 c 1', 1, 1, '2024-10-08 03:15:29', '2024-10-08 03:15:29', 17);
 
@@ -560,8 +560,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('alQgM81puZzpgGv9jQMWnu43UToJwZ771xfFDabV', 10, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiVTluQUo5QzNrU1FyMGJBQlNpR1dQWXpVY05CUVpxY054eFcxbTJMSSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NjE6Imh0dHA6Ly9sb2NhbGhvc3QvbGFyYXZlbC90cmFiYWpvX2ZpbmFsL3B1YmxpYy9hZG1pbi9wcm9ncmFtYXMiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxMDtzOjQ6ImF1dGgiO2E6MTp7czoyMToicGFzc3dvcmRfY29uZmlybWVkX2F0IjtpOjE3MjkwOTMwOTE7fX0=', 1729096984),
-('rT3Fw26VmjxBJIdJKoVr8d2ZZuqr3Lsy3kCtMxr5', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiV2xUZDRxR2Y0eDhMQ1UzRTJCZmo3QVJCdEhHWnJiVURZRjlNdUgxeCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDU6Imh0dHA6Ly9sb2NhbGhvc3QvbGFyYXZlbC90cmFiYWpvX2ZpbmFsL3B1YmxpYyI7fX0=', 1729092224);
+('ZXRC2cWJpD7Mdau9dsAvkogTJR9DziqtNtTPATeO', 10, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiSFMycXZZb3pKcjN4V3Y1S011TWNVNVFwcjNCc0hjbkZIbkJDZVR0NyI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjU0OiJodHRwOi8vbG9jYWxob3N0L2xhcmF2ZWwvdHJhYmFqb19maW5hbC9wdWJsaWMvcGVyc29uYXMiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxMDtzOjQ6ImF1dGgiO2E6MTp7czoyMToicGFzc3dvcmRfY29uZmlybWVkX2F0IjtpOjE3MjkxMTc2MTU7fX0=', 1729117816);
 
 -- --------------------------------------------------------
 
@@ -620,8 +619,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `role_id`, `created_at`, `updated_at`) VALUES
 (10, 'Luis Carlos Correa Arrieta', 'pcapacho24@gmail.com', NULL, '$2y$12$/qQSAk4ptfySwchPFcBj1.Wob0EcDaZVpZZknpCx.cMecx5ant7ta', 'a6ofSIYm5XOQ2DHOeB8QjBoDt29AWMBxO9Ad5ElfyngVmSsgmbx5zkIHCg4t', 1, '2024-10-01 20:34:50', '2024-10-02 03:09:34'),
 (11, 'juaco', 'juaco@gmail.com', NULL, '$2y$12$Pd5leTLwRG5GLHhdgIQuJO7bMSdf3Om9gRpAcQhq4PZuysimxl09q', NULL, 3, '2024-10-01 23:00:50', '2024-10-01 23:00:50'),
-(12, 'Sebastian', 'montiieel3@gmail.com', NULL, '$2y$12$PyT4Rg89rGVcAdgyd2bjSeKosA95jM6AsmbtZDdjTMQ8/NgusHiwK', NULL, 3, '2024-10-01 23:09:42', '2024-10-02 03:14:40'),
-(13, 'jhonny mosquera', 'jhonnymosquera16@gmail.com', NULL, '$2y$12$0xw0LzvTZD5ZSItgXF96IuCjYFKc1KxXRtOmA26.o1BeVv1V3bXjm', NULL, 3, '2024-10-01 23:52:54', '2024-10-01 23:52:54'),
+(12, 'Sebastian', 'montiieel3@gmail.com', NULL, '$2y$12$PyT4Rg89rGVcAdgyd2bjSeKosA95jM6AsmbtZDdjTMQ8/NgusHiwK', NULL, 1, '2024-10-01 23:09:42', '2024-10-17 03:29:05'),
+(13, 'jhonny mosquera', 'jhonnymosquera16@gmail.com', NULL, '$2y$12$0xw0LzvTZD5ZSItgXF96IuCjYFKc1KxXRtOmA26.o1BeVv1V3bXjm', NULL, 1, '2024-10-01 23:52:54', '2024-10-17 03:30:16'),
 (14, 'daniela', 'daniela@gmail.com', NULL, '$2y$12$F4o.sAuKmCn3tAZuOsSBSeU1skw.8XS.FOYYPJ/XkIjr39u0s.6By', NULL, 3, '2024-10-02 01:18:59', '2024-10-02 01:18:59'),
 (15, 'Jair', 'mjairstiven@gmail.com', NULL, '$2y$12$ICNuu4zHmUfIMi9KAMWjwuS35HpNDrbXjO9DU8QK8BLUxeaqDyk.a', NULL, 3, '2024-10-02 03:26:08', '2024-10-02 03:27:14'),
 (16, 'sandra miladys mora benitez', 'sandmorbe@gmail.com', NULL, '$2y$12$4uLlCs84qiiGvR0FRqNgvOuyql/fh.Ng2ow9bILZ8w0126fZdUqN2', NULL, 3, '2024-10-05 09:53:21', '2024-10-05 09:53:21'),
