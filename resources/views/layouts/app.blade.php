@@ -73,7 +73,6 @@
     </div>
 </header>
 
-
 <!-- Barra lateral -->
 <div class="barra-lateral" id="barraLateral">
     <h2><a href="{{ route('home') }}" class="texto-barra-lateral">SENA</a></h2>
@@ -82,7 +81,10 @@
     <a href="{{ route('ambientes.index') }}" class="opcion-barra-navegacion {{ Request::is('admin/ambientes*') ? 'active' : '' }}"><i class="bi bi-building"></i> <span class="texto-barra-lateral">Ambientes</span></a>
     <a href="{{ route('recursos.index') }}" class="opcion-barra-navegacion {{ Request::is('admin/recursos*') ? 'active' : '' }}"><i class="bi bi-box"></i> <span class="texto-barra-lateral">Recursos</span></a>
     <a href="{{ route('novedades.index') }}" class="opcion-barra-navegacion {{ Request::is('admin/novedades*') ? 'active' : '' }}"><i class="bi bi-bell"></i> <span class="texto-barra-lateral">Novedades</span></a>
+    <a href="{{ route('fichas.index') }}" class="opcion-barra-navegacion {{ Request::is('admin/fichas*') ? 'active' : '' }}"><i class="bi bi-file-earmark-text"></i> <span class="texto-barra-lateral">Fichas</span></a>
+    <a href="{{ route('programas.index') }}" class="opcion-barra-navegacion {{ Request::is('admin/programas*') ? 'active' : '' }}"><i class="bi bi-journal-bookmark"></i> <span class="texto-barra-lateral">Programas</span></a>
 </div>
+        
 
 <!-- Contenido principal -->
 <section class="contenido" id="contenido">

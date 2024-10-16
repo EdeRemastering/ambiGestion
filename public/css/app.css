@@ -116,11 +116,11 @@ thead {
     background-color: #39A900;
     position: absolute;
     width: 0%;
-    height: 1px;
+    height: 3px;
     top: 100%;
     left: 50%;
     transform: translateX(-50%);
-    transition: all .3s ease;
+    transition: all .5s ease;
     
 }
 .opcion-barra-navegacion:hover::after {
