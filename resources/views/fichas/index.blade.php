@@ -36,16 +36,10 @@
                 <td>{{ $ficha->fecha_fin }}</td>
                 <td>{{ $ficha->fecha_creacion }}</td>
                 <td>
-                    <a href="{{ route('fichas.edit', $ficha->id_ficha) }}" class="btn btn-success btn-sm">
-                        <i class="bi bi-pencil-fill"></i>
+                    <a href="{{ route('fichas.show', $ficha->id_ficha) }}" class="btn btn-success btn-sm">
+                        <i class="bi bi-eye-fill"></i>
                     </a>
-                    <form id="formularioEliminar-{{ $ficha->id_ficha }}" action="{{ route('fichas.destroy', $ficha->id_ficha) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm" onclick="mensajeDeEliminacion(event, '{{ $ficha->id_ficha }}', '{{ $ficha->alias }}', 'fichas')">
-                            <i class="bi bi-trash3-fill"></i>
-                        </button>
-                    </form>
+                   
                 </td>
             </tr>
             @endforeach

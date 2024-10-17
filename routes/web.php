@@ -57,6 +57,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/recursos', [RecursoController::class, 'index'])->name('recursos.index');
     Route::get('/recursos/create', [RecursoController::class, 'create'])->name('recursos.create');
     Route::post('/recursos', [RecursoController::class, 'store'])->name('recursos.store');
+    Route::get('/recursos/{id}', [RecursoController::class, 'show'])->name('recursos.show');
     Route::get('/recursos/{id}/edit', [RecursoController::class, 'edit'])->name('recursos.edit');
     Route::put('/recursos/{id}', [RecursoController::class, 'update'])->name('recursos.update');
     Route::delete('/recursos/{id}', [RecursoController::class, 'destroy'])->name('recursos.destroy');
@@ -65,6 +66,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/novedades', [NovedadController::class, 'index'])->name('novedades.index');
     Route::get('/novedades/create', [NovedadController::class, 'create'])->name('novedades.create');
     Route::post('/novedades', [NovedadController::class, 'store'])->name('novedades.store');
+    Route::get('/novedades/{id}', [NovedadController::class, 'show'])->name('novedades.show');
     Route::get('/novedades/{id}/edit', [NovedadController::class, 'edit'])->name('novedades.edit');
     Route::put('/novedades/{id}', [NovedadController::class, 'update'])->name('novedades.update');
     Route::delete('/novedades/{id}', [NovedadController::class, 'destroy'])->name('novedades.destroy');

@@ -79,7 +79,19 @@ class NovedadController extends Controller
      */
     public function show(string $id)
     {
-        $novedad = novedad::findOrFile($id);
+        $novedad = DB::table('novedad')
+        ->join('estado_novedad', 'novedad.estado', '=', 'estado_novedad.id')
+        ->select(
+            'novedad.id',
+            'novedad.nombre',
+            'novedad.descripcion',
+            'novedad.fecha_registro',
+            'estado_novedad.nombre AS nombre_estado_novedad',
+            'novedad.fecha_solucion',
+            'novedad.descripcion_solucion'
+        )
+        ->where('novedad.id', $id)
+        ->first();
         return view('novedades.show', compact('novedad'));
     }
 

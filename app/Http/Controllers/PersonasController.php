@@ -94,7 +94,7 @@ class PersonasController extends Controller
         }
     }
 
-    public function show(Personas $persona)
+    public function show(string $id)
     {
         return view('personas.show', compact('persona'));
     }

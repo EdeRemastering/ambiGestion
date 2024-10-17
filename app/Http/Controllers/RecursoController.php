@@ -73,8 +73,20 @@ class RecursoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Recurso $recurso)
+    public function show(string $id)
     {
+        $recurso = DB::table('recurso')
+        ->join('estado_recurso', 'recurso.estado', '=', 'estado_recurso.id')
+        ->join('ambientes', 'recurso.id_ambiente', '=', 'ambientes.id')
+        ->select(
+            'recurso.id_recurso',
+            'ambientes.alias AS alias_ambiente',
+            'recurso.descripcion',
+            'recurso.fecha_registro',
+            'estado_recurso.nombre AS nombre_estado'
+        )
+        ->where('recurso.id_recurso', $id)
+        ->first();
         return view('recursos.show', compact('recurso'));
     }
 

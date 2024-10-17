@@ -335,6 +335,7 @@ thead {
     color: var(--color-texto-oscuro);
     transition: .2s ease-in-out;
 }
+
 .modo-oscuro .btn-success:hover {
     color: var(--color-texto-oscuro);
 }

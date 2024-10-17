@@ -48,14 +48,7 @@
             <td>{{ $novedad->fecha_solucion }}</td>
             <td>{{ $novedad->descripcion_solucion }}</td>
             <td>
-                <a href="{{ route('novedades.edit', $novedad->id) }}" class="btn btn-success btn-sm"><i class="bi bi-pencil-fill"></i></a>
-                <form id="formularioEliminar-{{ $novedad->id }}" action="{{ route('novedades.destroy', $novedad->id) }}" method="POST" style="display:inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="button" class="btn btn-danger btn-sm" onclick="mensajeDeEliminacion(event, '{{ $novedad->id }}', '{{ $novedad->nombre }}', 'novedades')">
-                        <i class="bi bi-trash3-fill"></i>
-                    </button>
-                </form>
+                <a href="{{ route('novedades.show', $novedad->id) }}" class="btn btn-success btn-sm"><i class="bi bi-eye-fill"></i></a>
             </td>
         </tr>
         @endforeach
