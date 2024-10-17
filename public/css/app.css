@@ -281,6 +281,14 @@ thead {
     color: #fff;
 }
 
+.modo-oscuro  .contenedor-ver-elemento {
+    background-color: #444 !important
+}
+
+.modo-oscuro .botones-mostrar-elemento {
+   height: 30px;
+}
+
 /* Modo oscuro */
 .modo-oscuro {
     background-color: var(--color-fondo-oscuro) !important;

@@ -3,6 +3,8 @@
 @section('titulo', 'Editar Programa')
 
 @section('contenido')
+<div class="contenedor-principal">
+    <section class="contenedor-secundario">
 
 <form action="{{ route('programas.update', $programa->id) }}" method="POST">
             @csrf
@@ -50,7 +52,6 @@
 
             <div>
                 <label for="requisitos_formacion">Requisitos de Formación:</label>
-                <br>
                 <textarea name="requisitos_formacion" id="requisitos_formacion" required>{{ old('requisitos_formacion', $programa->requisitos_formacion) }}</textarea>
                 @if ($errors->has('requisitos_formacion'))
                 <span class="text-danger">{{ $errors->first('requisitos_formacion') }}</span>
@@ -68,6 +69,8 @@
                 <span class="text-danger">{{ $errors->first('red_conocimiento') }}</span>
                 @endif
             </div>
-            <button type="submit">Actualizar Programa</button>
+            <button type="submit" class="btn btn-primary">Actualizar Programa</button>
         </form>
+        </section>
+    </div>
 @endsection 

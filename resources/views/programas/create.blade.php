@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('titulo', 'Ambientes')
+@section('titulo', 'Crear Programa')
 
 @section('contenido')
   <!-- Formulario de creación de programas -->

@@ -90,6 +90,22 @@ class AmbienteController extends Controller
      */
     public function show(string $id)
     {
+        $ambiente = DB::table('ambientes')
+        ->join('estado_ambiente', 'ambientes.estado', '=', 'estado_ambiente.id')
+        ->join('red_de_formacion', 'ambientes.red_de_conocimiento', '=', 'red_de_formacion.id_area_formacion')
+        ->join('tipo_ambiente', 'ambientes.tipo', '=', 'tipo_ambiente.id')
+        ->select(
+            'ambientes.id',
+            'ambientes.numero',
+            'ambientes.alias',
+            'ambientes.capacidad',
+            'ambientes.descripcion',
+            'tipo_ambiente.nombre AS tipo_ambiente',
+            'estado_ambiente.nombre AS estado_ambiente', // Nombre del estado
+            'red_de_formacion.nombre AS nombre_red_de_conocimiento' // Nombre de la red de formación
+        )
+        ->where('ambientes.id', $id)
+        ->first();   
         return view('ambientes.show', compact('ambiente'));
     }
 

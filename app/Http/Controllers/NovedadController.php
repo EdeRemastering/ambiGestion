@@ -77,8 +77,9 @@ class NovedadController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Novedad $novedad)
+    public function show(string $id)
     {
+        $novedad = novedad::findOrFile($id);
         return view('novedades.show', compact('novedad'));
     }
 

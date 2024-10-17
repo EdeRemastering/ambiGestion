@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
 use App\Models\programa;
 
 use Illuminate\Http\Request;
@@ -12,7 +13,18 @@ class programaController extends Controller
      */
     public function index()
     {
-        $programas = programa::All();
+        $programas = DB::table('programas')
+        ->join('red_de_formacion', 'programas.red_conocimiento', '=', 'red_de_formacion.id_area_formacion')
+        ->select(
+        'programas.id',
+        'programas.nombre', 
+        'programas.version', 
+        'programas.fecha_creacion', 
+        'programas.duracion_meses', 
+        'programas.requisitos_ingreso', 
+        'programas.requisitos_formacion',
+        'red_de_formacion.nombre AS nombre_red_conocimiento')
+        ->get();
         return view('programas.index', compact('programas'));
     }
 
@@ -47,6 +59,20 @@ class programaController extends Controller
      */
     public function show(string $id)
     {
+        $programa = DB::table('programas')
+        ->join('red_de_formacion', 'programas.red_conocimiento', '=', 'red_de_formacion.id_area_formacion')
+        ->select(
+            'programas.id',
+            'programas.nombre',
+            'programas.version',
+            'programas.fecha_creacion',
+            'programas.duracion_meses',
+            'programas.requisitos_ingreso',
+            'programas.requisitos_formacion',
+            'red_de_formacion.nombre AS nombre_red_conocimiento'
+        )
+        ->where('programas.id', $id)
+        ->first();
         return view('programas.show', compact('programa'));
     }
 

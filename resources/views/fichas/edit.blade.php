@@ -3,7 +3,9 @@
 @section('titulo', 'Editar Ficha')
 
 @section('contenido')
-
+<div class="contenedor-principal">
+    <section class="contenedor-secundario">
+  
 <form action="{{ route('fichas.update', $ficha->id_ficha) }}" method="POST">
             @csrf
             @method('PUT')
@@ -70,7 +72,8 @@
                 <span style="color: red;">{{ $errors->first('fecha_creacion') }}</span>
                 @endif
             </div>
-            <button type="submit">Actualizar Ficha</button>
+            <button type="submit" class="btn btn-primary">Actualizar Ficha</button>
         </form>
-
+        </section>
+        </div>
 @endsection

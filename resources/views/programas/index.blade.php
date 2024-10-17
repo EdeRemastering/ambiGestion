@@ -33,19 +33,12 @@
                     <td>{{ $programa->nombre }}</td>
                     <td>{{ $programa->version }}</td>
                     <td>{{ $programa->fecha_creacion }}</td>
-                    <td>{{ $programa->red_conocimiento }}</td>
+                    <td>{{ $programa->nombre_red_conocimiento }}</td>
                     <td>{{ $programa->duracion_meses }}</td>
                     <td>{{ $programa->requisitos_ingreso }}</td>
                     <td>{{ $programa->requisitos_formacion }}</td>
                     <td>
-                    <a href="{{ route('programas.edit', $programa->id) }}" class="btn btn-success btn-sm"><i class="bi bi-pencil-fill"></i></a>
-                    <form id="formularioEliminar-{{ $programa->id }}" action="{{ route('programas.destroy', $programa->id) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm" onclick="mensajeDeEliminacion(event, '{{ $programa->id }}', '{{ $programa->alias }}', 'programas')">
-                            <i class="bi bi-trash3-fill"></i>
-                        </button>
-                    </form>
+                    <a href="{{ route('programas.show', $programa->id) }}" class="btn btn-success btn-sm"><i class="bi bi-eye-fill"></i></a>
                     </td>
                 </tr>
                 @endforeach
