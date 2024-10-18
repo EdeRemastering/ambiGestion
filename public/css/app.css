@@ -25,10 +25,18 @@ body {
     padding: 0;
     background-color: var(--color-fondo);
     color: var(--color-texto);
-    animation: aparecer .5s;
+    animation: fadeIn .3s ease-in-out;
     transition: background-color 0.5s, color 0.5s;
 }
 
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
 
 /* Estilos de las tablas */
 table {
@@ -37,7 +45,9 @@ table {
     border-radius: 5px;
     border: 1px solid var(--color-borde);
     color: #333 !important;
+ 
 }
+
 
 /* Estilos de la paginación */
 .pagination .page-link {
@@ -45,6 +55,7 @@ table {
     background-color: #ffffff;
     color: var(--color-principal);
     border: 1px solid var(--color-principal);
+    animation: fadeIn .5s ease-in-out;
 }
 .pagination .page-item.active .page-link {
     background-color: var(--color-principal);
@@ -79,17 +90,19 @@ thead {
     color: var(--color-texto);
     padding-top: 20px;
     border-right: 1px solid var(--color-borde);
-    animation: movimientoLateral .3s;
-    transition: width 0.3s;
+    animation: slideIn .5s ease-in-out;
+    transition: width 0.3s ease-in-out;
 }
 
-@keyframes movimientoLateral {
+@keyframes slideIn {
     0% {
-        transform: translateX(-40%);
-    } 100% {
+        transform: translateX(-100%);
+    }
+    100% {
         transform: translateX(0);
     }
 }
+
 .barra-lateral.minimizada {
     width: 60px;
 }
@@ -107,7 +120,7 @@ thead {
     padding: 10px 15px;
     display: flex;
     align-items: center;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 .barra-lateral a i {
     font-size: 20px;
@@ -122,7 +135,7 @@ thead {
     background-color: var(--color-hover);
     border-radius: 5px;
 }
-.opcion-barra-navegacion::after  {
+.opcion-barra-navegacion::after {
     content: '';
     background-color: #39A900;
     position: absolute;
@@ -131,19 +144,19 @@ thead {
     top: 100%;
     left: 50%;
     transform: translateX(-50%);
-    transition: all .5s ease;
-    
+    transition: all .5s ease-in-out;
 }
+
 .opcion-barra-navegacion:hover::after {
     width: 100%;
-    
 }
+
 .opcion-barra-navegacion.active {
     border-left: 5px solid var(--color-principal);
 }
 .barra-lateral .texto-barra-lateral {
     display: inline-block;
-    transition: all 0.3s;
+    transition: all 0.3s ease-in-out;
 }
 .minimizada .texto-barra-lateral {
     display: none;
@@ -158,7 +171,7 @@ thead {
     padding: 1rem;
     background-color: var(--color-fondo);
     height: 100vh;
-    transition: margin-left 0.3s, width 0.3s;
+    transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
 }
 .contenido.minimizado {
     margin-left: 60px;
@@ -175,11 +188,11 @@ thead {
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid var(--color-borde);
-    transition: margin-left 0.3s;
+    transition: margin-left 0.3s ease-in-out;
 }
 .barra-navegacion h2 {
     font-weight: 600;
-    position: relative; 
+    position: relative;
 }
 .barra-navegacion h2::after {
     content: '';
@@ -190,12 +203,10 @@ thead {
     top: 100%;
     left: 50%;
     transform: translateX(-50%);
-    transition: all .3s ease;
-    
+    transition: all .3s ease-in-out;
 }
 .barra-navegacion h2:hover::after {
     width: 100%;
-    
 }
 .barra-navegacion.minimizada {
     margin-left: 60px;
@@ -205,10 +216,11 @@ thead {
 .btn-success {
     background-color: var(--color-principal);
     color: white;
-    transition: .2s ease-in-out;
+    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 .btn-success:hover {
     background-color: var(--color-primario-claro);
+    box-shadow: 0 4px 8px rgba(0, 120, 50, 0.3);
 }
 .btn-success:active {
     background-color: var(--color-primario-claro);
@@ -216,7 +228,7 @@ thead {
 }
 .btn-danger {
     color: white;
-    transition: .2s ease-in-out;
+    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 .btn-danger:hover {
     box-shadow: inset 0 0 5px red;
@@ -228,10 +240,12 @@ thead {
 .botonEstado, .botonEstadoTotal {
     background-color: white !important;
     color: var(--color-principal);
+    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 .botonEstado:hover, .botonEstadoTotal:hover {
     background-color: var(--color-principal) !important;
     color: white;
+    box-shadow: 0 4px 8px rgba(57, 169, 0, 0.2);
 }
 
 .boton-crear {
@@ -240,6 +254,11 @@ thead {
     color: white;
     width: 190px;
     margin-left: auto;
+    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+.boton-crear:hover {
+    background-color: var(--color-primario-claro);
+    box-shadow: 0 4px 8px rgba(57, 169, 0, 0.3);
 }
 
 /* Estilos para sección de estatus */
@@ -249,6 +268,7 @@ thead {
     gap: 10px;
     margin-bottom: 20px;
     flex-wrap: wrap;
+    animation: fadeIn .5s ease-in-out;
 }
 
 /* Estilos para la barra de búsqueda */
@@ -262,21 +282,21 @@ thead {
 .dataTables_filter label {
     font-size: 16px;
     color: var(--color-principal);
+    display: flex;
+    align-items: center;
 }
 .dataTables_filter label input {
-    width: 300px;
+    margin-left: 10px;
     border: 1px solid var(--color-principal);
     border-radius: 5px;
-    padding: 5px;
-    font-size: 14px;
     transition: all 0.3s ease-in-out;
 }
 .dataTables_filter label input:focus {
     border-color: var(--color-principal);
-    background-color: #e6fff0;
     outline: none;
-    box-shadow: 0px 0px 5px var(--color-sombra-verde);
+    box-shadow: 0 0 5px var(--color-sombra-verde);
 }
+
 .dataTables_length {
     display: flex;
     align-items: center;
