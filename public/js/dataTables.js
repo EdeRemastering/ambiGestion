@@ -1,12 +1,13 @@
+// Aquí una función que se encarga de buscar el estado del elemento que se clickea
 document.addEventListener('DOMContentLoaded', function() {
     // Obtener la ruta actual y dividirla
     let partesRuta = window.location.pathname.split('/').filter(part => part);
 
-    // Seleccionar la última parte de la ruta como identificador (flexible para cualquier cantidad de segmentos)
-    let parteEspecifica = partesRuta[partesRuta.length - 1];
+    // Seleccionar la parte específica de la ruta (asumiendo que la tabla se llama 'ambientesTable')
+    let parteEspecifica = partesRuta.slice(partesRuta.length - 1).join('/');
     console.log('Parte específica:', parteEspecifica);
 
-    // Generar el ID de la tabla dinámicamente basado en la última parte de la ruta
+    // Generar el ID de la tabla dinámicamente basado en la ruta
     let tablaID = '#' + parteEspecifica + 'Table';
     console.log('Tabla ID:', tablaID);
 
@@ -29,7 +30,6 @@ document.addEventListener('DOMContentLoaded', function() {
         tabla = $(tablaID).DataTable();
     }
 
-    
     // Seleccionar los botones
     let botonesEstados = document.querySelectorAll('.botonEstado');
     // Añadir un evento a cada botón
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let elementosPorEstado = this.textContent;
             console.log('Texto del botón:', elementosPorEstado);
 
-            // Separar el textotaa del botón en dos partes (nombre y valor)
+            // Separar el texto del botón en dos partes (nombre y valor)
             let textoBotonSeparado = elementosPorEstado.split(':');
             console.log('Texto separado:', textoBotonSeparado);
 
@@ -53,15 +53,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Botones para mostrar todos los estados
-    let botonesEstadoTotal = document.querySelectorAll('.botonEstadoTotal');
+    let botonesEstadoTotal = this.querySelectorAll('.botonEstadoTotal');
     console.log(botonesEstadoTotal);
     
-    botonesEstadoTotal.forEach((boton) => {
+    botonesEstadoTotal.forEach( (boton) => {
         boton.addEventListener('click', () => {
             console.log('Comenzó la segunda función');
             tabla.search('').draw();
         });
     });
-
 });
+ 

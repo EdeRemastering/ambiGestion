@@ -19,10 +19,6 @@ document.getElementById('alternarBarraLateral').addEventListener('click', functi
 
 // Al cargar la página, comprobar el estado guardado
 window.addEventListener('load', function() {
-
-    setTimeout(function() {
-         window.dispatchEvent(new Event('resize'));
-    }, 300); 
     
     const barraLateral = document.getElementById('barraLateral');
     const contenido = document.getElementById('contenido');

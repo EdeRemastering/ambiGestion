@@ -3,18 +3,19 @@
 @section('titulo', 'Crear Ficha')
 
 @section('contenido')
-
+<div class="contenedor-principal">
+    <div class="contenedor-secundario">
 <!-- Formulario de creación de fichas -->
  <form action="{{ route('fichas.store') }}" method="POST">
             @csrf
-            <div class="section1">
+           
             <div class="form-group">
                 <label for="id_ficha">Código de Ficha:</label>
-                <input type="text" name="id_ficha" id="id_ficha" class="form-control" value="{{ old('id_ficha') }}">
+                <input type="number" name="id_ficha" id="id_ficha" class="form-control" value="{{ old('id_ficha') }}">
             </div>
             <div class="form-group">
                 <label for="id_programa_formacion">Código de Programa de Formación:</label>
-                <input type="text" name="id_programa_formacion" id="id_programa_formacion" class="form-control" value="{{ old('id_programa_formacion') }}">
+                <input type="number" name="id_programa_formacion" id="id_programa_formacion" class="form-control" value="{{ old('id_programa_formacion') }}">
             </div>
             <div class="form-group">
                 <label for="nombre">Nombre:</label>
@@ -28,8 +29,8 @@
                 <label for="hora_salida">Hora de Salida:</label>
                 <input type="time" name="hora_salida" id="hora_salida" class="form-control" value="{{ old('hora_salida') }}">
             </div>
-            </div>
-            <div class="section2">
+            
+           
             <div class="form-group">
                 <label for="jornada">Jornada:</label>
                 <select name="jornada" id="jornada" class="form-control">
@@ -49,4 +50,6 @@
             </div>
             <button type="submit" class="btn btn-primary">Crear Ficha</button>
         </form>
+        </div>
+        </div>
 @endsection

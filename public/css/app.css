@@ -25,8 +25,10 @@ body {
     padding: 0;
     background-color: var(--color-fondo);
     color: var(--color-texto);
+    animation: aparecer .5s;
     transition: background-color 0.5s, color 0.5s;
 }
+
 
 /* Estilos de las tablas */
 table {
@@ -77,7 +79,16 @@ thead {
     color: var(--color-texto);
     padding-top: 20px;
     border-right: 1px solid var(--color-borde);
+    animation: movimientoLateral .3s;
     transition: width 0.3s;
+}
+
+@keyframes movimientoLateral {
+    0% {
+        transform: translateX(-40%);
+    } 100% {
+        transform: translateX(0);
+    }
 }
 .barra-lateral.minimizada {
     width: 60px;
@@ -100,7 +111,7 @@ thead {
 }
 .barra-lateral a i {
     font-size: 20px;
-    margin-right: 10px;
+    margin-right: 15px;
 }
 .opcion-barra-navegacion {
     border-radius: 5px;
@@ -279,6 +290,10 @@ thead {
 .dataTables_length select option {
     background-color: #222;
     color: #fff;
+}
+
+.modo-oscuro body {
+    background-color: var(--color-fondo-oscuro);
 }
 
 .modo-oscuro  .contenedor-ver-elemento {

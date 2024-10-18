@@ -3,6 +3,8 @@
 @section('titulo', 'Crear Programa')
 
 @section('contenido')
+<div class="contenedor-principal">
+    <div class="contenedor-secundario">
   <!-- Formulario de creación de programas -->
   <form action="{{ route('programas.store') }}" method="POST">
         @csrf
@@ -21,6 +23,16 @@
             <input type="number" name="duracion_meses" id="duracion_meses" class="form-control" value="{{ old('duracion_meses') }}">
         </div>
 
+        
+        <div class="form-group">
+            <label for="red_conocimiento">Red de Conocimiento:</label>
+            
+            <select name="red_conocimiento" id="red_conocimiento" class="ancho-btn">
+                <option value="1" {{ old('red_conocimiento') == '1' ? 'selected' : '' }}>Red de Tecnología</option>
+                <option value="2" {{ old('red_conocimiento') == '2' ? 'selected' : '' }}>Red de Ciencias</option>
+            </select>
+        </div>
+
         <div class="form-group">
             <label for="requisitos_ingreso">Requisitos de Ingreso:</label>
             <textarea name="requisitos_ingreso" id="requisitos_ingreso" class="form-control">{{ old('requisitos_ingreso') }}</textarea>
@@ -31,14 +43,8 @@
             <textarea name="requisitos_formacion" id="requisitos_formacion" class="form-control">{{ old('requisitos_formacion') }}</textarea>
         </div>
 
-        <div class="form-group">
-            <label for="red_conocimiento">Red de Conocimiento:</label>
-            <br>
-            <select name="red_conocimiento" id="red_conocimiento" class="ancho-btn">
-                <option value="1" {{ old('red_conocimiento') == '1' ? 'selected' : '' }}>Red de Tecnología</option>
-                <option value="2" {{ old('red_conocimiento') == '2' ? 'selected' : '' }}>Red de Ciencias</option>
-            </select>
-        </div>
         <button type="submit" class="btn btn-primary">Crear Programa</button>
     </form>
+    </div>
+    </div>
 @endsection

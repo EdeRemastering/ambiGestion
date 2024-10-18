@@ -33,7 +33,7 @@
 .contenedor-secundario form {
     display: grid;
     grid-template-columns: 1fr 1fr; /* 2 columnas */
-    gap: 20px; /* Espacio entre filas y columnas */
+    gap: 50px; /* Espacio entre filas y columnas */
     padding: 50px;
     width: 100%;
     box-sizing: border-box;
