@@ -21,19 +21,20 @@
     border-radius: 10px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: fit-content; /* Máximo ancho */
+    max-width: 80%; /* Máximo ancho */
     min-height: 400px; /* Altura mínima */
-    max-height: fit-content; /* No sobrepasar el 90% del viewport */
+    max-height: 80%; /* No sobrepasar el 90% del viewport */
     overflow: hidden; /* Evitar desbordamiento */
     overflow-y: auto; /* Scroll solo vertical si es necesario */
     box-sizing: border-box; /* Asegura que el padding no afecte el tamaño */
 }
 
 /* Estructura del formulario en un grid */
-form {
+.contenedor-secundario form {
     display: grid;
     grid-template-columns: 1fr 1fr; /* 2 columnas */
     gap: 20px; /* Espacio entre filas y columnas */
+    padding: 50px;
     width: 100%;
     box-sizing: border-box;
 }
