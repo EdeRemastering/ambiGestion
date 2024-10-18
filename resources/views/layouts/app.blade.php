@@ -4,38 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('titulo', 'SENA')</title>
-
- 
-    <!-- Fuentes de Google -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
-    <!-- CSS de Bootstrap y archivos personalizados -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Íconos de Bootstrap -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css" rel="stylesheet">
-    <!-- CSS de DataTables -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap4.min.css">
-
-    <!-- Estilos personalizados -->
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/formularios.css') }}">
-
-    <!-- Estilos para SweetAlert2 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <script src="{{ asset('js/alertas.js') }}"></script>
-    
-    <script>
-        (function() {
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
-                document.documentElement.classList.add('modo-oscuro');
-            }
-        })();
-    </script>
-
-    <!-- Sección para incluir estilos adicionales en vistas específicas -->
+    @include('partials.estilos')
     @yield('estilos')
 </head>
 <body>
@@ -111,79 +80,7 @@
     </div>
 </section>
 
-<!-- Scripts comunes -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<!-- JS de DataTables -->
-<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap4.min.js"></script>
-
-<!-- Script para minimizar la barra lateral -->
-<script>
-    document.getElementById('alternarBarraLateral').addEventListener('click', function() {
-        const barraLateral = document.getElementById('barraLateral');
-        const contenido = document.getElementById('contenido');
-        const barraNavegacion = document.querySelector('.barra-navegacion');
-        
-        // Alternar clases minimizadas
-        barraLateral.classList.toggle('minimizada');
-        contenido.classList.toggle('minimizado');
-        barraNavegacion.classList.toggle('minimizada');
-
-        // Guardar el estado en localStorage
-        if (barraLateral.classList.contains('minimizada')) {
-            localStorage.setItem('barraMinimizada', 'true');
-        } else {
-            localStorage.setItem('barraMinimizada', 'false');
-        }
-    });
-
-    // Al cargar la página, comprobar el estado guardado
-    window.addEventListener('load', function() {
-
-        setTimeout(function() {
-             window.dispatchEvent(new Event('resize'));
-        }, 300); 
-        
-        const barraLateral = document.getElementById('barraLateral');
-        const contenido = document.getElementById('contenido');
-        const barraNavegacion = document.querySelector('.barra-navegacion');
-        
-        const barraMinimizada = localStorage.getItem('barraMinimizada');
-        if (barraMinimizada === 'true') {
-            barraLateral.classList.add('minimizada');
-            contenido.classList.add('minimizado');
-            barraNavegacion.classList.add('minimizada');
-        } else {
-            barraLateral.classList.remove('minimizada');
-            contenido.classList.remove('minimizado');
-            barraNavegacion.classList.remove('minimizada');
-        }
-
-       
-    });
-
-
-    function goBack() {
-        window.history.back();
-    }
-</script>
-
-<script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('modoOscuroToggle').addEventListener('click', function() {
-                document.documentElement.classList.toggle('modo-oscuro');
-                const theme = document.documentElement.classList.contains('modo-oscuro') ? 'dark' : 'light';
-                localStorage.setItem('theme', theme);
-            });
-        });
-</script>
-
-
-<script src="{{ asset('js/app.js') }}"></script>
-
-
+@include('partials.scripts')
 <!-- Sección para incluir scripts adicionales en vistas específicas -->
 @yield('scripts')
 

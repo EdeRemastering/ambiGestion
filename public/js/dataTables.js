@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
         tabla = $(tablaID).DataTable();
     }
 
+    
     // Seleccionar los botones
     let botonesEstados = document.querySelectorAll('.botonEstado');
     // Añadir un evento a cada botón
@@ -39,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let elementosPorEstado = this.textContent;
             console.log('Texto del botón:', elementosPorEstado);
 
-            // Separar el texto del botón en dos partes (nombre y valor)
+            // Separar el textotaa del botón en dos partes (nombre y valor)
             let textoBotonSeparado = elementosPorEstado.split(':');
             console.log('Texto separado:', textoBotonSeparado);
 
@@ -62,4 +63,5 @@ document.addEventListener('DOMContentLoaded', function() {
             tabla.search('').draw();
         });
     });
+
 });

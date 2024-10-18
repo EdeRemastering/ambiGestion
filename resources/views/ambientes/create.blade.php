@@ -23,7 +23,7 @@
             @csrf
             <div class="form-group">
                 <label for="numero">Número:</label>
-                <input type="text" name="numero" id="numero" class="form-control" value="{{ old('numero') }}">
+                <input type="number" name="numero" id="numero" class="form-control" value="{{ old('numero') }}">
             </div>
 
             <div class="form-group">
