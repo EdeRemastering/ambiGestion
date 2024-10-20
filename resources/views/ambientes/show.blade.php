@@ -18,6 +18,7 @@
         </div>
     </div>
     <div class="botones-mostrar-elemento mt-3">
+    @if(Auth::user()->role->name == 'admin')
     <a href="{{ route('ambientes.edit', $ambiente->id) }}" class="btn btn-success btn-sm"><i class="bi bi-pencil-fill"></i></a>
                 <form id="formularioEliminar-{{ $ambiente->id }}" action="{{ route('ambientes.destroy', $ambiente->id) }}" method="POST" style="display:inline;">
                     @csrf
@@ -26,6 +27,7 @@
                         <i class="bi bi-trash3-fill"></i>
                     </button>
                 </form>
+    @endif
          <a href="{{ route('ambientes.index') }}" class="btn btn-secondary">Volver a la lista</a>
     </div>
 

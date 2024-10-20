@@ -6,11 +6,21 @@
     <title>Registro</title>
     <link rel="stylesheet" href="{{ asset('css/register.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-       
-    </style>
+    <script src="{{asset('js/storageTema.js')}}"></script>
 </head>
 <body>
+    
+
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
     <div class="contenedor-registro">
         <h1>Registro</h1>
         <form method="POST" action="{{ route('register') }}">
@@ -74,7 +84,9 @@
                     <label for="tipo_sangre_id">Grupo Sanguíneo</label>
                     <select id="tipo_sangre_id" name="tipo_sangre_id" required>
                         <option value="">Seleccione un grupo sanguíneo</option>
-                        <!-- Aquí irían las opciones de grupos sanguíneos -->
+                        @foreach($gruposSanguineos as $grupoSanguineo) 
+                            <option value="{{ $grupoSanguineo->id }}"> {{ $grupoSanguineo->descripcion }} </option>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -82,17 +94,27 @@
                 <div class="form-group">
                     <label for="rol_id">Rol</label>
                     <select id="rol_id" name="rol_id" required>
-                        <!-- Aquí irían las opciones de roles -->
+                    <option value="">Seleccione un rol</option>
+                        @foreach($roles as $rol) 
+                            <option value="{{ $rol->id }}"> {{ $rol->name }} </option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="form-group" id="tipo_contrato_container">
                     <label for="tipo_contrato_id">Tipo de Contrato</label>
                     <select id="tipo_contrato_id" name="tipo_contrato_id">
-                        <!-- Aquí irían las opciones de tipos de contrato -->
+                    <option value="">Seleccione un tipo de contrato</option>
+                        @foreach($tiposContratos as $tipoContrato) 
+                            <option value="{{ $tipoContrato->id }}"> {{ $tipoContrato->descripcion }} </option>
+                        @endforeach
                     </select>
                 </div>
             </div>
             <button type="submit">Registrarse</button>
+            <div class="">
+        <p>¿Tienes una cuenta? <a href="{{ route('login') }}">Inicia Sesion</a></p>
+           
+        </div>
         </form>
     </div>
 

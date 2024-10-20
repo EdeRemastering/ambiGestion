@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SENA - Innovación en Asignación de Ambientes</title>
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+    <script src="{{asset('js/storageTema.js')}}"></script>
 </head>
 <body>
 

@@ -1,6 +1,20 @@
+:root {
+    /* Variables de color */
+    --color-fondo: #f8f9fa;
+    --color-texto: #333;
+    --color-principal: #39A900;
+    --color-primario-claro: #007832;
+    --color-borde: #e0e0e0;
+    --color-fondo-oscuro: #333;
+    --color-texto-oscuro: #f8f9fa;
+    --color-borde-oscuro: #555;
+    --color-sombra-verde: rgba(2, 146, 60, 0.5);
+    --color-hover: #cecbcb;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    background: var(--color-fondo);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,7 +22,7 @@ body {
     height: 100vh;
     margin: 0;
     height: fit-content;
-    color: #fff;
+    color: var(--color-texto);
     overflow-y: visible;
 }
 
@@ -18,14 +32,12 @@ header {
 
 header h1 {
     font-size: 2.5rem;
-    color: #fff;
     margin-bottom: 10px;
     font-weight: 700;
 }
 
 header p {
     font-size: 1.2rem;
-    color: rgba(255, 255, 255, 0.8);
     margin-bottom: 30px;
 }
 
@@ -58,7 +70,6 @@ header p {
 
 .card p {
     font-size: 1rem;
-    color: rgba(255, 255, 255, 0.7);
 }
 
 .action-buttons {
@@ -74,11 +85,12 @@ header p {
     border-radius: 5px;
     display: inline-block;
     transition: background-color 0.3s;
-    color: white;
+    color: var(--color-texto);
     cursor: pointer;
 }
 
 .register {
+    color: var(--color-texto-oscuro) !important;
     background-color: #4CAF50;
 }
 
@@ -87,12 +99,12 @@ header p {
 }
 
 .login {
-    background-color: #203a43;
+    background-color: var(--color-fondo);
     border: 2px solid #4CAF50;
 }
 
 .login:hover {
-    background-color: #2c5364;
+    background-color: var(--color-borde);
 }
 
 /* Responsive */
@@ -100,4 +112,18 @@ header p {
     .card {
         margin: 0; /* Eliminar márgenes para pantallas pequeñas */
     }
+}
+
+.modo-oscuro body {
+    color: var(--color-texto-oscuro);
+    background-color: var(--color-fondo-oscuro);
+}
+
+.modo-oscuro .login {
+    color: var(--color-texto-oscuro);
+    background-color: var(--color-oscuro);
+}
+
+.modo-oscuro .login:hover {
+    background-color: var(--color-borde-oscuro);
 }

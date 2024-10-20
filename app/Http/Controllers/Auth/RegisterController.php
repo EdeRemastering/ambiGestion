@@ -45,7 +45,7 @@ class RegisterController extends Controller
 
         // Si el rol no es aprendiz, requiere tipo_contrato_id
         if ($data['rol_id'] != Roles::where('name', 'aprendiz')->first()->id) {
-            $rules['tipo_contrato_id'] = ['required', 'exists:tipo_contratos,id'];
+            $rules['tipo_contrato_id'] = ['required', 'exists:contratos,id'];
         }
 
         return Validator::make($data, $rules);

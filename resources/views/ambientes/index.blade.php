@@ -22,12 +22,7 @@
     <a href="{{ route('ambientes.create') }}" class="btn boton-crear btn-success">Crear Ambiente</a>
 @endsection
 
-
-
-
 <!-- Tabla de ambientes -->
-
-    
 <table id="ambientesTable" class="table table-striped " style="width:100%">
     <thead>
         <tr>

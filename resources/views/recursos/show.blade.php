@@ -16,6 +16,7 @@
         </div>
     </div>
     <div class="botones-mostrar-elemento mt-3">
+    @if(Auth::user()->role->name == 'admin')
     <a href="{{ route('recursos.edit', $recurso->id_recurso) }}" class="btn btn-success btn-sm"><i class="bi bi-pencil-fill"></i></a>
                 <form id="formularioEliminar-{{ $recurso->id_recurso }}" action="{{ route('recursos.destroy', $recurso->id_recurso) }}" method="POST" style="display:inline;">
                     @csrf
@@ -24,6 +25,7 @@
                         <i class="bi bi-trash3-fill"></i>
                     </button>
                 </form>
+                @endif
          <a href="{{ route('recursos.index') }}" class="btn btn-secondary">Volver a la lista</a>
     </div>
 
