@@ -122,10 +122,17 @@ thead {
     align-items: center;
     transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
+
 .barra-lateral a i {
     font-size: 20px;
     margin-right: 15px;
 }
+
+.icono-barra-lateral {
+    filter: brightness(0) saturate(100%) invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(105%) contrast(100%);
+    box-shadow: none;
+}
+
 .opcion-barra-navegacion {
     border-radius: 5px;
     position: relative;
@@ -211,6 +218,38 @@ thead {
 .barra-navegacion.minimizada {
     margin-left: 60px;
 }
+ 
+.barra-lateral h2 img {
+    opacity: 1;
+    animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+      
+    }
+}
+
+.barra-lateral.minimizada h2 img {
+    animation: fadeOut 0.5s forwards;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+        width: 100px;
+    }
+    100% {
+        opacity: 0;
+        width: 0;
+      
+    }
+}
+
 
 /* Estilos de botones */
 .btn-success {
@@ -339,6 +378,11 @@ thead {
 .modo-oscuro .barra-lateral a:hover {
     background-color: var(--color-fondo-oscuro);
 }
+
+.modo-oscuro .icono-barra-lateral {
+    filter: invert(0%);
+}
+
 .modo-oscuro .contenido {
     background-color: var(--color-fondo-oscuro);
     color: white !important;

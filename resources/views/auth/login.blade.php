@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión</title>
+    
+    <!-- Favicon básico -->
+    <link rel="icon" href="{{ asset('img/favicon.png') }}" type="image/x-icon">
+    
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
     <script src="{{asset('js/storageTema.js')}}"></script>
 </head>

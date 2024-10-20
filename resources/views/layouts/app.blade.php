@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('titulo', 'SENA')</title>
+    <title>AmbiGestión</title>
 
     <!-- Favicon básico -->
-    <link rel="icon" href="/ruta/a/tu/favicon.ico" type="image/x-icon">
-    
+    <link rel="icon" href="{{ asset('img/favicon.png') }}" type="image/x-icon">
+
     @include('partials.estilos')
     @yield('estilos')
 </head>
@@ -15,6 +15,7 @@
 
 <header class="barra-navegacion">
     <div>
+
         <!-- Botón para alternar la barra lateral -->
         <button id="alternarBarraLateral" class="btn btn-light">☰</button>
 
@@ -49,7 +50,10 @@
 <!-- Barra lateral -->
 
 <div class="barra-lateral" id="barraLateral">
-    <h2><a href="{{ route('home') }}" class="texto-barra-lateral">SENA</a></h2>
+   
+    <h2>
+        <img class="icono-barra-lateral" src="{{asset('img/logosena.png')}}" style="width: 100px;" alt="">
+    </h2>
     <a href="{{ route('home') }}" class="opcion-barra-navegacion {{ Request::is('home') ? 'active' : '' }}"><i class="bi bi-house"></i> <span class="texto-barra-lateral">Inicio</span></a>
     @if(Auth::user()->role->name == 'admin')
     <a href="{{ route('personas.index') }}" class="opcion-barra-navegacion {{ Request::is('personas*') ? 'active' : '' }}"><i class="bi bi-people"></i> <span class="texto-barra-lateral">Personas</span></a>
