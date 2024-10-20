@@ -197,6 +197,10 @@ thead {
     border-bottom: 1px solid var(--color-borde);
     transition: margin-left 0.3s ease-in-out;
 }
+
+.barra-navegacion button {
+    outline: none;
+}
 .barra-navegacion h2 {
     font-weight: 600;
     position: relative;
@@ -391,6 +395,20 @@ thead {
     background-color: #222;
     color: #f8f9fa;
     border-bottom: 1px solid #444;
+}
+.modo-oscuro .barra-navegacion button {
+    background-color: var(--color-borde-oscuro);
+    color: var(--color-texto-oscuro);
+    border: none;
+}
+
+.modo-oscuro .barra-navegacion button:active {
+    background-color: var(--color-borde-oscuro) !important;
+}
+
+.modo-oscuro .dropdown-menu {
+    background-color: var(--color-borde-oscuro);
+    color: var(--color-texto-oscuro);
 }
 .modo-oscuro table {
     background-color: #444;

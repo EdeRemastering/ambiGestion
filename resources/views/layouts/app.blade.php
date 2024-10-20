@@ -35,7 +35,7 @@
             <i class="bi bi-person-circle"></i>
         </button>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="menuPerfil">
-            <a class="dropdown-item" href="">Ajustes</a>
+            <button class="dropdown-item" href="">Ajustes</button>
             <div class="dropdown-divider"></div>
             <button id="modoOscuroToggle" class="dropdown-item">Cambiar Modo</button>
             <div class="dropdown-divider"></div>
