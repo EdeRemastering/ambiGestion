@@ -49,7 +49,7 @@
             <td>{{ $ambiente->estado_ambiente }}</td>
             <td>{{ $ambiente->nombre_red_de_conocimiento }}</td>
             <td>
-                <a href="{{ route('ambientes.show', $ambiente->id) }}" class="btn btn-success btn-sm"><i class="bi bi-eye-fill"></i></a>
+                <a href="{{ route('ambientes.show', $ambiente->id) }}" class="btn btn-success btn-sm"><i class="bi bi-eye"></i></a>
         
             </td>
         </tr>

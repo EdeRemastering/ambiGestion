@@ -5,15 +5,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SENA - Innovación en Asignación de Ambientes</title>
+    <title>AmbiGestión</title>
 
     <!-- Favicon básico -->
     <link rel="icon" href="{{ asset('img/favicon.png') }}" type="image/x-icon">
 
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('js/alertas.js') }}"></script>
+    
     <script src="{{asset('js/storageTema.js')}}"></script>
 </head>
 <body>
+
+        @if(session('success'))
+            <script>mensajeDeExito("{{session('success')}}");</script>
+        @endif
+        
+        @if(session('error'))
+            <script>mensajeDeError("{{ session('error') }}");</script>
+        @endif
+
+        @if(session('warning'))
+            <script>mensajeDeAdvertencia("{{ session('warning') }}");</script>
+        @endif 
+
 
     <header>
         <h1>SENA</h1>
@@ -57,5 +74,6 @@
         <a href="{{ route('login') }}" class="login">Iniciar Sesión</a>
     </div>
 
+    
 </body>
 </html>

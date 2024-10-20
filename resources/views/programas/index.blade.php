@@ -38,7 +38,7 @@
                     <td>{{ $programa->requisitos_ingreso }}</td>
                     <td>{{ $programa->requisitos_formacion }}</td>
                     <td>
-                    <a href="{{ route('programas.show', $programa->id) }}" class="btn btn-success btn-sm"><i class="bi bi-eye-fill"></i></a>
+                    <a href="{{ route('programas.show', $programa->id) }}" class="btn btn-success btn-sm"><i class="bi bi-eye "></i></a>
                     </td>
                 </tr>
                 @endforeach

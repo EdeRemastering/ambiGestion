@@ -40,7 +40,7 @@
             <td>{{ $recurso->descripcion }}</td>
             <td>{{ $recurso->nombre_estado }}</td>
             <td>
-                <a href="{{ route('recursos.show', $recurso->id_recurso) }}" class="btn btn-success btn-sm"><i class="bi bi-eye-fill"></i></a>
+                <a href="{{ route('recursos.show', $recurso->id_recurso) }}" class="btn btn-success btn-sm"><i class="bi bi-eye "></i></a>
             
             </td>
         </tr>

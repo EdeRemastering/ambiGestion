@@ -1,6 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+*::selection {
+    background-color: var(--color-principal);
+    color: var(--color-texto-oscuro);
+}
 /* Estilos generales para los formularios */
 .contenedor-principal {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Work Sans', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -55,7 +60,7 @@ input, textarea, select, .btn-primary {
     background-color: #f8f9fa;
     color: #333; /* Color del texto ajustado para contraste */
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Work Sans', sans-serif;
     font-size: 14px;
     margin-bottom: 20px;
     min-height: 40px; /* Asegura que los inputs no sean muy pequeños */
@@ -95,7 +100,7 @@ select {
     background-repeat: no-repeat;
     background-position: right 10px center;
     background-size: 12px;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Work Sans', sans-serif;
     font-size: 14px;
 }
 

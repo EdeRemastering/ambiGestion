@@ -48,7 +48,7 @@
             <td>{{ $novedad->fecha_solucion }}</td>
             <td>{{ $novedad->descripcion_solucion }}</td>
             <td>
-                <a href="{{ route('novedades.show', $novedad->id) }}" class="btn btn-success btn-sm"><i class="bi bi-eye-fill"></i></a>
+                <a href="{{ route('novedades.show', $novedad->id) }}" class="btn btn-success btn-sm"><i class="bi bi-eye "></i></a>
             </td>
         </tr>
         @endforeach

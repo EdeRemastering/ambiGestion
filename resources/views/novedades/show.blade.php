@@ -18,12 +18,12 @@
     </div>
     <div class="botones-mostrar-elemento mt-3">
     @if(Auth::user()->role->name == 'admin')
-    <a href="{{ route('novedades.edit', $novedad->id) }}" class="btn btn-success btn-sm"><i class="bi bi-pencil-fill"></i></a>
+    <a href="{{ route('novedades.edit', $novedad->id) }}" class="btn btn-success btn-sm"><i class="bi bi-pencil "></i></a>
                 <form id="formularioEliminar-{{ $novedad->id}}" action="{{ route('novedades.destroy', $novedad->id) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger btn-sm" onclick="mensajeDeEliminacion(event, '{{ $novedad->id}}', '{{ $novedad->id }}', 'novedades')">
-                        <i class="bi bi-trash3-fill"></i>
+                        <i class="bi bi-trash3 "></i>
                     </button>
                 </form>
                 @endif

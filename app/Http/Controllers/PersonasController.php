@@ -96,6 +96,7 @@ class PersonasController extends Controller
 
     public function show(string $id)
     {
+        $persona = Personas::find($id);
         return view('personas.show', compact('persona'));
     }
 

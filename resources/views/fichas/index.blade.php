@@ -37,7 +37,7 @@
                 <td>{{ $ficha->fecha_creacion }}</td>
                 <td>
                     <a href="{{ route('fichas.show', $ficha->id_ficha) }}" class="btn btn-success btn-sm">
-                        <i class="bi bi-eye-fill"></i>
+                        <i class="bi bi-eye "></i>
                     </a>
                    
                 </td>

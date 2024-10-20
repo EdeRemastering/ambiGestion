@@ -17,12 +17,12 @@
     </div>
     <div class="botones-mostrar-elemento mt-3">
     @if(Auth::user()->role->name == 'admin')
-    <a href="{{ route('recursos.edit', $recurso->id_recurso) }}" class="btn btn-success btn-sm"><i class="bi bi-pencil-fill"></i></a>
+    <a href="{{ route('recursos.edit', $recurso->id_recurso) }}" class="btn btn-success btn-sm"><i class="bi bi-pencil "></i></a>
                 <form id="formularioEliminar-{{ $recurso->id_recurso }}" action="{{ route('recursos.destroy', $recurso->id_recurso) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger btn-sm" onclick="mensajeDeEliminacion(event, '{{ $recurso->id_recurso }}', '{{ $recurso->id_recurso }}', 'recursos')">
-                        <i class="bi bi-trash3-fill"></i>
+                        <i class="bi bi-trash3 "></i>
                     </button>
                 </form>
                 @endif

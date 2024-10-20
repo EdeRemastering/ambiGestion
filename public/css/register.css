@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 :root {
     /* Variables de color */
     --color-fondo: #f8f9fa;
@@ -12,8 +13,13 @@
     --color-hover: #cecbcb;
 }
 
+*::selection {
+    background-color: var(--color-principal);
+    color: var(--color-texto-oscuro);
+}
+
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Work Sans', sans-serif;
     background: var(--color-fondo);
     display: flex;
     justify-content: center;
@@ -30,7 +36,6 @@ body {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 1000px; /* Limitar ancho máximo */
-    color: var(--color-texto);
 }
 
 form {
@@ -62,7 +67,6 @@ h1 {
 label {
     display: block;
     margin-bottom: 5px;
-    color: var(--color-texto) !important;
 }
 
 input, select {
@@ -70,13 +74,15 @@ input, select {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid var(--color-borde-oscuro);
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Work Sans', sans-serif;
     font-size: 14px;
-    background-color: rgba(255, 255, 255, 0.2);
-    color: var(--color-texto);
     box-sizing: border-box;
 }
 
+ h1, label, input, select {
+    color: var(--color-texto);
+    font-weight: bold;
+}
 input::placeholder {
     color: rgba(0, 0, 0, 0.5);
 }
@@ -132,10 +138,16 @@ a {
     background-color: var(--color-borde-oscuro);
 }
 
-.modo-oscuro h1, label, input, select {
+.modo-oscuro input, .modo-oscuro select {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.modo-oscuro h1, .modo-oscuro label, .modo-oscuro input, .modo-oscuro select {
     color: var(--color-texto-oscuro);
+    font-weight: bold;
 }
 
 .modo-oscuro select:focus {
     border-color: var(--color-texto-oscuro);
+    background: var(--color-borde-oscuro);
 }
