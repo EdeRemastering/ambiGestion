@@ -137,7 +137,10 @@ class ProgramacionController extends Controller
     {
         // Editar una programación existente
         $programacion= Programaciones::findOrFail($id);
-        return view('programaciones.edit', compact('programacion'));
+        $fichas = DB::table('fichas')->select('id_ficha', 'nombre')->get(); 
+        
+        $ambientes = DB::table('ambientes')->select('id', 'alias')->get(); 
+        return view('programaciones.edit', compact('programacion', 'fichas', 'ambientes'));
     }
 
     /**

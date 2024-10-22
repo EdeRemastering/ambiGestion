@@ -22,6 +22,7 @@
 </div>
     
     </div>
+    <div class="botones-mostrar-elemento mt-3">
     @if(Auth::user()->role->name == 'admin')
     <a href="{{ route('programaciones.edit', $programacion->id) }}" class="btn btn-success btn-sm"><i class="bi bi-pencil "></i></a>
                 <form id="formularioEliminar-{{ $programacion->id }}" action="{{ route('programaciones.destroy', $programacion->id) }}" method="POST" style="display:inline;">
@@ -33,6 +34,7 @@
                 </form>
                 @endif
          <a href="{{ route('programaciones.index') }}" class="btn btn-secondary">Volver a la lista</a>
+
     </div>
     
 @endsection

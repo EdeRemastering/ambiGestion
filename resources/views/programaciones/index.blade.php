@@ -18,7 +18,7 @@
             <th>ID</th>
             <th>Ficha</th>
             <th>Ambiente</th>
-            <th>Instructor</th>
+            <th>Instructor Asignante</th>
             <th>Hora Inicio</th>
             <th>Hora Fin</th>
             <th>Fecha Inicio</th>
