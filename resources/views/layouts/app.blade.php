@@ -59,12 +59,14 @@
     <a href="{{ route('personas.index') }}" class="opcion-barra-navegacion {{ Request::is('personas*') ? 'active' : '' }}"><i class="bi bi-people"></i> <span class="texto-barra-lateral">Personas</span></a>
     @endif
     @if(Auth::user()->role->name == 'admin' || Auth::user()->role->name == 'instructor')
-        <a href="{{ route('ambientes.index') }}" class="opcion-barra-navegacion {{ Request::is('admin/ambientes*') ? 'active' : '' }}"><i class="bi bi-building"></i> <span class="texto-barra-lateral">Ambientes</span></a>
-        <a href="{{ route('recursos.index') }}" class="opcion-barra-navegacion {{ Request::is('admin/recursos*') ? 'active' : '' }}"><i class="bi bi-box"></i> <span class="texto-barra-lateral">Recursos</span></a>
-        <a href="{{ route('novedades.index') }}" class="opcion-barra-navegacion {{ Request::is('admin/novedades*') ? 'active' : '' }}"><i class="bi bi-bell"></i> <span class="texto-barra-lateral">Novedades</span></a>
-        <a href="{{ route('fichas.index') }}" class="opcion-barra-navegacion {{ Request::is('admin/fichas*') ? 'active' : '' }}"><i class="bi bi-file-earmark-text"></i> <span class="texto-barra-lateral">Fichas</span></a>
-        <a href="{{ route('programas.index') }}" class="opcion-barra-navegacion {{ Request::is('admin/programas*') ? 'active' : '' }}"><i class="bi bi-journal-bookmark"></i> <span class="texto-barra-lateral">Programas</span></a>
+    <a href="{{ route('ambientes.index') }}" class="opcion-barra-navegacion {{ Request::is('admin/ambientes*') ? 'active' : '' }}"><i class="bi bi-building"></i> <span class="texto-barra-lateral">Ambientes</span></a>
+    <a href="{{ route('recursos.index') }}" class="opcion-barra-navegacion {{ Request::is('admin/recursos*') ? 'active' : '' }}"><i class="bi bi-box"></i> <span class="texto-barra-lateral">Recursos</span></a>
+    <a href="{{ route('novedades.index') }}" class="opcion-barra-navegacion {{ Request::is('admin/novedades*') ? 'active' : '' }}"><i class="bi bi-bell"></i> <span class="texto-barra-lateral">Novedades</span></a>
+    <a href="{{ route('fichas.index') }}" class="opcion-barra-navegacion {{ Request::is('admin/fichas*') ? 'active' : '' }}"><i class="bi bi-file-earmark-text"></i> <span class="texto-barra-lateral">Fichas</span></a>
+    <a href="{{ route('programas.index') }}" class="opcion-barra-navegacion {{ Request::is('admin/programas*') ? 'active' : '' }}"><i class="bi bi-journal-bookmark"></i> <span class="texto-barra-lateral">Programas</span></a>
+    <a href="{{ route('programaciones.index') }}" class="opcion-barra-navegacion {{ Request::is('admin/programacion*') ? 'active' : '' }}"><i class="bi bi-calendar"></i> <span class="texto-barra-lateral">Programaciones</span></a>
     @endif
+
 </div>
 
 

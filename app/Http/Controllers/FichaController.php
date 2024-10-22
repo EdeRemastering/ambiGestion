@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
 use App\Models\Ficha;
 
 use Illuminate\Http\Request;
@@ -21,7 +22,9 @@ class FichaController extends Controller
      */
     public function create()
     {
-        return view('fichas.create');
+        
+        $programas = DB::table('programas')->select('id', 'nombre')->get(); 
+        return view('fichas.create', compact('programas'));
     }
 
     /**

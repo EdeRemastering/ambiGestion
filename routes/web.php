@@ -11,6 +11,7 @@ use App\Http\Controllers\FichaController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\ProgramacionController;
 use App\Http\Middleware\CheckPersonaRegistration;
 
 Route::get('/', function () {
@@ -91,6 +92,16 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/fichas/{id}/edit', [FichaController::class, 'edit'])->name('fichas.edit'); // Formulario de edición
     Route::put('/fichas/{id}', [FichaController::class, 'update'])->name('fichas.update'); // Actualizar ficha
     Route::delete('/fichas/{id}', [FichaController::class, 'destroy'])->name('fichas.destroy'); // Eliminar ficha
+
+    
+    //ficha
+    Route::get('/programaciones', [ProgramacionController::class, 'index'])->name('programaciones.index'); // Mostrar lista de fichas
+    Route::get('/programaciones/create', [ProgramacionController::class, 'create'])->name('programaciones.create'); // Formulario de creación
+    Route::post('/programaciones', [ProgramacionController::class, 'store'])->name('programaciones.store'); // Guardar nueva ficha
+    Route::get('/programaciones/{id}', [ProgramacionController::class, 'show'])->name('programaciones.show'); // Mostrar ficha específica
+    Route::get('/programaciones/{id}/edit', [ProgramacionController::class, 'edit'])->name('programaciones.edit'); // Formulario de edición
+    Route::put('/programaciones/{id}', [ProgramacionController::class, 'update'])->name('programaciones.update'); // Actualizar ficha
+    Route::delete('/programaciones/{id}', [ProgramacionController::class, 'destroy'])->name('programaciones.destroy'); // Eliminar ficha
 });
  
 Auth::routes();

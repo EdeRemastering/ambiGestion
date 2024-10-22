@@ -6,7 +6,7 @@ use App\Models\programa;
 
 use Illuminate\Http\Request;
 
-class programaController extends Controller
+class ProgramaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -33,6 +33,7 @@ class programaController extends Controller
      */
     public function create()
     {
+        
         return view('programas.create');
     }
 

@@ -15,7 +15,11 @@
             </div>
             <div class="form-group">
                 <label for="id_programa_formacion">Código de Programa de Formación:</label>
-                <input type="number" name="id_programa_formacion" id="id_programa_formacion" class="form-control" value="{{ old('id_programa_formacion') }}">
+                <select name="id_programa_formacion" id="id_programa_formacion">
+                @foreach ($programas as $programa)
+                    <option value="{{ $programa->id }}">{{ $programa->nombre }}</option>
+                @endforeach
+        </select>
             </div>
             <div class="form-group">
                 <label for="nombre">Nombre:</label>
