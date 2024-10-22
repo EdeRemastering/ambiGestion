@@ -56,7 +56,7 @@
                 </select>
             </div>
 
-            <button type="submit" class="btn btn-success">Actualizar Programación</button>
+            <button type="submit" class="btn btn-warning">Actualizar Programación</button>
         </form>
     </div>
 </div>

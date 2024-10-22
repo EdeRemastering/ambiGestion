@@ -61,9 +61,14 @@ class ProgramacionController extends Controller
         ->get();   
 
         $fichas = DB::table('fichas')->select('id_ficha', 'nombre')->get(); 
-        
-        $ambientes = DB::table('ambientes')->select('id', 'alias')->get(); 
-        return view('programaciones.create',compact('programaciones', 'fichas', 'ambientes'));
+        $instructores = DB::table('personas')->select('*')->get();
+        $ambientes = DB::table('ambientes')->select('id', 'alias')->get();
+       // En tu controlador
+        $dias = DB::table('dias')->select('id', 'nombre')->get();
+
+
+ 
+        return view('programaciones.create',compact('programaciones', 'fichas', 'ambientes', 'instructores', 'dias'));
     }
 
     /**

@@ -359,6 +359,26 @@ thead {
     color: #fff;
 }
 
+input[type="checkbox"] {
+    /* Tus estilos aquí */
+    width: 20px; /* Ejemplo: Cambiar el tamaño */
+    height: 20px; /* Ejemplo: Cambiar el tamaño */
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+    margin: auto;
+}
+
+.form-check label {
+    margin-left: 10px;
+}
+.form-check input[type="checkbox"] {
+    margin-top: 20px;
+    margin-right: 10px;
+}
+
 .modo-oscuro body {
     background-color: var(--color-fondo-oscuro);
 }

@@ -27,6 +27,31 @@
             </div>
 
             <div class="form-group">
+                <label for="ambiente">Instructor asignado:</label>
+                <select name="ambiente" id="ambiente" class="form-control">
+                    @foreach ($instructores as $instructor)
+                        <option value="{{ $instructor->id }}">
+                            {{ $instructor->pnombre }} {{ $instructor->snombre }} {{ $instructor->papellido }} {{ $instructor->sapellido }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="dias">Día/s:</label><br>
+                @foreach ($dias as $dia)
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="dias[]" id="dia_{{ $dia->id }}" value="{{ $dia->id }}">
+                        <label class="form-check-label" for="dia_{{ $dia->id }}">
+                            {{ $dia->nombre }}
+                        </label>
+                    </div>
+                @endforeach
+            </div>
+
+
+
+
+            <div class="form-group">
                 <label for="hora_inicio">Hora de Inicio:</label>
                 <input type="time" name="hora_inicio" id="hora_inicio" class="form-control" value="{{ old('hora_inicio') }}" required>
             </div>
