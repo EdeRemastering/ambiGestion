@@ -44,6 +44,10 @@
     box-sizing: border-box;
 }
 
+.two-columns {
+    grid-column: span 2;
+}
+
 /* Ajustar mejor los inputs y evitar que se deformen */
 label {
     color: #333; /* Color del texto ajustado para fondo blanco */

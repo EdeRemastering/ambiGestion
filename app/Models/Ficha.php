@@ -26,11 +26,8 @@ class Ficha extends Model
         'id_ficha',
         'id_programa_formacion',
         'nombre',
-        'hora_entrada',
-        'hora_salida',
         'jornada',
         'fecha_inicio',
         'fecha_fin',
-        'fecha_creacion'
     ];
 }

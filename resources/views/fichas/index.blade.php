@@ -14,8 +14,6 @@
                 <th>ID Ficha</th>
                 <th>ID Programa de Formación</th>
                 <th>Nombre</th>
-                <th>Hora de Entrada</th>
-                <th>Hora de Salida</th>
                 <th>Jornada</th>
                 <th>Fecha de Inicio</th>
                 <th>Fecha de Fin</th>
@@ -29,12 +27,10 @@
                 <td>{{ $ficha->id_ficha }}</td>
                 <td>{{ $ficha->id_programa_formacion }}</td>
                 <td>{{ $ficha->nombre }}</td>
-                <td>{{ $ficha->hora_entrada }}</td>
-                <td>{{ $ficha->hora_salida }}</td>
                 <td>{{ $ficha->jornada }}</td>
                 <td>{{ $ficha->fecha_inicio }}</td>
                 <td>{{ $ficha->fecha_fin }}</td>
-                <td>{{ $ficha->fecha_creacion }}</td>
+                <td>{{ $ficha->created_at }}</td>
                 <td>
                     <a href="{{ route('fichas.show', $ficha->id_ficha) }}" class="btn btn-success btn-sm">
                         <i class="bi bi-eye "></i>

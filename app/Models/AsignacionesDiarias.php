@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class AsignacionesDiarias extends Model
 {
     use HasFactory;
+    
+    public $timestamps = false;
+
     protected $fillable = ['programacion', 'dia',  'instructor_asignado', 'fecha'];
 }
 //aqui van los campos de mi tabla
