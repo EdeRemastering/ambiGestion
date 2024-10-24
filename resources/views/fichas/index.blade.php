@@ -25,7 +25,7 @@
             @foreach ($fichas as $ficha)
             <tr>
                 <td>{{ $ficha->id_ficha }}</td>
-                <td>{{ $ficha->id_programa_formacion }}</td>
+                <td>{{ $ficha->programa_nombre}}</td>
                 <td>{{ $ficha->nombre }}</td>
                 <td>{{ $ficha->jornada }}</td>
                 <td>{{ $ficha->fecha_inicio }}</td>

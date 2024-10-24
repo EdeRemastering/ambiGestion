@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\DB;
 use App\Models\Ficha;
-
 use Illuminate\Http\Request;
 
 class FichaController extends Controller
@@ -13,7 +13,13 @@ class FichaController extends Controller
      */
     public function index()
     {
-        $fichas = Ficha::all();
+        $fichas = DB::table('fichas')
+            ->join('programas', 'fichas.id_programa_formacion', '=', 'programas.id') // Ajustado para que sea correcto
+            ->join('jornadas', 'fichas.jornada', '=', 'jornadas.id')
+            ->select('fichas.*',
+            'jornadas.nombre AS jornada',
+            'programas.nombre AS programa_nombre')
+            ->get();
         return view('fichas.index', compact('fichas'));
     }
 
@@ -22,9 +28,9 @@ class FichaController extends Controller
      */
     public function create()
     {
-        
         $programas = DB::table('programas')->select('id', 'nombre')->get(); 
-        return view('fichas.create', compact('programas'));
+        $jornadas = DB::table('jornadas')->select('id', 'nombre')->get();
+        return view('fichas.create', compact('programas', 'jornadas'));
     }
 
     /**
@@ -33,14 +39,12 @@ class FichaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id_ficha' ,
+            'id_ficha' => 'required|unique:fichas,id_ficha', // Validación para que id_ficha sea único
             'id_programa_formacion' => 'required',
             'nombre' => 'required',
-            'hora_entrada' => 'required',
-            'hora_salida' => 'required',
             'jornada' => 'required',
-            'fecha_inicio' => 'required',
-            'fecha_fin' => 'required'
+            'fecha_inicio' => 'required|date',
+            'fecha_fin' => 'required|date'
         ]);
 
         Ficha::create($request->all());
@@ -62,7 +66,9 @@ class FichaController extends Controller
     public function edit(string $id_ficha)
     {
         $ficha = Ficha::findOrFail($id_ficha);
-        return view('fichas.edit', compact('ficha'));
+        $programas = DB::table('programas')->select('id', 'nombre')->get(); 
+        $jornadas = DB::table('jornadas')->select('id', 'nombre')->get();
+        return view('fichas.edit', compact('ficha', 'programas', 'jornadas'));
     }
 
     /**
@@ -71,14 +77,12 @@ class FichaController extends Controller
     public function update(Request $request, string $id_ficha)
     {
         $request->validate([
-            'id_ficha',
+            'id_ficha' => 'required|unique:fichas,id_ficha,' . $id_ficha, // Asegura que no sea único al editar
             'id_programa_formacion' => 'required',
             'nombre' => 'required',
-            'hora_entrada' => 'required',
-            'hora_salida' => 'required',
             'jornada' => 'required',
-            'fecha_inicio' => 'required',
-            'fecha_fin' => 'required'
+            'fecha_inicio' => 'required|date',
+            'fecha_fin' => 'required|date'
         ]);
 
         $ficha = Ficha::findOrFail($id_ficha);
