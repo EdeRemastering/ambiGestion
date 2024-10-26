@@ -15,24 +15,24 @@ class ProgramacionController extends Controller
      */
     public function index()
     {
-        // Obtiene todas las programaciones
         $programaciones = DB::table('programaciones')
-        ->join('fichas', 'programaciones.ficha', '=', 'fichas.id_ficha')
-        ->join('ambientes', 'programaciones.ambiente', '=', 'ambientes.id')
-        ->join('personas', 'programaciones.instructor_asignante', '=', 'personas.user_id') // Asegúrate de que esté bien relacionado
-        ->join('users', 'personas.user_id', '=', 'users.id')
-        ->select(
-            'programaciones.id',
-            'fichas.nombre AS ficha',
-            'ambientes.alias AS ambiente',
-            DB::raw("CONCAT(personas.pnombre, ' ', personas.snombre, ' ', personas.papellido, ' ', personas.sapellido) AS nombre_instructor_asignante"), // Concatenación correcta
-            'programaciones.hora_inicio',
-            'programaciones.hora_fin',
-            'programaciones.fecha_inicio',
-            'programaciones.fecha_fin',
-            'programaciones.estado'
-        )
-        ->get();
+    ->join('fichas', 'programaciones.ficha', '=', 'fichas.id_ficha')
+    ->join('ambientes', 'programaciones.ambiente', '=', 'ambientes.id')
+    ->leftJoin('personas', 'programaciones.instructor_asignante', '=', 'personas.id')
+    ->leftJoin('users', 'personas.user_id', '=', 'users.id')
+    ->select(
+        'programaciones.id',
+        'fichas.nombre AS ficha',
+        'ambientes.alias AS ambiente',
+        DB::raw("CONCAT(personas.pnombre, ' ', personas.snombre, ' ', personas.papellido, ' ', personas.sapellido) AS nombre_instructor_asignante"),
+        'programaciones.hora_inicio',
+        'programaciones.hora_fin',
+        'programaciones.fecha_inicio',
+        'programaciones.fecha_fin',
+        'programaciones.estado'
+    )
+    ->get();
+    
 
         return view('programaciones.index', compact('programaciones'));
     }
@@ -48,16 +48,10 @@ class ProgramacionController extends Controller
         ->join('ambientes', 'programaciones.ambiente', '=', 'ambientes.id')
        // ->join('estado_programacion', 'programaciones.ambientes', '=', 'ambientes.id')
         ->select(
-            'programaciones.id',
+            'programaciones.*',
             'fichas.nombre AS ficha',
             'ambientes.alias AS ambiente',
-            'programaciones.instructor_asignante',
-            'programaciones.hora_inicio',
-            'programaciones.hora_fin',
-            'programaciones.fecha_inicio',
-            'programaciones.fecha_fin',
-            'programaciones.estado',
-          
+
         )
         ->get();   
 
@@ -140,7 +134,7 @@ class ProgramacionController extends Controller
     $programacion = DB::table('programaciones')
         ->join('fichas', 'programaciones.ficha', '=', 'fichas.id_ficha')
         ->join('ambientes', 'programaciones.ambiente', '=', 'ambientes.id')
-        ->join('personas', 'programaciones.instructor_asignante', '=', 'personas.user_id')
+        ->join('personas', 'programaciones.instructor_asignante', '=', 'personas.id')
         ->join('users', 'personas.user_id', '=', 'users.id')
         ->select(
             'programaciones.id',
@@ -175,38 +169,101 @@ class ProgramacionController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit($id)
-    {
-        // Editar una programación existente
-        $programacion= Programaciones::findOrFail($id);
-        $fichas = DB::table('fichas')->select('id_ficha', 'nombre')->get(); 
-        
-        $ambientes = DB::table('ambientes')->select('id', 'alias')->get(); 
-        return view('programaciones.edit', compact('programacion', 'fichas', 'ambientes'));
-    }
+{
+    $programacion = DB::table('programaciones')
+        ->join('fichas', 'programaciones.ficha', '=', 'fichas.id_ficha')
+        ->join('ambientes', 'programaciones.ambiente', '=', 'ambientes.id')
+        ->where('programaciones.id', $id)
+        ->select(
+            'programaciones.*',
+            'fichas.nombre AS ficha_nombre',
+            'ambientes.alias AS ambiente_alias'
+        )
+        ->first();
+
+    $fichas = DB::table('fichas')
+        ->join('jornadas', 'fichas.jornada', '=', 'jornadas.id')
+        ->select('fichas.*', 'jornadas.nombre as jornada_nombre')
+        ->get();
+
+    $ambientes = DB::table('ambientes')->select('id', 'alias')->get();
+    $dias = DB::table('dias')->select('id', 'nombre')->get();
+    $instructores = DB::table('personas')->select('id', 'pnombre', 'snombre', 'papellido', 'sapellido')->get();
+
+    // Obtener asignaciones diarias para esta programación
+    $asignacionesDiarias = DB::table('asignaciones_diarias')
+        ->where('programacion', $id)
+        ->pluck('instructor_asignado', 'dia')
+        ->toArray();
+
+    return view('programaciones.edit', compact(
+        'programacion', 
+        'fichas', 
+        'ambientes', 
+        'dias', 
+        'instructores', 
+        'asignacionesDiarias' // Pasar las asignaciones diarias a la vista
+    ));
+}
+
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
     {
-        // Validación de los datos
+
+        try {
+              // Validar los datos
         $request->validate([
-            'ficha' => 'required',
-            'ambiente' => 'required',
-            'instructor_asignante' => 'required',
+            'ficha' => 'required|exists:fichas,id_ficha',
+            'ambiente' => 'required|exists:ambientes,id',
             'hora_inicio' => 'required',
-            'hora_fin' => 'required',
+            'hora_fin' => 'required|after:hora_inicio',
             'fecha_inicio' => 'required|date',
-            'fecha_fin' => 'required|date',
-            'estado' => 'required'
+            'fecha_fin' => 'required|date|after_or_equal:fecha_inicio',
+            'dias' => 'required|array',
+            'dias.*' => 'exists:dias,id',
+            'instructor_dia' => 'required|array',
+            'estado' => 'required|in:activo,inactivo',
         ]);
-
+    
         // Actualizar la programación
-        $programaciones= Programaciones::findOrFail($id);
-        $programaciones->update($request->all());
+        $programacion = Programaciones::findOrFail($id);
+        $programacion->update([
+            'ficha' => $request->ficha,
+            'ambiente' => $request->ambiente,
+            'hora_inicio' => $request->hora_inicio,
+            'hora_fin' => $request->hora_fin,
+            'fecha_inicio' => $request->fecha_inicio,
+            'fecha_fin' => $request->fecha_fin,
+            'estado' => $request->estado,
+        ]);
+    
+        // Actualizar asignaciones diarias
+        AsignacionesDiarias::where('programacion', $id)->delete();
+        foreach ($request->dias as $dia) {
+            if (!empty($request->instructor_dia[$dia])) {
+                AsignacionesDiarias::create([
+                    'programacion' => $programacion->id,
+                    'dia' => $dia,
+                    'instructor_asignado' => $request->instructor_dia[$dia],
+                    'hora_inicio' => $request->hora_inicio,
+                    'hora_fin' => $request->hora_fin,
+                    'fecha_inicio' => $request->fecha_inicio,
+                    'fecha_fin' => $request->fecha_fin,
+                    'estado' => $request->estado,
+                ]);
+            }
+        }
+    
 
-        return redirect()->route('programaciones.index')->with('success', 'Programación actualizada exitosamente.');
+        } catch(\Exception $e) {
+            return redirect()->back()->with('error', 'Error al actualizar la programación.' . $e->getMessage());
+        }
+              return redirect()->route('programaciones.index')->with('success', 'Programación actualizada exitosamente.');
     }
+    
 
     /**
      * Remove the specified resource from storage.
