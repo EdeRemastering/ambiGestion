@@ -10,7 +10,7 @@
         <div class="card-body">
             <p><strong>Ficha:</strong> {{ $programacion->ficha }}</p>
             <p><strong>Ambiente:</strong> {{ $programacion->ambiente }}</p>
-            <p><strong>Ambiente:</strong> {{ $programacion->nombre_instructor_asignante }} </p>
+            <p><strong>Instructor asignante:</strong> {{ $programacion->nombre_instructor_asignante }} </p>
             <p><strong>Hora de Inicio:</strong> {{ $programacion->hora_inicio }}</p>
             <p><strong>Hora de Fin:</strong> {{ $programacion->hora_fin }}</p>
             <p><strong>Fecha de Inicio:</strong> {{ $programacion->fecha_inicio }}</p>

@@ -96,8 +96,18 @@ class PersonasController extends Controller
 
     public function show(string $id)
     {
-        $persona = Personas::find($id);
-        return view('personas.show', compact('persona'));
+        $user = Auth::user();
+
+        // Obtener la persona asociada al usuario autenticado
+        $persona = DB::table('personas')
+        ->where('user_id', $user->id)
+        ->first();
+        // Obtener roles, grupos sanguíneos y contratos si se necesitan en la vista
+        $roles = Roles::select('id', 'name', 'descripcion')->get();
+        $gruposSanguineos = Grupo_sanguineo::select('id', 'descripcion')->get();
+        $tiposContratos = Contratos::select('id', 'descripcion')->get();
+       
+        return view('personas.show', compact('persona', 'roles', 'gruposSanguineos', 'tiposContratos'));
     }
 
     public function edit(Personas $persona)
@@ -177,4 +187,80 @@ public function update(Request $request, Personas $persona)
             return back()->with('error', 'Ocurrió un error al eliminar el perfil. Por favor, intenta de nuevo.');
         }
     }
+
+    public function settings()
+    {
+        $user = Auth::user();
+    
+        // Obtener la persona asociada al usuario autenticado usando Eloquent
+        $persona = Personas::with('user')->where('user_id', $user->id)->first();
+    
+        // Verifica si la persona existe
+        if (!$persona) {
+            return back()->withErrors(['error' => 'No se encontró la persona asociada.'])->withInput();
+        }
+    
+        // Obtener roles, grupos sanguíneos y contratos si se necesitan en la vista
+        $roles = Roles::select('id', 'name', 'descripcion')->get();
+        $gruposSanguineos = Grupo_sanguineo::select('id', 'descripcion')->get();
+        $tiposContratos = Contratos::select('id', 'descripcion')->get();
+    
+        $canChangeRole = $user->role->name === 'admin';
+        $isAprendiz = $persona->user->role->name === 'aprendiz';
+    
+        return view('personas.settings', compact('persona', 'roles', 'gruposSanguineos', 'tiposContratos', 'canChangeRole', 'isAprendiz'));
+    }
+    
+
+    public function updateSettings(Request $request)
+    {
+        $user = Auth::user();
+    
+        // Obtener la persona asociada al usuario usando Eloquent
+        $persona = Personas::where('user_id', $user->id)->first();
+    
+        // Verifica si la persona existe
+        if (!$persona) {
+            return back()->withErrors(['error' => 'No se encontró la persona asociada.'])->withInput();
+        }
+    
+        // Reglas de validación
+        $rules = [
+            'documento' => 'required',
+            'pnombre' => 'required',
+            'snombre' => 'nullable',
+            'papellido' => 'required',
+            'sapellido' => 'nullable',
+            'telefono' => 'required',
+            'correo' => 'required|email',
+            'direccion' => 'required',
+            'tipo_sangre_id' => 'required|exists:grupo_sanguineos,id',
+            'tipo_contrato_id' => 'required|exists:contratos,id',
+        ];
+    
+        // Solo se requiere tipo_contrato_id si el usuario no es aprendiz
+        if ($persona->user->role->name !== 'aprendiz') {
+            $rules['tipo_contrato_id'] = 'required|exists:contratos,id';
+        }
+    
+        // Validar los datos del request
+        $validatedData = $request->validate($rules);
+    
+        try {
+            DB::beginTransaction();
+    
+            // Actualizar datos de la persona
+            $persona->update($validatedData);
+    
+            DB::commit();
+
+            return redirect()->route('home')->with('success', 'Perfil actualizado exitosamente');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Error al actualizar configuración: ' . $e->getMessage());
+            return back()->withErrors(['error' => 'Ocurrió un error al actualizar. Inténtalo nuevamente.'])->withInput();
+        }
+    }
+    
 }
+

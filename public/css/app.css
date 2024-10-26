@@ -380,6 +380,13 @@ input[type="checkbox"] {
     margin-right: 10px;
 }
 
+input[readonly], select[readonly], textarea[readonly] {
+    background-color: var(--color-fondo); /* Cambia el color de fondo */
+    color:var(--color-texto); /* Cambia el color del texto */
+    cursor: not-allowed; /* Cambia el cursor */
+    opacity: 0.7; /* Ajusta la opacidad para dar un efecto visual */
+}
+
 .modo-oscuro body {
     background-color: var(--color-fondo-oscuro);
 }
@@ -497,4 +504,13 @@ box-shadow: none;
 .modo-oscuro .boton-crear:hover {
     background-color: var(--color-primario-claro);
     box-shadow: 0 4px 8px rgba(57, 169, 0, 0.3);
+}
+
+.modo-oscuro input[readonly], 
+.modo-oscuro select[readonly], 
+.modo-oscuro textarea[readonly] {
+    background-color:var(--color-fondo-oscuro); /* Fondo oscuro */
+    color: var(--color-texto-oscuro); /* Texto claro */
+    cursor: not-allowed;
+    opacity: 0.8; /* Ajuste de opacidad para dar un efecto visual */
 }

@@ -15,12 +15,9 @@
 <table id="programacionesTable" class="table table-striped" style="width:100%">
     <thead>
         <tr>
-            <th>ID</th>
             <th>Ficha</th>
             <th>Ambiente</th>
             <th>Instructor Asignante</th>
-            <th>Hora Inicio</th>
-            <th>Hora Fin</th>
             <th>Fecha Inicio</th>
             <th>Fecha Fin</th>
             <th>Estado</th>
@@ -30,12 +27,9 @@
     <tbody>
         @foreach ($programaciones as $programacion)
         <tr>
-            <td>{{ $programacion->id }}</td>
             <td>{{ $programacion->ficha }}</td>
             <td>{{ $programacion->ambiente }}</td>
             <td>{{ $programacion->nombre_instructor_asignante }}</td>
-            <td>{{ $programacion->hora_inicio }}</td>
-            <td>{{ $programacion->hora_fin }}</td>
             <td>{{ $programacion->fecha_inicio }}</td>
             <td>{{ $programacion->fecha_fin }}</td>
             <td>{{ $programacion->estado }}</td>

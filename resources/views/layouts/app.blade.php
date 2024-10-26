@@ -35,7 +35,19 @@
             <i class="bi bi-person-circle"></i>
         </button>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="menuPerfil">
-            <button class="dropdown-item" href="">Ajustes</button>
+        <button class="dropdown-item">
+        @php
+use App\Models\Personas; // Asegúrate de que el namespace sea correcto
+
+// Obtener el usuario autenticado
+$user = Auth::user();
+
+// Consultar la tabla personas según el user_id del usuario actual
+$persona = Personas::where('user_id', $user->id)->first();
+@endphp
+
+            <a href="{{ route('personas.settings', $persona->id ) }}" style="text-decoration: none; color: inherit;">Ajustes</a>
+        </button>
             <div class="dropdown-divider"></div>
             <button id="modoOscuroToggle" class="dropdown-item">Cambiar Modo</button>
             <div class="dropdown-divider"></div>
@@ -58,7 +70,7 @@
     @if(Auth::user()->role->name == 'admin')
     <a href="{{ route('personas.index') }}" class="opcion-barra-navegacion {{ Request::is('personas*') ? 'active' : '' }}"><i class="bi bi-people"></i> <span class="texto-barra-lateral">Personas</span></a>
     @endif
-    @if(Auth::user()->role->name == 'admin' || Auth::user()->role->name == 'instructor')
+    @if(Auth::user()->role->name == 'admin' || Auth::user()->role->name == 'instructor_lider')
     <a href="{{ route('ambientes.index') }}" class="opcion-barra-navegacion {{ Request::is('admin/ambientes*') ? 'active' : '' }}"><i class="bi bi-building"></i> <span class="texto-barra-lateral">Ambientes</span></a>
     <a href="{{ route('recursos.index') }}" class="opcion-barra-navegacion {{ Request::is('admin/recursos*') ? 'active' : '' }}"><i class="bi bi-box"></i> <span class="texto-barra-lateral">Recursos</span></a>
     <a href="{{ route('novedades.index') }}" class="opcion-barra-navegacion {{ Request::is('admin/novedades*') ? 'active' : '' }}"><i class="bi bi-bell"></i> <span class="texto-barra-lateral">Novedades</span></a>

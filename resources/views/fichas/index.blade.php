@@ -12,7 +12,7 @@
         <thead>
             <tr>
                 <th>ID Ficha</th>
-                <th>ID Programa de Formación</th>
+                <th>Programa de Formación</th>
                 <th>Nombre</th>
                 <th>Jornada</th>
                 <th>Fecha de Inicio</th>

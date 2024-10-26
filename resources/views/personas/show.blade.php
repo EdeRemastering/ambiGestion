@@ -10,18 +10,15 @@
         <div class="card-body">
             <p><strong>ID:</strong> {{ $persona->id }}</p>
             <p><strong>Documento:</strong> {{ $persona->documento }}</p>
-            <p><strong>Primer Nombre:</strong> {{ $persona->pnombre }}</p>
-            <p><strong>Segundo Nombre:</strong> {{ $persona->snombre ?? 'N/A' }}</p>
-            <p><strong>Primer Apellido:</strong> {{ $persona->papellido }}</p>
-            <p><strong>Segundo Apellido:</strong> {{ $persona->sapellido ?? 'N/A' }}</p>
+            <p><strong>Nombre completo:</strong> {{ $persona->pnombre }} {{ $persona->snombre }} {{ $persona->papellido }} {{ $persona->sapellido }}</p>
             <p><strong>Teléfono:</strong> {{ $persona->telefono }}</p>
             <p><strong>Correo:</strong> {{ $persona->correo }}</p>
             <p><strong>Dirección:</strong> {{ $persona->direccion }}</p>
             <p><strong>Rol:</strong> {{ $persona->rol->descripcion ?? 'N/A' }}</p>
             <p><strong>Grupo Sanguíneo:</strong> {{ $persona->grupoSanguineo->descripcion ?? 'N/A' }}</p>
             <p><strong>Tipo de Contrato:</strong> {{ $persona->tipoContrato->descripcion ?? 'N/A' }}</p>
-            <p><strong>Fecha de Creación:</strong> {{ $persona->created_at->format('Y-m-d H:i:s') }}</p>
-            <p><strong>Última Actualización:</strong> {{ $persona->updated_at->format('Y-m-d H:i:s') }}</p>
+            <p><strong>Fecha de Creación:</strong> {{ $persona->created_at}}</p>
+            <p><strong>Última Actualización:</strong> {{ $persona->updated_at}}</p>
         </div>
     </div>
 
