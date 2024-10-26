@@ -63,25 +63,18 @@
     @endforeach
 </div>
 
-            <div class="form-group">
-                <label for="hora_inicio">Hora de Inicio:</label>
-                <input type="time" name="hora_inicio" id="hora_inicio" class="form-control" value="{{ $programacion->hora_inicio }}" required>
-            </div>
+<label for="hora_inicio">Hora Inicio</label>
+    <input type="time" name="hora_inicio" value="{{ old('hora_inicio', $programacion->hora_inicio) }}" required>
 
-            <div class="form-group">
-                <label for="hora_fin">Hora de Fin:</label>
-                <input type="time" name="hora_fin" id="hora_fin" class="form-control" value="{{ $programacion->hora_fin }}" required>
-            </div>
+    <label for="hora_fin">Hora Fin</label>
+    <input type="time" name="hora_fin" value="{{ old('hora_fin', $programacion->hora_fin) }}" required>
 
-            <div class="form-group">
-                <label for="fecha_inicio">Fecha de Inicio:</label>
-                <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control" value="{{ $programacion->fecha_inicio }}" required>
-            </div>
+    <label for="fecha_inicio">Fecha Inicio</label>
+    <input type="date" name="fecha_inicio" value="{{ old('fecha_inicio', $programacion->fecha_inicio) }}" required>
 
-            <div class="form-group">
-                <label for="fecha_fin">Fecha de Fin:</label>
-                <input type="date" name="fecha_fin" id="fecha_fin" class="form-control" value="{{ $programacion->fecha_fin }}" required>
-            </div>
+    <label for="fecha_fin">Fecha Fin</label>
+    <input type="date" name="fecha_fin" value="{{ old('fecha_fin', $programacion->fecha_fin) }}" required>
+
 
             <div class="form-group">
                 <label for="estado">Estado:</label>

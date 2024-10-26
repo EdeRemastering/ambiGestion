@@ -128,7 +128,8 @@ class ProgramacionController extends Controller
 
     /**
      * Display the specified resource.
-     */public function show($id)
+     */
+    public function show($id)
 {
     // Obtener la programación
     $programacion = DB::table('programaciones')
@@ -137,15 +138,10 @@ class ProgramacionController extends Controller
         ->join('personas', 'programaciones.instructor_asignante', '=', 'personas.id')
         ->join('users', 'personas.user_id', '=', 'users.id')
         ->select(
-            'programaciones.id',
+            'programaciones.*',
             'fichas.nombre AS ficha',
             'ambientes.alias AS ambiente',
-            DB::raw("CONCAT(personas.pnombre, ' ', personas.snombre, ' ', personas.papellido, ' ', personas.sapellido) AS nombre_instructor_asignante"),
-            'programaciones.hora_inicio',
-            'programaciones.hora_fin',
-            'programaciones.fecha_inicio',
-            'programaciones.fecha_fin',
-            'programaciones.estado'
+            DB::raw("CONCAT(personas.pnombre, ' ', personas.snombre, ' ', personas.papellido, ' ', personas.sapellido) AS nombre_instructor_asignante")
         )
         ->where('programaciones.id', $id)
         ->first();
@@ -155,11 +151,10 @@ class ProgramacionController extends Controller
 
     // Obtener las asignaciones diarias para esta programación
     $asignacionesDiarias = DB::table('asignaciones_diarias')
-        ->join('personas', 'asignaciones_diarias.instructor_asignado', '=', 'personas.user_id')
-        ->where('programacion', $id)
+        ->join('personas', 'asignaciones_diarias.instructor_asignado', '=', 'personas.id')
+        ->where('asignaciones_diarias.programacion', $id)
         ->select('asignaciones_diarias.dia', DB::raw("CONCAT(personas.pnombre, ' ', personas.papellido) AS instructor"))
-        ->get()
-        ->keyBy('dia'); // Usamos keyBy para organizar las asignaciones por día
+        ->pluck('instructor', 'dia'); // Usar pluck como en edit para estructurar los datos de la misma manera
 
     return view('programaciones.show', compact('programacion', 'diasSemana', 'asignacionesDiarias'));
 }
@@ -209,12 +204,10 @@ class ProgramacionController extends Controller
 
     /**
      * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id)
-    {
-
-        try {
-              // Validar los datos
+     */public function update(Request $request, $id)
+{
+    try {
+        // Validar los datos de entrada
         $request->validate([
             'ficha' => 'required|exists:fichas,id_ficha',
             'ambiente' => 'required|exists:ambientes,id',
@@ -227,8 +220,8 @@ class ProgramacionController extends Controller
             'instructor_dia' => 'required|array',
             'estado' => 'required|in:activo,inactivo',
         ]);
-    
-        // Actualizar la programación
+
+        // Obtener y actualizar la programación
         $programacion = Programaciones::findOrFail($id);
         $programacion->update([
             'ficha' => $request->ficha,
@@ -239,31 +232,33 @@ class ProgramacionController extends Controller
             'fecha_fin' => $request->fecha_fin,
             'estado' => $request->estado,
         ]);
-    
-        // Actualizar asignaciones diarias
-        AsignacionesDiarias::where('programacion', $id)->delete();
-        foreach ($request->dias as $dia) {
-            if (!empty($request->instructor_dia[$dia])) {
-                AsignacionesDiarias::create([
-                    'programacion' => $programacion->id,
-                    'dia' => $dia,
-                    'instructor_asignado' => $request->instructor_dia[$dia],
-                    'hora_inicio' => $request->hora_inicio,
-                    'hora_fin' => $request->hora_fin,
-                    'fecha_inicio' => $request->fecha_inicio,
-                    'fecha_fin' => $request->fecha_fin,
-                    'estado' => $request->estado,
-                ]);
+
+        // Eliminar asignaciones diarias existentes solo si hay cambios en los días
+        if ($request->has('dias')) {
+            AsignacionesDiarias::where('programacion', $id)->delete();
+            foreach ($request->dias as $dia) {
+                if (!empty($request->instructor_dia[$dia])) {
+                    AsignacionesDiarias::create([
+                        'programacion' => $programacion->id,
+                        'dia' => $dia,
+                        'instructor_asignado' => $request->instructor_dia[$dia],
+                        'hora_inicio' => $request->hora_inicio,
+                        'hora_fin' => $request->hora_fin,
+                        'fecha_inicio' => $request->fecha_inicio,
+                        'fecha_fin' => $request->fecha_fin,
+                        'estado' => $request->estado,
+                    ]);
+                }
             }
         }
-    
 
-        } catch(\Exception $e) {
-            return redirect()->back()->with('error', 'Error al actualizar la programación.' . $e->getMessage());
-        }
-              return redirect()->route('programaciones.index')->with('success', 'Programación actualizada exitosamente.');
+        return redirect()->route('programaciones.index')->with('success', 'Programación actualizada exitosamente.');
+
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'Error al actualizar la programación. Detalles: ' . $e->getMessage());
     }
-    
+}
+
 
     /**
      * Remove the specified resource from storage.

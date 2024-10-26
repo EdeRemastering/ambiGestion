@@ -10,6 +10,8 @@
         <div class="card-body">
             <p><strong>Ficha:</strong> {{ $programacion->ficha }}</p>
             <p><strong>Ambiente:</strong> {{ $programacion->ambiente }}</p>
+
+
             <p><strong>Hora de Inicio:</strong> {{ $programacion->hora_inicio }}</p>
             <p><strong>Hora de Fin:</strong> {{ $programacion->hora_fin }}</p>
             <p><strong>Fecha de Inicio:</strong> {{ $programacion->fecha_inicio }}</p>
@@ -24,14 +26,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($diasSemana as $dia)
+                @foreach($diasSemana as $dia)
                         <tr>
                             <td>{{ $dia->nombre }}</td>
                             <td>
                                 @if(isset($asignacionesDiarias[$dia->id]))
-                                    {{ $asignacionesDiarias[$dia->id]->instructor }}
+                                    {{ $asignacionesDiarias[$dia->id] }}
                                 @else
-                                    No asignado
+                                    Sin instructor asignado
                                 @endif
                             </td>
                         </tr>
