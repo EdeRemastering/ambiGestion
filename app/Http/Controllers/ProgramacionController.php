@@ -66,6 +66,7 @@ class ProgramacionController extends Controller
         ->where('roles.name', 'instructor') // Filtra por el rol "instructor"
         ->select('personas.*') // Selecciona todos los campos de personas
         ->get();
+        
         $ambientes = DB::table('ambientes')
         ->join('estado_ambiente', 'ambientes.estado', '=', 'estado_ambiente.id')
         ->where('estado_ambiente.nombre', '=', 'disponible') // Filtrar ambientes que no están ocupados

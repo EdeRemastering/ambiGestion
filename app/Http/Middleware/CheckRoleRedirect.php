@@ -25,14 +25,20 @@ class CheckRoleRedirect
             }
 
             // Si hay un prefijo y la ruta solicitada no comienza con él
-            if ($prefix && !str_starts_with($requestedPath, $prefix)) {
-                // Obtener solo el segmento de la ruta (novedades, ambientes, etc.)
-                $segments = explode('/', $requestedPath);
-                $newPath = $prefix . '/' . end($segments); // Usa solo el último segmento
+if ($prefix && !str_starts_with($requestedPath, $prefix)) {
+    // Obtener los segmentos de la ruta
+    $segments = explode('/', $requestedPath);
+    
+    // Eliminar el primer segmento
+    array_shift($segments);
+    
+    // Reconstruir la nueva ruta
+    $newPath = $prefix . '/' . implode('/', $segments);
 
-                // Redirigir a la nueva ruta
-                return redirect('/' . $newPath);
-            }
+    // Redirigir a la nueva ruta
+    return redirect('/' . $newPath);
+}
+
         }
 
         return $next($request);
