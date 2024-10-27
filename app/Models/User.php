@@ -47,6 +47,9 @@ class User extends Authenticatable
         return $this->hasRole('instructor');
     }
 
+    public function esInstrutorLider() {
+        return $this->hasRole('instructor_lider');
+    }
     public function esAprendiz()
     {
         return $this->hasRole('aprendiz');

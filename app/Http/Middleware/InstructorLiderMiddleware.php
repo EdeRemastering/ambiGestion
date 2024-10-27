@@ -6,11 +6,11 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdminMiddleware
+class InstructorLiderMiddleware
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->user() && $request->user()->hasRole('admin')) {
+        if ($request->user() && $request->user()->hasRole('instructor_lider')) {
             return $next($request);
         } 
 

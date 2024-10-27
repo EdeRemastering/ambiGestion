@@ -23,16 +23,8 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // Grupo de rutas para "personas"
 Route::prefix('personas')->group(function () {
-    Route::get('/buscar', [PersonasController::class, 'buscar'])->name('personas.buscar');
 
     Route::middleware(['auth'])->group(function () {
-        Route::get('/', [PersonasController::class, 'index'])->name('personas.index');
-        Route::get('/create', [PersonasController::class, 'create'])->name('personas.create');
-        Route::post('/', [PersonasController::class, 'store'])->name('personas.store');
-        Route::get('/{persona}', [PersonasController::class, 'show'])->name('personas.show');
-        Route::get('/{persona}/edit', [PersonasController::class, 'edit'])->name('personas.edit');
-        Route::put('/{persona}', [PersonasController::class, 'update'])->name('personas.update');
-        Route::delete('/{persona}', [PersonasController::class, 'destroy'])->name('personas.destroy');
 
         Route::get('/settings/{persona}/edit', [PersonasController::class, 'settings'])->name('personas.settings');
         Route::put('/settings/{persona}', [PersonasController::class, 'updateSettings'])->name('personas.updateSettings');
@@ -44,7 +36,8 @@ Route::prefix('personas')->group(function () {
 });
 
 // Rutas para el rol "admin"
-Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
+Route::prefix('admin')->middleware(['auth', App\Http\Middleware\AdminMiddleware::class])->group(function () {
+    Route::resource('personas', PersonasController::class);
     Route::resource('ambientes', AmbienteController::class);
     Route::resource('recursos', RecursoController::class);
     Route::resource('novedades', NovedadController::class);
@@ -54,7 +47,8 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
 });
 
 // Rutas para el rol "instructor_lider"
-Route::middleware(['auth', 'role:instructor_lider'])->group(function () {
+Route::prefix('instructor-lider')->middleware(['auth', App\Http\Middleware\InstructorLiderMiddleware::class])->group(function () {
+    // Solo puede ver (index y show) para las demás vistas
     Route::get('/ambientes', [AmbienteController::class, 'index'])->name('ambientes.index');
     Route::get('/ambientes/{id}', [AmbienteController::class, 'show'])->name('ambientes.show');
     
@@ -70,15 +64,16 @@ Route::middleware(['auth', 'role:instructor_lider'])->group(function () {
     Route::get('/fichas', [FichaController::class, 'index'])->name('fichas.index');
     Route::get('/fichas/{id}', [FichaController::class, 'show'])->name('fichas.show');
     
+    // Para programaciones, tiene acceso completo
     Route::resource('programaciones', ProgramacionController::class)->except(['index', 'show']);
 });
 
 // Rutas para el rol "instructor"
-Route::prefix('instructor')->middleware(['auth', 'role:instructor'])->group(function () {
+Route::prefix('instructor')->middleware(['auth', App\Http\Middleware\InstructorMiddleware::class])->group(function () {
     Route::get('/mis-programaciones', [ProgramacionController::class, 'misProgramaciones'])->name('programaciones.mis_programaciones');
 });
 
 // Rutas para el rol "aprendiz"
-Route::prefix('aprendiz')->middleware(['auth', 'role:aprendiz'])->group(function () {
+Route::prefix('aprendiz')->middleware(['auth', App\Http\Middleware\AprendizMiddleware::class])->group(function () {
     Route::get('/mis-clases', [ProgramacionController::class, 'misClases'])->name('programaciones.mis_clases');
 });
