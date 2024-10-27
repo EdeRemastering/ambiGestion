@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\CheckPersonaRegistration;
 
 Route::get('/', function () {
-    return view('dashboard');
+    return view('home');
 });
 
 Auth::routes();
@@ -22,12 +22,16 @@ Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // Grupo de rutas para "personas"
-Route::prefix('personas')->group(function () {
 
-    Route::middleware(['auth'])->group(function () {
 
-        Route::get('/settings/{persona}/edit', [PersonasController::class, 'settings'])->name('personas.settings');
-        Route::put('/settings/{persona}', [PersonasController::class, 'updateSettings'])->name('personas.updateSettings');
+Route::middleware(['auth'])->group(function () {
+    Route::prefix('personas')->group(function () {
+
+
+            Route::get('/settings/{persona}/edit', [PersonasController::class, 'settings'])->name('personas.settings');
+            Route::put('/settings/{persona}', [PersonasController::class, 'updateSettings'])->name('personas.updateSettings');
+    
+      
     });
 
     Route::middleware([CheckPersonaRegistration::class])->group(function () {

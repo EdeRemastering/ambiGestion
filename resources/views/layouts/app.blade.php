@@ -66,7 +66,7 @@ $persona = Personas::where('user_id', $user->id)->first();
     <h2>
         <img class="icono-barra-lateral" src="{{asset('img/logosena.png')}}" style="width: 100px;" alt="">
     </h2>
-    <a href="{{ route('home') }}" class="opcion-barra-navegacion {{ Request::is('home') ? 'active' : '' }}"><i class="bi bi-house"></i> <span class="texto-barra-lateral">Inicio</span></a>
+    <a href="{{ route('dashboard') }}" class="opcion-barra-navegacion {{ Request::is('dashboard') ? 'active' : '' }}"><i class="bi bi-house"></i> <span class="texto-barra-lateral">Inicio</span></a>
     @if(Auth::user()->role->name == 'admin')
     <a href="{{ route('personas.index') }}" class="opcion-barra-navegacion {{ Request::is('personas*') ? 'active' : '' }}"><i class="bi bi-people"></i> <span class="texto-barra-lateral">Personas</span></a>
     @endif
