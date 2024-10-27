@@ -68,7 +68,7 @@ $persona = Personas::where('user_id', $user->id)->first();
     </h2>
     <a href="{{ route('dashboard') }}" class="opcion-barra-navegacion {{ Request::is('dashboard') ? 'active' : '' }}"><i class="bi bi-house"></i> <span class="texto-barra-lateral">Inicio</span></a>
     @if(Auth::user()->role->name == 'admin')
-    <a href="{{ route('personas.index') }}" class="opcion-barra-navegacion {{ Request::is('personas*') ? 'active' : '' }}"><i class="bi bi-people"></i> <span class="texto-barra-lateral">Personas</span></a>
+    <a href="{{ route('personas.index') }}" class="opcion-barra-navegacion {{ Request::is('*/personas*') ? 'active' : '' }}"><i class="bi bi-people"></i> <span class="texto-barra-lateral">Personas</span></a>
     @endif
     @if(Auth::user()->role->name == 'admin' || Auth::user()->role->name == 'instructor_lider')
     <a href="{{ route('ambientes.index') }}" class="opcion-barra-navegacion {{ Request::is('*/ambientes*') ? 'active' : '' }}"><i class="bi bi-building"></i> <span class="texto-barra-lateral">Ambientes</span></a>
