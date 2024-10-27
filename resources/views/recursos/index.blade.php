@@ -17,7 +17,9 @@
     @endforeach
     <a class="btn btn-success botonEstadoTotal">Total: {{ $recursosTotal }}</a>
     <!-- Enlace para crear un nuevo recurso -->
+    @if(Auth::user()->role->name == 'admin')
     <a href="{{ route('recursos.create') }}" class="btn boton-crear btn-success">Crear Recurso</a>
+    @endif
 
 @endsection
 

@@ -60,9 +60,18 @@ class ProgramacionController extends Controller
         ->select('fichas.*', 'jornadas.nombre as jornada_nombre')
         ->get();
 
-        $instructores = DB::table('personas')->select('*')->get();
-        $ambientes = DB::table('ambientes')->select('id', 'alias')->get();
-       // En tu controlador
+        $instructores = DB::table('personas')
+        ->join('users', 'personas.user_id', '=', 'users.id') // Une la tabla personas con users
+        ->join('roles', 'users.role_id', '=', 'roles.id') // Une users con roles
+        ->where('roles.name', 'instructor') // Filtra por el rol "instructor"
+        ->select('personas.*') // Selecciona todos los campos de personas
+        ->get();
+        $ambientes = DB::table('ambientes')
+        ->join('estado_ambiente', 'ambientes.estado', '=', 'estado_ambiente.id')
+        ->where('estado_ambiente.nombre', '=', 'disponible') // Filtrar ambientes que no están ocupados
+        ->select('ambientes.id', 'ambientes.alias')
+        ->get();
+           // En tu controlador
         $dias = DB::table('dias')->select('id', 'nombre')->get();
 
 

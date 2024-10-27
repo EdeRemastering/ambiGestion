@@ -5,10 +5,11 @@
 @section('contenido')
 
 @section('estados')
-
+@if(Auth::user()->role->name == 'admin' || Auth::user()->role->name == 'instructor_lider' )
 
     <!-- Enlace para crear una nueva programación -->
     <a href="{{ route('programaciones.create') }}" class="btn boton-crear btn-success">Crear Programación</a>
+    @endif
 @endsection
 
 <!-- Tabla de programación -->

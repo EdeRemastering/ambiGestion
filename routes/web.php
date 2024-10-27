@@ -36,17 +36,19 @@ Route::middleware(['auth'])->group(function () {
 
 // Middleware para redirigir según roles
 Route::middleware(['auth', CheckRoleRedirect::class])->group(function () {
-    // Rutas para el rol "admin"
-    Route::prefix('admin')->group(function () {
-        Route::resource('personas', PersonasController::class);
-        Route::resource('ambientes', AmbienteController::class);
-        Route::resource('recursos', RecursoController::class);
-        Route::resource('novedades', NovedadController::class);
-        Route::resource('programas', ProgramaController::class);
-        Route::resource('fichas', FichaController::class);
-        Route::resource('programaciones', ProgramacionController::class);
-    });
 
+            // Rutas para el rol "admin"
+            Route::prefix('admin')->group(function () {
+                Route::resource('personas', PersonasController::class);
+                Route::resource('ambientes', AmbienteController::class);
+                Route::resource('recursos', RecursoController::class);
+                Route::resource('novedades', NovedadController::class);
+                Route::resource('programas', ProgramaController::class);
+                Route::resource('fichas', FichaController::class);
+                Route::resource('programaciones', ProgramacionController::class);
+            });
+    
+            
     // Rutas para el rol "instructor_lider"
     Route::prefix('instructor-lider')->group(function () {
         Route::get('/ambientes', [AmbienteController::class, 'index'])->name('ambientes.index');
@@ -59,7 +61,7 @@ Route::middleware(['auth', CheckRoleRedirect::class])->group(function () {
         Route::get('/programas/{id}', [ProgramaController::class, 'show'])->name('programas.show');
         Route::get('/fichas', [FichaController::class, 'index'])->name('fichas.index');
         Route::get('/fichas/{id}', [FichaController::class, 'show'])->name('fichas.show');
-        Route::resource('programaciones', ProgramacionController::class)->except(['index', 'show']);
+        Route::resource('programaciones', ProgramacionController::class);
     });
 
     // Rutas para el rol "instructor"
@@ -71,4 +73,6 @@ Route::middleware(['auth', CheckRoleRedirect::class])->group(function () {
     Route::prefix('aprendiz')->group(function () {
         Route::get('/mis-clases', [ProgramacionController::class, 'misClases'])->name('programaciones.mis_clases');
     });
+
+
 });

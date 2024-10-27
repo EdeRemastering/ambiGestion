@@ -43,7 +43,7 @@
     </div>
 
     <div class="botones-mostrar-elemento mt-3">
-        @if(Auth::user()->role->name == 'admin')
+        @if(Auth::user()->role->name == 'admin' || Auth::user()->role->name == 'instructor_lider')
             <a href="{{ route('programaciones.edit', $programacion->id) }}" class="btn btn-success btn-sm">
                 <i class="bi bi-pencil "></i>
             </a>

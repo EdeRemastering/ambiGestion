@@ -18,9 +18,10 @@
         @endforeach
         <a class="btn btn-success botonEstadoTotal">Total: {{ $ambientesTotal }}</a>
 
-    
+        @if(Auth::user()->role->name == 'admin')
     <!-- Enlace para crear un nuevo ambiente -->
     <a href="{{ route('ambientes.create') }}" class="btn boton-crear btn-success">Crear Ambiente</a>
+    @endif
 @endsection
 
 <!-- Tabla de ambientes -->

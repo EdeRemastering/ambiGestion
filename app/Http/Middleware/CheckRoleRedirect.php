@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Middleware;
 
 use Closure;
@@ -9,36 +8,30 @@ class CheckRoleRedirect
 {
     public function handle($request, Closure $next)
     {
-        // Verifica si el usuario está autenticado
         if (Auth::check()) {
-            $user = $request->user();
+            $user = Auth::user();
+            $requestedPath = $request->path(); // Obtiene la ruta solicitada
 
-            // Redirección para el rol "admin"
+            // Definir el prefijo de ruta según el rol
+            $prefix = '';
             if ($user->hasRole('admin')) {
-                if ($request->is('instructor-lider/*') || $request->is('instructor/*') || $request->is('aprendiz/*')) {
-                    return redirect('/admin');
-                }
+                $prefix = 'admin';
+            } elseif ($user->hasRole('instructor-lider')) {
+                $prefix = 'instructor-lider';
+            } elseif ($user->hasRole('instructor')) {
+                $prefix = 'instructor';
+            } elseif ($user->hasRole('aprendiz')) {
+                $prefix = 'aprendiz';
             }
 
-            // Redirección para el rol "instructor_lider"
-            if ($user->hasRole('instructor_lider')) {
-                if ($request->is('admin/*')) {
-                    return redirect('/instructor-lider');
-                }
-            }
+            // Si hay un prefijo y la ruta solicitada no comienza con él
+            if ($prefix && !str_starts_with($requestedPath, $prefix)) {
+                // Obtener solo el segmento de la ruta (novedades, ambientes, etc.)
+                $segments = explode('/', $requestedPath);
+                $newPath = $prefix . '/' . end($segments); // Usa solo el último segmento
 
-            // Redirección para el rol "instructor"
-            if ($user->hasRole('instructor')) {
-                if ($request->is('admin/*') || $request->is('instructor-lider/*')) {
-                    return redirect('/instructor');
-                }
-            }
-
-            // Redirección para el rol "aprendiz"
-            if ($user->hasRole('aprendiz')) {
-                if ($request->is('admin/*') || $request->is('instructor-lider/*') || $request->is('instructor/*')) {
-                    return redirect('/aprendiz');
-                }
+                // Redirigir a la nueva ruta
+                return redirect('/' . $newPath);
             }
         }
 
