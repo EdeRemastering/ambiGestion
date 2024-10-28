@@ -104,7 +104,7 @@ class ProgramaController extends Controller
         return redirect()->route('programas.index')->with('succeSs', 'programa actualizado exitosamente.');
     }
 
-    /**
+    /** 
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)

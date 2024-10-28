@@ -3,6 +3,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\DB;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -39,8 +41,22 @@ class LoginController extends Controller
     {
         $request->session()->regenerate();
 
-        // Añadir un mensaje de éxito a la sesión
-        session()->flash('success', 'Inicio de sesión exitoso. Bienvenido de nuevo.');
+// Obtener el ID del usuario autenticado
+$userId = Auth::id();
+
+// Consultar los datos del usuario y concatenar el nombre completo
+$userData = DB::table('users')
+    ->join('personas', 'users.id', '=', 'personas.user_id')
+    ->select(
+        'users.*',
+        DB::raw("CONCAT(personas.pnombre, ' ', personas.snombre, ' ', personas.papellido, ' ', personas.sapellido) AS nombre_completo")
+    )
+    ->where('users.id', $userId)
+    ->first();
+
+// Añadir el mensaje de éxito a la sesión con el nombre completo
+session()->flash('success', 'Inicio de sesión exitoso. Bienvenido de nuevo, ' . $userData->nombre_completo . '!');
+
 
         $this->clearLoginAttempts($request);
 
