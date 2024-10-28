@@ -77,18 +77,19 @@ class FichaController extends Controller
     public function update(Request $request, string $id_ficha)
     {
         $request->validate([
-            'id_ficha' => 'required|unique:fichas,id_ficha,' . $id_ficha, // Asegura que no sea único al editar
+            'id_ficha' => 'required|unique:fichas,id_ficha,' . $id_ficha . ',id_ficha', // Se especifica id_ficha como columna
             'id_programa_formacion' => 'required',
             'nombre' => 'required',
             'jornada' => 'required',
             'fecha_inicio' => 'required|date',
             'fecha_fin' => 'required|date'
         ]);
-
+    
         $ficha = Ficha::findOrFail($id_ficha);
         $ficha->update($request->all());
         return redirect()->route('fichas.index')->with('success', 'Ficha actualizada exitosamente.');
     }
+    
 
     /**
      * Remove the specified resource from storage.
