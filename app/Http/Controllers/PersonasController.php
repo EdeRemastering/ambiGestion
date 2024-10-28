@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Persona;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class PersonasController extends Controller
 {
@@ -297,6 +299,33 @@ public function update(Request $request, Personas $persona)
             return back()->withErrors(['error' => 'Ocurrió un error al actualizar. Inténtalo nuevamente.'])->withInput();
         }
     }
+
+    public function generarPDF()
+    {
+        
+        $personas = DB::table('personas')
+->join('users', 'personas.user_id', '=', 'users.id') // Unir con la tabla de usuarios
+->join('roles', 'users.role_id', '=', 'roles.id') // Unir con roles usando el role_id en la tabla users
+->join('grupo_sanguineos', 'personas.tipo_sangre_id', '=', 'grupo_sanguineos.id') // Unir con la tabla de grupos sanguíneos
+->join('contratos', 'personas.tipo_contrato_id', '=', 'contratos.id') // Unir con la tabla de contratos
+->select(
+    'personas.*', 
+    'roles.name as role_name', 
+    'roles.descripcion as role_descripcion',
+    'grupo_sanguineos.descripcion as grupo_sanguineo_descripcion',
+    'contratos.descripcion as contrato_descripcion'
+)
+->get();
+
+       // Generar el PDF con los datos y la vista 'pdf.ambientes'
+$pdf = PDF::loadView('personas.pdf', compact('personas'));
+
+// Retorna el PDF para que el navegador lo descargue o visualice
+return $pdf->stream('personas.pdf'); // Para mostrar en navegador
+// return $pdf->download('ambientes.pdf'); // Para descargar directamente
+
+    }
+    
 
     
 }

@@ -5,9 +5,15 @@
 @section('contenido')
     <!-- Enlace para crear una nueva ficha -->
     @section('estados')
+
+    <div class="acciones">
     @if(Auth::user()->role->name == 'admin')
         <a href="{{ route('fichas.create') }}" class="btn boton-crear btn-success">Crear Ficha</a>
     @endif
+    <a href="{{ route('fichas.pdf') }}" class="btn boton-crear btn-success" target="_blank">PDF</a>
+
+    </div>
+  
     @endsection
 
     <table id="fichasTable" class="table table-striped" style="width:100%">

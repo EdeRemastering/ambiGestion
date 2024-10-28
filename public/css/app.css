@@ -254,6 +254,14 @@ thead {
     }
 }
 
+.acciones {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    height: fit-content;
+    gap: 10px;
+    margin-left: auto;
+}
 
 /* Estilos de botones */
 .btn-success {
@@ -284,6 +292,7 @@ thead {
     box-shadow: inset 0 0 100px red;
 }
 .botonEstado, .botonEstadoTotal {
+    height: fit-content;
     background-color: white !important;
     color: var(--color-primario);
     transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Models\Ficha;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class FichaController extends Controller
 {
@@ -100,4 +102,24 @@ class FichaController extends Controller
         $ficha->delete();
         return redirect()->route('fichas.index')->with('success', 'Ficha eliminada exitosamente.');
     }
+
+    public function generarPDF()
+    {
+        $fichas = DB::table('fichas')
+        ->join('programas', 'fichas.id_programa_formacion', '=', 'programas.id') // Ajustado para que sea correcto
+        ->join('jornadas', 'fichas.jornada', '=', 'jornadas.id')
+        ->select('fichas.*',
+        'jornadas.nombre AS jornada',
+        'programas.nombre AS programa_nombre')
+        ->get();
+
+       // Generar el PDF con los datos y la vista 'pdf.ambientes'
+$pdf = PDF::loadView('fichas.pdf', compact('fichas'));
+
+// Retorna el PDF para que el navegador lo descargue o visualice
+return $pdf->stream('fichas.pdf'); // Para mostrar en navegador
+// return $pdf->download('ambientes.pdf'); // Para descargar directamente
+
+    }
+    
 }

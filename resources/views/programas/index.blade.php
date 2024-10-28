@@ -7,10 +7,15 @@
 
 @section('estados')
 
+<div class="acciones">
+    
 @if(Auth::user()->role->name == 'admin')
     <!-- Enlace para crear un nuevo ficha -->
     <a href="{{ route('programas.create') }}" class="btn boton-crear btn-success">Crear Programa</a>
     @endif
+    <a href="{{ route('programas.pdf') }}" class="btn boton-crear btn-success" target="_blank">PDF</a>
+
+</div>
 @endsection
 
 

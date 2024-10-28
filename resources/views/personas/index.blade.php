@@ -4,6 +4,12 @@
 
 @section('contenido')
 
+@section('estados')
+<div class="acciones">
+<a href="{{ route('personas.pdf') }}" class="btn boton-crear btn-success" target="_blank">PDF</a>
+
+</div>
+@endsection
 
 <table id="personasTable" class="table table-striped" style="width:100%">
         <thead>

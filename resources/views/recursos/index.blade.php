@@ -15,12 +15,18 @@
             {{ ucfirst($estado->nombre) }}: {{ $cantidad }}
         </a>
     @endforeach
+
     <a class="btn btn-success botonEstadoTotal">Total: {{ $recursosTotal }}</a>
+  
+    <div class="acciones">
+  
     <!-- Enlace para crear un nuevo recurso -->
     @if(Auth::user()->role->name == 'admin')
     <a href="{{ route('recursos.create') }}" class="btn boton-crear btn-success">Crear Recurso</a>
     @endif
+    <a href="{{ route('recursos.pdf') }}" class="btn boton-crear btn-success" target="_blank">PDF</a>
 
+    </div>
 @endsection
 
 <!-- Tabla de recursos -->

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Recurso;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class RecursoController extends Controller
 {
@@ -139,4 +140,40 @@ class RecursoController extends Controller
         }
      
     }
+
+    public function generarPDF()
+    {
+
+        
+        $recursos = DB::table('recurso')
+        ->join('estado_recurso', 'recurso.estado', '=', 'estado_recurso.id')
+        ->join('ambientes', 'recurso.id_ambiente', '=', 'ambientes.id')
+        ->select(
+            'recurso.id_recurso',
+            'ambientes.alias AS alias_ambiente',
+            'recurso.descripcion',
+            'recurso.fecha_registro',
+            'estado_recurso.nombre AS nombre_estado'
+        )
+        ->get();
+
+        $recursoPorEstado = DB::table('recurso')
+        ->select('estado', DB::raw('count(*) as total'))
+        ->groupBy('estado')
+        ->get();
+
+
+        $estados = DB::table('estado_recurso')->select('id', 'nombre')->get();
+
+        $recursosTotal = DB::table('recurso')->count();
+        
+       // Generar el PDF con los datos y la vista 'pdf.ambientes'
+$pdf = PDF::loadView('recursos.pdf', compact('recursos', 'estados', 'recursoPorEstado', 'recursosTotal'));
+
+// Retorna el PDF para que el navegador lo descargue o visualice
+return $pdf->stream('recursos.pdf'); // Para mostrar en navegador
+// return $pdf->download('ambientes.pdf'); // Para descargar directamente
+
+    }
+    
 }

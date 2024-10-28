@@ -7,6 +7,7 @@ use App\Models\Programaciones;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ProgramacionController extends Controller
 {
@@ -284,4 +285,33 @@ class ProgramacionController extends Controller
             return redirect()->back()->with('error', 'Error al eliminar la programación. Detalles: ' . $e->getMessage());
         }
     }
+
+    public function generarPDF()
+    {
+        $programaciones = DB::table('programaciones')
+        ->join('fichas', 'programaciones.ficha', '=', 'fichas.id_ficha')
+        ->join('ambientes', 'programaciones.ambiente', '=', 'ambientes.id')
+        ->leftJoin('personas', 'programaciones.instructor_asignante', '=', 'personas.id')
+        ->leftJoin('users', 'personas.user_id', '=', 'users.id')
+        ->select(
+            'programaciones.id',
+            'fichas.nombre AS ficha',
+            'ambientes.alias AS ambiente',
+            DB::raw("CONCAT(personas.pnombre, ' ', personas.snombre, ' ', personas.papellido, ' ', personas.sapellido) AS nombre_instructor_asignante"),
+            'programaciones.hora_inicio',
+            'programaciones.hora_fin',
+            'programaciones.fecha_inicio',
+            'programaciones.fecha_fin',
+            'programaciones.estado'
+        )
+        ->get();
+       // Generar el PDF con los datos y la vista 'pdf.ambientes'
+$pdf = PDF::loadView('programaciones.pdf', compact('programaciones'));
+
+// Retorna el PDF para que el navegador lo descargue o visualice
+return $pdf->stream('programaciones.pdf'); // Para mostrar en navegador
+// return $pdf->download('ambientes.pdf'); // Para descargar directamente
+
+    }
+    
 }

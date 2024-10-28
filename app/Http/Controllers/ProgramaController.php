@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Models\programa;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 use Illuminate\Http\Request;
 
@@ -113,4 +115,28 @@ class ProgramaController extends Controller
         $programa->delete();
         return redirect()->route('programas.index')->with('success', 'programa eliminado exitosamente. ');
     }
+
+    public function generarPDF()
+    {
+        $programas = DB::table('programas')
+        ->join('red_de_formacion', 'programas.red_conocimiento', '=', 'red_de_formacion.id_area_formacion')
+        ->select(
+        'programas.id',
+        'programas.nombre', 
+        'programas.version', 
+        'programas.fecha_creacion', 
+        'programas.duracion_meses', 
+        'programas.requisitos_ingreso', 
+        'programas.requisitos_formacion',
+        'red_de_formacion.nombre AS nombre_red_conocimiento')
+        ->get();
+       // Generar el PDF con los datos y la vista 'pdf.ambientes'
+$pdf = PDF::loadView('programas.pdf', compact('programas'));
+
+// Retorna el PDF para que el navegador lo descargue o visualice
+return $pdf->stream('programas.pdf'); // Para mostrar en navegador
+// return $pdf->download('ambientes.pdf'); // Para descargar directamente
+
+    }
+    
 }

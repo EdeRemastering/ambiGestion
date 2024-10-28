@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Novedad;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class NovedadController extends Controller
 {
@@ -143,4 +145,41 @@ class NovedadController extends Controller
         }
       
     }
+
+    public function generarPDF()
+    {
+
+        
+        $novedades = DB::table('novedad')
+        ->join('estado_novedad', 'novedad.estado', '=', 'estado_novedad.id')
+        ->select(
+            'novedad.id',
+            'novedad.nombre',
+            'novedad.descripcion',
+            'novedad.fecha_registro',
+            'estado_novedad.nombre AS nombre_estado_novedad',
+            'novedad.fecha_solucion',
+            'novedad.descripcion_solucion'
+        )
+        ->get();
+        
+
+        $novedadesPorEstado = DB::table('novedad')
+        ->select('estado', DB::raw('count(*) as total'))
+        ->groupBy('estado')
+        ->get();
+
+        $estados = DB::table('estado_novedad')->select('id', 'nombre')->get();
+
+        $novedadesTotal = DB::table('novedad')->count();
+
+       // Generar el PDF con los datos y la vista 'pdf.ambientes'
+$pdf = PDF::loadView('novedades.pdf', compact('novedades', 'novedadesPorEstado', 'estados', 'novedadesTotal'));
+
+// Retorna el PDF para que el navegador lo descargue o visualice
+return $pdf->stream('novedades.pdf'); // Para mostrar en navegador
+// return $pdf->download('ambientes.pdf'); // Para descargar directamente
+
+    }
+    
 }

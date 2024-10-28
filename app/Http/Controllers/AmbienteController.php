@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Models\Ambiente;
-
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class AmbienteController extends Controller
@@ -162,4 +162,43 @@ class AmbienteController extends Controller
             return redirect()->back()->with('error', 'Error al eliminar el ambiente.' . $e->getMessage());
         }
     }
+
+    public function generarPDF()
+    {
+        // Obtener todos los ambientes junto con su estado, tipo y red de conocimiento
+        $ambientes = DB::table('ambientes')
+            ->join('estado_ambiente', 'ambientes.estado', '=', 'estado_ambiente.id')
+            ->join('red_de_formacion', 'ambientes.red_de_conocimiento', '=', 'red_de_formacion.id_area_formacion')
+            ->join('tipo_ambiente', 'ambientes.tipo', '=', 'tipo_ambiente.id')
+            ->select(
+                'ambientes.id',
+                'ambientes.numero',
+                'ambientes.alias',
+                'ambientes.capacidad',
+                'ambientes.descripcion',
+                'tipo_ambiente.nombre AS tipo_ambiente',
+                'estado_ambiente.nombre AS estado_ambiente', // Nombre del estado
+                'red_de_formacion.nombre AS nombre_red_de_conocimiento' // Nombre de la red de formación
+            )
+            ->get();
+    
+        // Obtener la cantidad de ambientes por estado
+        $ambientesPorEstado = DB::table('ambientes')
+            ->join('estado_ambiente', 'ambientes.estado', '=', 'estado_ambiente.id')
+            ->select('estado_ambiente.nombre AS estado_nombre', DB::raw('count(*) as total'))
+            ->groupBy('estado_ambiente.nombre')
+            ->get();
+    
+        // Total de ambientes
+        $ambientesTotal = $ambientes->count();
+    
+       // Generar el PDF con los datos y la vista 'pdf.ambientes'
+$pdf = PDF::loadView('ambientes.pdf', compact('ambientes', 'ambientesPorEstado', 'ambientesTotal'));
+
+// Retorna el PDF para que el navegador lo descargue o visualice
+return $pdf->stream('ambientes.pdf'); // Para mostrar en navegador
+// return $pdf->download('ambientes.pdf'); // Para descargar directamente
+
+    }
+    
 }

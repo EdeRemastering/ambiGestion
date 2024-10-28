@@ -5,11 +5,15 @@
 @section('contenido')
 
 @section('estados')
+<div class="acciones">
 @if(Auth::user()->role->name == 'admin' || Auth::user()->role->name == 'instructor_lider' )
 
-    <!-- Enlace para crear una nueva programación -->
-    <a href="{{ route('programaciones.create') }}" class="btn boton-crear btn-success">Crear Programación</a>
-    @endif
+<!-- Enlace para crear una nueva programación -->
+<a href="{{ route('programaciones.create') }}" class="btn boton-crear btn-success">Crear Programación</a>
+@endif
+<a href="{{ route('programaciones.pdf') }}" class="btn boton-crear btn-success" target="_blank">PDF</a>
+
+</div>
 @endsection
 
 <!-- Tabla de programación -->

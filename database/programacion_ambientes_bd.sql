@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-10-2024 a las 23:34:02
+-- Tiempo de generación: 28-10-2024 a las 06:24:36
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -34,7 +34,7 @@ CREATE TABLE `ambientes` (
   `capacidad` int(11) NOT NULL DEFAULT current_timestamp(),
   `descripcion` varchar(100) NOT NULL,
   `tipo` int(11) NOT NULL,
-  `estado` int(11) NOT NULL DEFAULT current_timestamp(),
+  `estado` int(11) NOT NULL,
   `red_de_conocimiento` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -54,7 +54,7 @@ INSERT INTO `ambientes` (`id`, `numero`, `alias`, `capacidad`, `descripcion`, `t
 (20032, 143223, 'biligüismo', 10, '', 1, 1, 1, '2024-10-01 20:15:32', '2024-10-22 13:39:41'),
 (93232, 14213, 'Laboratorio de Cloud', 20, '', 1, 1, 1, '2024-10-01 20:15:32', '2024-10-22 13:39:41'),
 (93239, 223, 'asdfaf', 32, 'asdf', 1, 1, 1, '2024-10-07 02:52:13', '2024-10-07 02:52:13'),
-(93241, 32, 'Catorcenone', 32, 'ladsfj', 1, 4, 1, '2024-10-18 22:59:00', '2024-10-24 02:56:20');
+(93241, 32, 'Catorcenone', 32, 'FORTE', 1, 1, 1, '2024-10-18 22:59:00', '2024-10-28 09:02:02');
 
 -- --------------------------------------------------------
 
@@ -95,7 +95,9 @@ INSERT INTO `asignaciones_diarias` (`id`, `programacion`, `dia`, `instructor_asi
 (114, 29, 1, 1, '2024-10-27 01:06:13'),
 (115, 29, 2, 2, '2024-10-27 01:06:13'),
 (118, 30, 1, 2, '2024-10-27 17:45:25'),
-(119, 30, 2, 1, '2024-10-27 17:45:25');
+(119, 30, 2, 1, '2024-10-27 17:45:25'),
+(121, 31, 1, 3, '2024-10-28 04:04:54'),
+(122, 31, 2, 1, '2024-10-28 04:04:54');
 
 -- --------------------------------------------------------
 
@@ -108,6 +110,14 @@ CREATE TABLE `cache` (
   `value` mediumtext NOT NULL,
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `cache`
+--
+
+INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
+('ruben1@gmail.com|::1', 'i:1;', 1730084135),
+('ruben1@gmail.com|::1:timer', 'i:1730084135;', 1730084135);
 
 -- --------------------------------------------------------
 
@@ -291,7 +301,8 @@ CREATE TABLE `fichas` (
 --
 
 INSERT INTO `fichas` (`id_ficha`, `id_programa_formacion`, `nombre`, `jornada`, `fecha_inicio`, `fecha_fin`, `created_at`, `updated_at`) VALUES
-(78, 9, 'jk', 2, '2024-10-16 00:00:00', '2024-10-29 00:00:00', '2024-10-24 22:13:24', '2024-10-24 22:13:24'),
+(78, 9, 'jk', 2, '2024-10-16 00:00:00', '2024-10-23 00:00:00', '2024-10-24 22:13:24', '2024-10-28 10:23:25'),
+(8787, 10, 'klhj', 2, '2024-10-16 00:00:00', '2024-10-31 00:00:00', '2024-10-28 09:31:24', '2024-10-28 09:31:24'),
 (87868, 8, 'hkjl', 1, '2024-10-04 00:00:00', '2024-10-16 00:00:00', '2024-10-24 22:00:17', '2024-10-24 22:00:17'),
 (99382, 9, 'analisis e informatica', 1, '2024-10-28 00:00:00', '2024-11-07 00:00:00', '2024-10-26 08:46:07', '2024-10-26 08:46:07');
 
@@ -436,7 +447,7 @@ CREATE TABLE `novedad` (
 --
 
 INSERT INTO `novedad` (`id`, `nombre`, `recurso`, `descripcion`, `fecha_registro`, `estado`, `fecha_solucion`, `descripcion_solucion`) VALUES
-(1, 'pc dañado', NULL, 'se daño porque un niño lo golpfadseo', '2024-09-26 18:04:49', 1, '2024-10-24 05:00:00', 'khj'),
+(1, 'pc dañado', NULL, 'FORTE', '2024-09-26 18:04:49', 1, '2024-10-28 04:02:44', 'khj'),
 (2, 'pc dañado', NULL, 'ruben lo patió', '2024-10-01 19:40:55', 1, '2024-10-22 13:39:41', ''),
 (8, 'eder', NULL, 'dsfa', '2024-10-06 06:28:38', 1, '2024-10-22 13:39:41', ''),
 (9, 'lkjkfas', NULL, 'aoksdfj', '2024-10-06 15:51:00', 6, '2024-10-22 13:39:41', '');
@@ -482,8 +493,8 @@ CREATE TABLE `personas` (
 
 INSERT INTO `personas` (`id`, `documento`, `pnombre`, `snombre`, `papellido`, `sapellido`, `telefono`, `correo`, `direccion`, `tipo_sangre_id`, `tipo_contrato_id`, `created_at`, `updated_at`, `user_id`) VALUES
 (1, '1032178212', 'Eder', 'Luis', 'Mestra', 'Morelo', '3215482232', 'EDERLUISMESTRA9@GMAIL.COM', 'luisa te amo mi vida <3', 7, 1, '2024-10-26 20:46:22', '2024-10-27 12:51:34', 1),
-(2, '1032177822', 'Luisa', 'Fernanda', 'Galvis', 'Fernandez', '3113391450', 'luisa@gmail.com', 'OBRERO BLOQUE 4 MANZANA 33 CASA 12', 8, 1, '2024-10-26 23:19:24', '2024-10-26 23:19:24', 2),
-(3, '1111111111', 'ruben', 'de jesús', 'zapata', 'quiroz', '3215482237', 'ruben@gmail.com', 'none', 2, 1, '2024-10-27 13:13:22', '2024-10-27 13:13:22', 3);
+(2, '1032177822', 'Luisa', 'Fernanda', 'Galvis', 'Fernandez', '3113391452', 'luisa@gmail.com', 'OBRERO BLOQUE 4 MANZANA 33 CASA 12', 8, 1, '2024-10-26 23:19:24', '2024-10-26 23:19:24', 2),
+(3, '1111111111', 'rubén', 'de jesús', 'zapata', 'quiroz', '3215482237', 'ruben21@gmail.com', 'none', 2, 1, '2024-10-27 13:13:22', '2024-10-28 07:52:30', 3);
 
 -- --------------------------------------------------------
 
@@ -511,7 +522,8 @@ CREATE TABLE `programaciones` (
 
 INSERT INTO `programaciones` (`id`, `ficha`, `ambiente`, `instructor_asignante`, `hora_inicio`, `hora_fin`, `fecha_inicio`, `fecha_fin`, `estado`, `created_at`, `updated_at`) VALUES
 (29, 87868, 12, 1, '07:00:00', '13:00:00', '2024-10-26', '2024-10-27', 'activo', '2024-10-26 20:50:16', '2024-10-26 20:50:16'),
-(30, 87868, 1143, 2, '07:00:00', '13:00:00', '2024-10-16', '2024-10-25', 'activo', '2024-10-27 22:39:01', '2024-10-27 22:45:25');
+(30, 87868, 1143, 2, '07:00:00', '13:00:00', '2024-10-16', '2024-10-25', 'activo', '2024-10-27 22:39:01', '2024-10-27 22:45:25'),
+(31, 99382, 6324, 2, '07:00:00', '13:00:00', '2024-10-23', '2024-10-29', 'activo', '2024-10-28 08:50:37', '2024-10-28 08:50:37');
 
 -- --------------------------------------------------------
 
@@ -537,7 +549,7 @@ CREATE TABLE `programas` (
 --
 
 INSERT INTO `programas` (`id`, `nombre`, `version`, `fecha_creacion`, `red_conocimiento`, `duracion_meses`, `requisitos_ingreso`, `requisitos_formacion`, `created_at`, `updated_at`) VALUES
-(8, 'Adso Sobra', 1, '2024-10-03 00:00:00', 2, 12, 'si', 'no', '2024-10-19 02:44:49', '2024-10-19 07:44:49'),
+(8, 'Adso Sobra', 1, '2024-10-03 00:00:00', 2, 22, 'si', 'no', '2024-10-19 02:44:49', '2024-10-28 09:00:01'),
 (9, 'Adso', 5, '2024-10-29 00:00:00', 2, 25, 'Yes', 'Not', '2024-10-07 19:48:50', '2024-10-07 19:48:50'),
 (10, 'adsi', 1, '2024-10-20 19:53:44', 1, 12, 'N/A', 'N/A', '2024-10-21 05:53:44', '2024-10-21 05:53:44'),
 (11, 'Ambientesololesjafsdklf', 32, '2024-10-21 14:23:29', 1, 23, 'ñljasdf', 'ñaljkdfs', '2024-10-22 00:23:29', '2024-10-22 00:23:29'),
@@ -551,10 +563,10 @@ INSERT INTO `programas` (`id`, `nombre`, `version`, `fecha_creacion`, `red_conoc
 
 CREATE TABLE `recurso` (
   `id_recurso` int(11) NOT NULL,
-  `id_ambiente` int(11) NOT NULL DEFAULT current_timestamp(),
-  `descripcion` text NOT NULL DEFAULT current_timestamp(),
+  `id_ambiente` int(11) NOT NULL,
+  `descripcion` text NOT NULL,
   `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp(),
-  `estado` int(11) NOT NULL DEFAULT current_timestamp()
+  `estado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -562,11 +574,14 @@ CREATE TABLE `recurso` (
 --
 
 INSERT INTO `recurso` (`id_recurso`, `id_ambiente`, `descripcion`, `fecha_registro`, `estado`) VALUES
-(32333, 93239, 'Cluster de GPUs para IA', '2024-09-21 05:00:00', 1),
+(32333, 12, 'Cluster de GPUs para IA', '2024-09-21 05:00:00', 1),
 (32334, 12, 'Nodos blockchain de prueba', '2024-09-22 05:00:00', 1),
 (32335, 12, 'Kit de desarrollo IoT', '2024-09-23 05:00:00', 1),
-(32336, 12, 'fulala', '2024-10-08 01:32:19', 1),
-(32337, 20032, 'kjkljhkjkññkjkj', '2024-10-18 12:16:57', 1);
+(32336, 12, 'FORTE', '2024-10-08 01:32:19', 1),
+(32337, 20032, 'kjkljhkjkññkjkj', '2024-10-18 12:16:57', 1),
+(32338, 12, 'aldkjfñ', '2024-10-28 03:48:51', 1),
+(32339, 12, 'alertas', '2024-10-28 03:49:03', 1),
+(32340, 12, 'ASD', '2024-10-28 03:59:15', 1);
 
 -- --------------------------------------------------------
 
@@ -657,7 +672,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('jGK6Ht0MXzGKv8ijkdjPw3PQ27gCH2kXvu1rHLK1', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiRjRGR1poU3BFek43ZjFhelpVUlppY2pod1NpVDB5ZmNEem9RZDAySyI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjYxOiJodHRwOi8vbG9jYWxob3N0L2xhcmF2ZWwvdHJhYmFqb19maW5hbC9wdWJsaWMvYWRtaW4vcHJvZ3JhbWFzIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjQ6ImF1dGgiO2E6MTp7czoyMToicGFzc3dvcmRfY29uZmlybWVkX2F0IjtpOjE3MzAwNjM1NzI7fX0=', 1730067452);
+('q0ku4yvPggR3OAEP7R2tvZG6okRmhipfQMvIMb6R', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiUUtIa1BSS081clZaZnlFbDlFaHJGbk4xYXZFbnZNWU5IUlFJRXU4NSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NTg6Imh0dHA6Ly9sb2NhbGhvc3QvbGFyYXZlbC90cmFiYWpvX2ZpbmFsL3B1YmxpYy9hZG1pbi9maWNoYXMiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6NDoiYXV0aCI7YToxOntzOjIxOiJwYXNzd29yZF9jb25maXJtZWRfYXQiO2k6MTczMDA4OTc1ODt9fQ==', 1730093056);
 
 -- --------------------------------------------------------
 
@@ -703,9 +718,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `role_id`, `created_at`, `updated_at`) VALUES
-(1, 'eder', 'EDERLUISMESTRA9@GMAIL.COM', '2024-10-26 15:46:22', '$2y$12$u2KjrNYMYUTQLBG.Rw5OBuJrLVbue58Cpjv1Oep3JXVHKmeyap9l6', 'XoIqmlsFyO9Nn7dSJsZsTCCqxfXsDLcCHNMsX6shEprVf1RfhEjY9ELpsG38', 1, '2024-10-26 20:46:22', '2024-10-26 20:46:22'),
-(2, 'LuiSunflower', 'luisa@gmail.com', '2024-10-26 18:19:24', '$2y$12$tzAbVHPgq0g394RjOFEsk.4zZToOeotsDU0MM/pi7mXzW7JGsCN76', 'OY6fncQydQJD5u2LYDbeuSjDrV3GwFPWalic4f3SwwM744caALUg30duABMt', 2, '2024-10-26 23:19:24', '2024-10-26 23:19:24'),
-(3, 'Ruben', 'ruben@gmail.com', '2024-10-27 08:13:22', '$2y$12$qJrRIXwqYqVwk/K/xql6rOdqn3SqfkCHyZIMQgWDUKRf2gIkYpkna', 'MT9dn9eThcI5QcfAJu61Ywiz5P1SgXPXIi7XsgWJ7Qrj7q7DxdgrGJXQ7fB5', 3, '2024-10-27 13:13:22', '2024-10-27 13:13:22');
+(1, 'eder', 'EDERLUISMESTRA9@GMAIL.COM', '2024-10-26 15:46:22', '$2y$12$u2KjrNYMYUTQLBG.Rw5OBuJrLVbue58Cpjv1Oep3JXVHKmeyap9l6', 'pmFb5R6TkxAqqYz3Ve2bUjhvLNxebstqkDVP9IU35wD7z7Qknv4LuFrQcSJN', 1, '2024-10-26 20:46:22', '2024-10-26 20:46:22'),
+(2, 'LuiSunflower', 'luisa@gmail.com', '2024-10-26 18:19:24', '$2y$12$tzAbVHPgq0g394RjOFEsk.4zZToOeotsDU0MM/pi7mXzW7JGsCN76', 'n3dPqoNxDdTpqYEDrTcAqkj55eRknPP3OOwO6f9ut5BwtoyzhZ230QoGnkV5', 2, '2024-10-26 23:19:24', '2024-10-26 23:19:24'),
+(3, 'Ruben', 'ruben21@gmail.com', '2024-10-27 08:13:22', '$2y$12$qJrRIXwqYqVwk/K/xql6rOdqn3SqfkCHyZIMQgWDUKRf2gIkYpkna', 'e2Ph93vWYlWXoVmVZk1hUyYzfuj5oN7H9ZRakLPQXNv5EX1p6q3IppLp0WQa', 3, '2024-10-27 13:13:22', '2024-10-27 13:13:22');
 
 --
 -- Índices para tablas volcadas
@@ -859,7 +874,8 @@ ALTER TABLE `programas`
 -- Indices de la tabla `recurso`
 --
 ALTER TABLE `recurso`
-  ADD PRIMARY KEY (`id_recurso`);
+  ADD PRIMARY KEY (`id_recurso`),
+  ADD KEY `estado` (`estado`);
 
 --
 -- Indices de la tabla `red_de_formacion`
@@ -904,10 +920,28 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `ambientes`
+--
+ALTER TABLE `ambientes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93242;
+
+--
 -- AUTO_INCREMENT de la tabla `asignaciones_diarias`
 --
 ALTER TABLE `asignaciones_diarias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
+
+--
+-- AUTO_INCREMENT de la tabla `competencias`
+--
+ALTER TABLE `competencias`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `contratos`
+--
+ALTER TABLE `contratos`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `dias`
@@ -916,10 +950,46 @@ ALTER TABLE `dias`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT de la tabla `estado_ambiente`
+--
+ALTER TABLE `estado_ambiente`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `estado_novedad`
+--
+ALTER TABLE `estado_novedad`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `estado_recurso`
+--
+ALTER TABLE `estado_recurso`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `fichas`
+--
+ALTER TABLE `fichas`
+  MODIFY `id_ficha` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99383;
+
+--
+-- AUTO_INCREMENT de la tabla `grupo_sanguineos`
+--
+ALTER TABLE `grupo_sanguineos`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT de la tabla `jornadas`
 --
 ALTER TABLE `jornadas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `novedad`
+--
+ALTER TABLE `novedad`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `personas`
@@ -931,12 +1001,42 @@ ALTER TABLE `personas`
 -- AUTO_INCREMENT de la tabla `programaciones`
 --
 ALTER TABLE `programaciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
+--
+-- AUTO_INCREMENT de la tabla `programas`
+--
+ALTER TABLE `programas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT de la tabla `recurso`
+--
+ALTER TABLE `recurso`
+  MODIFY `id_recurso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32341;
+
+--
+-- AUTO_INCREMENT de la tabla `red_de_formacion`
+--
+ALTER TABLE `red_de_formacion`
+  MODIFY `id_area_formacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `resultado_aprendizajes`
+--
+ALTER TABLE `resultado_aprendizajes`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `tipo_ambiente`
+--
+ALTER TABLE `tipo_ambiente`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --

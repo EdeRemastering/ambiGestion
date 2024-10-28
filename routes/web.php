@@ -40,6 +40,14 @@ Route::middleware(['auth', CheckRoleRedirect::class])->group(function () {
      
             // Rutas para el rol "admin"
             Route::prefix('admin')->group(function () {
+                Route::get('/personas/pdf', [PersonasController::class, 'generarPDF'])->name('personas.pdf'); // Asegúrate de que esta línea esté aquí.
+                Route::get('/ambientes/pdf', [AmbienteController::class, 'generarPDF'])->name('ambientes.pdf'); // Asegúrate de que esta línea esté aquí.
+                Route::get('/recursos/pdf', [RecursoController::class, 'generarPDF'])->name('recursos.pdf'); // Asegúrate de que esta línea esté aquí.
+                Route::get('/novedades/pdf', [NovedadController::class, 'generarPDF'])->name('novedades.pdf'); // Asegúrate de que esta línea esté aquí.
+                Route::get('/programas/pdf', [ProgramaController::class, 'generarPDF'])->name('programas.pdf'); // Asegúrate de que esta línea esté aquí.
+                Route::get('/fichas/pdf', [FichaController::class, 'generarPDF'])->name('fichas.pdf'); // Asegúrate de que esta línea esté aquí.
+                Route::get('/programaciones/pdf', [ProgramacionController::class, 'generarPDF'])->name('programaciones.pdf'); // Asegúrate de que esta línea esté aquí.
+
                 Route::resource('personas', PersonasController::class);
                 Route::resource('ambientes', AmbienteController::class);
                 Route::resource('recursos', RecursoController::class);
@@ -51,6 +59,15 @@ Route::middleware(['auth', CheckRoleRedirect::class])->group(function () {
 
             // Rutas para el rol "instructor_lider"
             Route::prefix('instructor-lider')->group(function () {
+
+                Route::get('/personas/pdf', [PersonasController::class, 'generarPDF'])->name('personas.pdf'); // Asegúrate de que esta línea esté aquí.
+                Route::get('/ambientes/pdf', [AmbienteController::class, 'generarPDF'])->name('ambientes.pdf'); // Asegúrate de que esta línea esté aquí.
+                Route::get('/recursos/pdf', [RecursoController::class, 'generarPDF'])->name('recursos.pdf'); // Asegúrate de que esta línea esté aquí.
+                Route::get('/novedades/pdf', [NovedadController::class, 'generarPDF'])->name('novedades.pdf'); // Asegúrate de que esta línea esté aquí.
+                Route::get('/programas/pdf', [ProgramaController::class, 'generarPDF'])->name('programas.pdf'); // Asegúrate de que esta línea esté aquí.
+                Route::get('/fichas/pdf', [FichaController::class, 'generarPDF'])->name('fichas.pdf'); // Asegúrate de que esta línea esté aquí.
+                Route::get('/programaciones/pdf', [ProgramacionController::class, 'generarPDF'])->name('programaciones.pdf'); // Asegúrate de que esta línea esté aquí.
+
                 Route::get('/ambientes', [AmbienteController::class, 'index'])->name('ambientes.index');
                 Route::get('/ambientes/{id}', [AmbienteController::class, 'show'])->name('ambientes.show');
                 Route::get('/recursos', [RecursoController::class, 'index'])->name('recursos.index');

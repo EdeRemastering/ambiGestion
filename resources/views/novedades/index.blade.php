@@ -19,11 +19,14 @@
 @endforeach
 <a class="btn btn-success botonEstadoTotal">Total: {{ $novedadesTotal }}</a>
 
+<div class="acciones">
 @if(Auth::user()->role->name == 'admin')
 <a href="{{ route('novedades.create') }}" class="btn boton-crear btn-success">Crear Novedad</a>
 @endif
-@endsection
+<a href="{{ route('novedades.pdf') }}" class="btn boton-crear btn-success" target="_blank">PDF</a>
 
+</div>
+@endsection
 
 <!-- Tabla de novedades -->
 <table id="novedadesTable" class="table table-striped" style="width:100%">
