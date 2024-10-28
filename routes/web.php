@@ -37,23 +37,7 @@ Route::middleware(['auth'])->group(function () {
 // Middleware para redirigir según roles
 Route::middleware(['auth', CheckRoleRedirect::class])->group(function () {
 
-            
-    // Rutas para el rol "instructor_lider"
-    Route::prefix('instructor-lider')->group(function () {
-        Route::get('/ambientes', [AmbienteController::class, 'index'])->name('ambientes.index');
-        Route::get('/ambientes/{id}', [AmbienteController::class, 'show'])->name('ambientes.show');
-        Route::get('/recursos', [RecursoController::class, 'index'])->name('recursos.index');
-        Route::get('/recursos/{id}', [RecursoController::class, 'show'])->name('recursos.show');
-        Route::get('/novedades', [NovedadController::class, 'index'])->name('novedades.index');
-        Route::get('/novedades/{id}', [NovedadController::class, 'show'])->name('novedades.show');
-        Route::get('/programas', [ProgramaController::class, 'index'])->name('programas.index');
-        Route::get('/programas/{id}', [ProgramaController::class, 'show'])->name('programas.show');
-        Route::get('/fichas', [FichaController::class, 'index'])->name('fichas.index');
-        Route::get('/fichas/{id}', [FichaController::class, 'show'])->name('fichas.show');
-        Route::resource('programaciones', ProgramacionController::class);
-    });
-
-    
+     
             // Rutas para el rol "admin"
             Route::prefix('admin')->group(function () {
                 Route::resource('personas', PersonasController::class);
@@ -64,6 +48,23 @@ Route::middleware(['auth', CheckRoleRedirect::class])->group(function () {
                 Route::resource('fichas', FichaController::class);
                 Route::resource('programaciones', ProgramacionController::class);
             });
+
+            // Rutas para el rol "instructor_lider"
+            Route::prefix('instructor-lider')->group(function () {
+                Route::get('/ambientes', [AmbienteController::class, 'index'])->name('ambientes.index');
+                Route::get('/ambientes/{id}', [AmbienteController::class, 'show'])->name('ambientes.show');
+                Route::get('/recursos', [RecursoController::class, 'index'])->name('recursos.index');
+                Route::get('/recursos/{id}', [RecursoController::class, 'show'])->name('recursos.show');
+                Route::get('/novedades', [NovedadController::class, 'index'])->name('novedades.index');
+                Route::get('/novedades/{id}', [NovedadController::class, 'show'])->name('novedades.show');
+                Route::get('/programas', [ProgramaController::class, 'index'])->name('programas.index');
+                Route::get('/programas/{id}', [ProgramaController::class, 'show'])->name('programas.show');
+                Route::get('/fichas', [FichaController::class, 'index'])->name('fichas.index');
+                Route::get('/fichas/{id}', [FichaController::class, 'show'])->name('fichas.show');
+                Route::resource('programaciones', ProgramacionController::class);
+            });
+
+    
     
     // Rutas para el rol "instructor"
     Route::prefix('instructor')->group(function () {
