@@ -37,17 +37,6 @@ Route::middleware(['auth'])->group(function () {
 // Middleware para redirigir según roles
 Route::middleware(['auth', CheckRoleRedirect::class])->group(function () {
 
-            // Rutas para el rol "admin"
-            Route::prefix('admin')->group(function () {
-                Route::resource('personas', PersonasController::class);
-                Route::resource('ambientes', AmbienteController::class);
-                Route::resource('recursos', RecursoController::class);
-                Route::resource('novedades', NovedadController::class);
-                Route::resource('programas', ProgramaController::class);
-                Route::resource('fichas', FichaController::class);
-                Route::resource('programaciones', ProgramacionController::class);
-            });
-    
             
     // Rutas para el rol "instructor_lider"
     Route::prefix('instructor-lider')->group(function () {
@@ -64,6 +53,18 @@ Route::middleware(['auth', CheckRoleRedirect::class])->group(function () {
         Route::resource('programaciones', ProgramacionController::class);
     });
 
+    
+            // Rutas para el rol "admin"
+            Route::prefix('admin')->group(function () {
+                Route::resource('personas', PersonasController::class);
+                Route::resource('ambientes', AmbienteController::class);
+                Route::resource('recursos', RecursoController::class);
+                Route::resource('novedades', NovedadController::class);
+                Route::resource('programas', ProgramaController::class);
+                Route::resource('fichas', FichaController::class);
+                Route::resource('programaciones', ProgramacionController::class);
+            });
+    
     // Rutas para el rol "instructor"
     Route::prefix('instructor')->group(function () {
         Route::get('/mis-programaciones', [ProgramacionController::class, 'misProgramaciones'])->name('programaciones.mis_programaciones');

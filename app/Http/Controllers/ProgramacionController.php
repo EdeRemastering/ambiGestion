@@ -226,8 +226,8 @@ class ProgramacionController extends Controller
             $validated = $request->validate([
                 'ficha' => 'required|exists:fichas,id_ficha',
                 'ambiente' => 'required|exists:ambientes,id',
-                'hora_inicio' => 'required|date_format:H:i',
-                'hora_fin' => 'required|date_format:H:i|after:hora_inicio',
+                'hora_inicio' => 'required|',
+                'hora_fin' => 'required|after:hora_inicio',
                 'fecha_inicio' => 'required|date',
                 'fecha_fin' => 'required|date|after_or_equal:fecha_inicio',
                 'dias' => 'required|array',

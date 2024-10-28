@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Middleware;
 
 use Closure;
@@ -10,9 +11,17 @@ class CheckRoleRedirect
     {
         if (Auth::check()) {
             $user = Auth::user();
-            $requestedPath = $request->path(); // Obtiene la ruta solicitada
+            $requestedPath = $request->path();
 
-            // Definir el prefijo de ruta según el rol
+            // Excepciones para rutas de programaciones
+            $allowedProgramacionesPaths = ['admin/programaciones', 'instructor-lider/programaciones'];
+            foreach ($allowedProgramacionesPaths as $allowedPath) {
+                if (str_starts_with($requestedPath, $allowedPath)) {
+                    return $next($request); // Permite acceso directo sin redirección
+                }
+            }
+
+            // Definir prefijo de ruta según el rol
             $prefix = '';
             if ($user->hasRole('admin')) {
                 $prefix = 'admin';
@@ -24,24 +33,17 @@ class CheckRoleRedirect
                 $prefix = 'aprendiz';
             }
 
-            // Si hay un prefijo y la ruta solicitada no comienza con él
+            // Redirección si el prefijo es obligatorio y la ruta solicitada no lo contiene
             if ($prefix && !str_starts_with($requestedPath, $prefix)) {
-                session()->reflash(); // Mantiene el mensaje de la sesión
-            
-                // Obtener los segmentos de la ruta
+                session()->reflash();
+                
+                // Redirecciona con el nuevo prefijo
                 $segments = explode('/', $requestedPath);
-                
-                // Eliminar el primer segmento
                 array_shift($segments);
-                
-                // Reconstruir la nueva ruta
                 $newPath = $prefix . '/' . implode('/', $segments);
             
-                // Redirigir a la nueva ruta
                 return redirect('/' . $newPath);
             }
-            
-
         }
 
         return $next($request);

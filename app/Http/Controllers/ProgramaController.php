@@ -101,7 +101,7 @@ class ProgramaController extends Controller
         ]);
         $programa = programa::findOrFail($id);
         $programa->update($request->all());
-        return redirect()->route('programas.index')->with('succeSs', 'programa actualizado exitosamente.');
+        return redirect()->route('programas.index')->with('success', 'programa actualizado exitosamente.');
     }
 
     /** 
