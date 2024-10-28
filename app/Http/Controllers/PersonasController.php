@@ -96,11 +96,11 @@ class PersonasController extends Controller
 
     public function show(string $id)
     {
-        $user = Auth::user();
+        
 
         // Obtener la persona asociada al usuario autenticado
         $persona = DB::table('personas')
-        ->where('user_id', $user->id)
+        ->where('user_id', $id)
         ->first();
         // Obtener roles, grupos sanguíneos y contratos si se necesitan en la vista
         $roles = Roles::select('id', 'name', 'descripcion')->get();
