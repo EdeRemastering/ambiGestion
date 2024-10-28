@@ -262,7 +262,7 @@ public function update(Request $request, Personas $persona)
     
             DB::commit();
 
-            return redirect()->route('home')->with('success', 'Perfil actualizado exitosamente');
+            return redirect()->route('dashboard')->with('success', 'Perfil actualizado exitosamente');
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Error al actualizar configuración: ' . $e->getMessage());
