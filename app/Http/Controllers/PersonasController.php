@@ -134,9 +134,11 @@ $persona = DB::table('personas')
     
     return view('personas.edit', compact('persona', 'roles', 'gruposSanguineos', 'tiposContratos', 'canChangeRole', 'isAprendiz'));
 }
+
 public function update(Request $request, Personas $persona)
 {
     $user = Auth::user();
+
     if ($user->role->name !== 'admin' && $user->id !== $persona->user_id) {
         abort(403, 'No tienes permiso para actualizar este perfil.');
     }
@@ -151,6 +153,7 @@ public function update(Request $request, Personas $persona)
         'correo' => 'required|email',
         'direccion' => 'required',
         'tipo_sangre_id' => 'required|exists:grupo_sanguineos,id',
+        'password' => 'nullable|min:6',
     ];
 
     if ($persona->user->role->name !== 'aprendiz') {
@@ -166,18 +169,32 @@ public function update(Request $request, Personas $persona)
     try {
         DB::beginTransaction();
 
-        $persona->update($validatedData);
-
-        if ($user->role->name === 'admin' && isset($validatedData['rol_id'])) {
-            $persona->user->update(['role_id' => $validatedData['rol_id']]);
-        }
+        // Actualizar usando joins
+        DB::table('personas')
+            ->join('users', 'personas.user_id', '=', 'users.id')
+            ->where('personas.id', $persona->id)
+            ->update([
+                'personas.documento' => $validatedData['documento'],
+                'personas.pnombre' => $validatedData['pnombre'],
+                'personas.snombre' => $validatedData['snombre'],
+                'personas.papellido' => $validatedData['papellido'],
+                'personas.sapellido' => $validatedData['sapellido'],
+                'personas.telefono' => $validatedData['telefono'],
+                'personas.correo' => $validatedData['correo'],
+                'personas.direccion' => $validatedData['direccion'],
+                'personas.tipo_sangre_id' => $validatedData['tipo_sangre_id'],
+                'personas.tipo_contrato_id' => $validatedData['tipo_contrato_id'] ?? null,
+                'users.email' => $validatedData['correo'],
+                'users.role_id' => $validatedData['rol_id'] ?? $user->role_id,
+                'users.password' => $request->filled('password') ? Hash::make($request->password) : $persona->user->password,
+            ]);
 
         DB::commit();
         return redirect()->route('personas.index')->with('success', 'Perfil actualizado exitosamente');
     } catch (\Exception $e) {
         DB::rollBack();
         Log::error('Error al actualizar persona: ' . $e->getMessage());
-        return back()->withErrors(['error' => $e->getMessage()])->withInput();
+        return back()->withErrors(['error' => 'Ocurrió un error al actualizar. Inténtalo nuevamente.'])->withInput();
     }
 }
     public function destroy(Personas $persona)
@@ -220,19 +237,17 @@ public function update(Request $request, Personas $persona)
     }
     
 
+
+
     public function updateSettings(Request $request)
     {
         $user = Auth::user();
-    
-        // Obtener la persona asociada al usuario usando Eloquent
         $persona = Personas::where('user_id', $user->id)->first();
     
-        // Verifica si la persona existe
         if (!$persona) {
             return back()->withErrors(['error' => 'No se encontró la persona asociada.'])->withInput();
         }
     
-        // Reglas de validación
         $rules = [
             'documento' => 'required',
             'pnombre' => 'required',
@@ -243,25 +258,38 @@ public function update(Request $request, Personas $persona)
             'correo' => 'required|email',
             'direccion' => 'required',
             'tipo_sangre_id' => 'required|exists:grupo_sanguineos,id',
-            'tipo_contrato_id' => 'required|exists:contratos,id',
+            'password' => 'nullable|min:6',
         ];
     
-        // Solo se requiere tipo_contrato_id si el usuario no es aprendiz
         if ($persona->user->role->name !== 'aprendiz') {
             $rules['tipo_contrato_id'] = 'required|exists:contratos,id';
         }
     
-        // Validar los datos del request
         $validatedData = $request->validate($rules);
     
         try {
             DB::beginTransaction();
     
-            // Actualizar datos de la persona
-            $persona->update($validatedData);
+            // Actualizar usando joins
+            DB::table('personas')
+                ->join('users', 'personas.user_id', '=', 'users.id')
+                ->where('users.id', $user->id)
+                ->update([
+                    'personas.documento' => $validatedData['documento'],
+                    'personas.pnombre' => $validatedData['pnombre'],
+                    'personas.snombre' => $validatedData['snombre'],
+                    'personas.papellido' => $validatedData['papellido'],
+                    'personas.sapellido' => $validatedData['sapellido'],
+                    'personas.telefono' => $validatedData['telefono'],
+                    'personas.correo' => $validatedData['correo'],
+                    'personas.direccion' => $validatedData['direccion'],
+                    'personas.tipo_sangre_id' => $validatedData['tipo_sangre_id'],
+                    'personas.tipo_contrato_id' => $validatedData['tipo_contrato_id'] ?? null,
+                    'users.email' => $validatedData['correo'],
+                    'users.password' => $request->filled('password') ? Hash::make($request->password) : $user->password,
+                ]);
     
             DB::commit();
-
             return redirect()->route('dashboard')->with('success', 'Perfil actualizado exitosamente');
         } catch (\Exception $e) {
             DB::rollBack();
@@ -269,6 +297,7 @@ public function update(Request $request, Personas $persona)
             return back()->withErrors(['error' => 'Ocurrió un error al actualizar. Inténtalo nuevamente.'])->withInput();
         }
     }
+
     
 }
 
