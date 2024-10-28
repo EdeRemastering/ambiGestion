@@ -14,9 +14,9 @@
             <p><strong>Teléfono:</strong> {{ $persona->telefono }}</p>
             <p><strong>Correo:</strong> {{ $persona->correo }}</p>
             <p><strong>Dirección:</strong> {{ $persona->direccion }}</p>
-            <p><strong>Rol:</strong> {{ $persona->rol->descripcion ?? 'N/A' }}</p>
-            <p><strong>Grupo Sanguíneo:</strong> {{ $persona->grupoSanguineo->descripcion ?? 'N/A' }}</p>
-            <p><strong>Tipo de Contrato:</strong> {{ $persona->tipoContrato->descripcion ?? 'N/A' }}</p>
+            <p><strong>Rol:</strong> {{ $persona->role_name ?? 'N/A' }}</p>
+            <p><strong>Grupo Sanguíneo:</strong> {{ $persona->grupo_sanguineo_descripcion ?? 'N/A' }}</p>
+            <p><strong>Tipo de Contrato:</strong> {{ $persona->contrato_descripcion ?? 'N/A' }}</p>
             <p><strong>Fecha de Creación:</strong> {{ $persona->created_at}}</p>
             <p><strong>Última Actualización:</strong> {{ $persona->updated_at}}</p>
         </div>

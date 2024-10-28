@@ -98,16 +98,24 @@ class PersonasController extends Controller
     {
         
 
-        // Obtener la persona asociada al usuario autenticado
-        $persona = DB::table('personas')
-        ->where('user_id', $id)
-        ->first();
-        // Obtener roles, grupos sanguíneos y contratos si se necesitan en la vista
-        $roles = Roles::select('id', 'name', 'descripcion')->get();
-        $gruposSanguineos = Grupo_sanguineo::select('id', 'descripcion')->get();
-        $tiposContratos = Contratos::select('id', 'descripcion')->get();
+      // Obtener la persona asociada al usuario autenticado
+$persona = DB::table('personas')
+->join('users', 'personas.user_id', '=', 'users.id') // Unir con la tabla de usuarios
+->join('roles', 'users.role_id', '=', 'roles.id') // Unir con roles usando el role_id en la tabla users
+->join('grupo_sanguineos', 'personas.tipo_sangre_id', '=', 'grupo_sanguineos.id') // Unir con la tabla de grupos sanguíneos
+->join('contratos', 'personas.tipo_contrato_id', '=', 'contratos.id') // Unir con la tabla de contratos
+->where('personas.user_id', $id) // Filtrar por el ID de usuario
+->select(
+    'personas.*', 
+    'roles.name as role_name', 
+    'roles.descripcion as role_descripcion',
+    'grupo_sanguineos.descripcion as grupo_sanguineo_descripcion',
+    'contratos.descripcion as contrato_descripcion'
+)
+->first();
+
        
-        return view('personas.show', compact('persona', 'roles', 'gruposSanguineos', 'tiposContratos'));
+        return view('personas.show', compact('persona'));
     }
 
     public function edit(Personas $persona)
