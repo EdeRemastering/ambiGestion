@@ -136,6 +136,8 @@ thead {
 .opcion-barra-navegacion {
     border-radius: 5px;
     position: relative;
+    margin-left: 7px;
+    margin-right: 7px;
 }
 
 .barra-lateral a:hover {
