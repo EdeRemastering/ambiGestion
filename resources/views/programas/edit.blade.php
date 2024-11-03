@@ -1,76 +1,55 @@
 @extends('layouts.app')
 
-@section('titulo', 'Editar Programa')
-
-@section('contenido')
-<div class="contenedor-principal">
-    <section class="contenedor-secundario">
-
-<form action="{{ route('programas.update', $programa->id) }}" method="POST">
+@section('content')
+<div class="container">
+    <h1>Editar Programa de Formación</h1>
+    @if(isset($programa))
+        <form action="{{ route('programas.update', $programa->id) }}" method="POST">
             @csrf
             @method('PUT')
-
-            <div>
-                <label for="nombre">Nombre:</label>
-                <input type="text" name="nombre" id="nombre" value="{{ old('nombre', $programa->nombre) }}" required>
-                @if ($errors->has('nombre'))
-                <span class="text-danger">{{ $errors->first('nombre') }}</span>
-                @endif
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" value="{{ $programa->nombre }}" required>
             </div>
-
-            <div>
-                <label for="version">Versión:</label>
-                <input type="number" name="version" id="version" value="{{ old('version', $programa->version) }}" required>
-                @if ($errors->has('version'))
-                <span class="text-danger">{{ $errors->first('version') }}</span>
-                @endif
+            <div class="mb-3">
+                <label for="codigo" class="form-label">Código</label>
+                <input type="text" class="form-control" id="codigo" name="codigo" value="{{ $programa->codigo }}" required>
             </div>
-
-            <div>
-                <label for="fecha_creacion">Fecha de Creación:</label>
-                <input type="date" name="fecha_creacion" id="fecha_creacion" value="{{ old('fecha_creacion', $programa->fecha_creacion) }}" required>
-                @if ($errors->has('fecha_creacion'))
-                <span class="text-danger">{{ $errors->first('fecha_creacion') }}</span>
-                @endif
+            <div class="mb-3">
+                <label for="version" class="form-label">Versión</label>
+                <input type="text" class="form-control" id="version" name="version" value="{{ $programa->version }}" required>
             </div>
-
-            <div>
-                <label for="duracion_meses">Duración (meses):</label>
-                <input type="number" name="duracion_meses" id="duracion_meses" value="{{ old('duracion_meses', $programa->duracion_meses) }}" required>
-                @if ($errors->has('duracion_meses'))
-                <span class="text-danger">{{ $errors->first('duracion_meses') }}</span>
-                @endif
+            <div class="mb-3">
+                <label for="descripcion" class="form-label">Descripción</label>
+                <textarea class="form-control" id="descripcion" name="descripcion" required>{{ $programa->descripcion }}</textarea>
             </div>
-
-            <div>
-                <label for="requisitos_ingreso">Requisitos de Ingreso:</label>
-                <textarea name="requisitos_ingreso" id="requisitos_ingreso" required>{{ old('requisitos_ingreso', $programa->requisitos_ingreso) }}</textarea>
-                @if ($errors->has('requisitos_ingreso'))
-                <span class="text-danger">{{ $errors->first('requisitos_ingreso') }}</span>
-                @endif
+            <div class="mb-3">
+                <label for="duracion_meses" class="form-label">Duración (meses)</label>
+                <input type="number" class="form-control" id="duracion_meses" name="duracion_meses" value="{{ $programa->duracion_meses }}" required>
             </div>
+            <div class="form-group">
+            <label for="red_conocimiento_id">Red de Conocimiento</label>
+            <select class="form-control @error('red_conocimiento_id') is-invalid @enderror" id="red_conocimiento_id" name="red_conocimiento_id" required>
+                <option value="">Seleccione una Red de Conocimiento</option>
+                @foreach($redesConocimiento as $red)
+                    <option value="{{ $red->id }}" {{ (old('red_conocimiento_id', $programa->red_conocimiento_id) == $red->id) ? 'selected' : '' }}>
+                        {{ $red->nombre }}
+                    </option>
+                @endforeach
+            </select>
+            @error('red_conocimiento_id')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+        <button type="submit" class="btn btn-primary">Actualizar Programa de Formación</button>
+    </form>
+</div>
 
-            <div>
-                <label for="requisitos_formacion">Requisitos de Formación:</label>
-                <textarea name="requisitos_formacion" id="requisitos_formacion" required>{{ old('requisitos_formacion', $programa->requisitos_formacion) }}</textarea>
-                @if ($errors->has('requisitos_formacion'))
-                <span class="text-danger">{{ $errors->first('requisitos_formacion') }}</span>
-                @endif
-            </div>
-
-            <div>
-                <label for="red_conocimiento">Red de Conocimiento:</label>
-                <br>
-                <select name="red_conocimiento" id="red_conocimiento" class="red-width">
-                    <option value="1" {{ old('red_conocimiento', $programa->red_conocimiento) == '1' ? 'selected' : '' }}>Red de Tecnología</option>
-                    <option value="2" {{ old('red_conocimiento', $programa->red_conocimiento) == '2' ? 'selected' : '' }}>Red de Ciencias</option>
-                </select>
-                @if ($errors->has('red_conocimiento'))
-                <span class="text-danger">{{ $errors->first('red_conocimiento') }}</span>
-                @endif
-            </div>
-            <button type="submit" class="btn btn-primary">Actualizar Programa</button>
-        </form>
-        </section>
-    </div>
-@endsection 
+    @else
+        <p>No se encontró el programa de formación.</p>
+    @endif
+    <a href="{{ route('programas.index') }}" class="btn btn-secondary mt-3">Volver a la lista</a>
+</div>
+@endsection

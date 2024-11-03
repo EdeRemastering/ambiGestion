@@ -11,10 +11,10 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     protected $fillable = [
-        'name',
+        
         'email',
         'password',
-        'role_id',  // Añadimos role_id a los campos llenables
+        'role_id',
     ];
 
     protected $hidden = [
@@ -33,9 +33,9 @@ class User extends Authenticatable
     }
 
     public function role()
-    {
-        return $this->belongsTo(Roles::class);
-    }
+{
+    return $this->belongsTo(Roles::class);
+}
 
     public function hasRole($role)
     {
@@ -47,9 +47,6 @@ class User extends Authenticatable
         return $this->hasRole('instructor');
     }
 
-    public function esInstrutorLider() {
-        return $this->hasRole('instructor_lider');
-    }
     public function esAprendiz()
     {
         return $this->hasRole('aprendiz');

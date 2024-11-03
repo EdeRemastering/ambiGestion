@@ -1,17 +1,17 @@
 @extends('layouts.app')
 
-@section('titulo', 'Personas')
+@section('content')
+<div class="container">
+    <h2>Lista de Personas</h2>
 
-@section('contenido')
+    <form action="{{ route('personas.index') }}" method="GET" class="mb-3">
+        <div class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="Buscar personas..." value="{{ request('search') }}">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </div>
+    </form>
 
-@section('estados')
-<div class="acciones">
-<a href="{{ route('personas.pdf') }}" class="btn boton-crear btn-success" target="_blank">PDF</a>
-
-</div>
-@endsection
-
-<table id="personasTable" class="table table-striped" style="width:100%">
+    <table id="personasTable" class="table">
         <thead>
             <tr>
                 <th>Documento</th>
@@ -31,14 +31,18 @@
                 <td>{{ $persona->correo }}</td>
                 <td>{{ $persona->user->role->name }}</td>
                 <td>
-                    <a href="{{ route('personas.show', $persona) }}" class="btn btn-success btn-sm"><i class="bi bi-eye"></i></a>
-                
-
-
+                    <a href="{{ route('personas.edit', $persona) }}" class="btn btn-sm btn-primary">Editar</a>
+                    @if(Auth::user()->role->name === 'admin')
+                        <form action="{{ route('personas.destroy', $persona) }}" method="POST" style="display:inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro?')">Eliminar</button>
+                        </form>
+                    @endif
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
-
+</div>
 @endsection

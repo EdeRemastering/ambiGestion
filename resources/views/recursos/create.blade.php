@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
-@section('titulo', 'Crear Recurso')
 
-@section('contenido')
+@section('content')
 
 
 <div class="contenedor-principal">

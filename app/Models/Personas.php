@@ -21,6 +21,7 @@ class Personas extends Model
         'tipo_sangre_id',
         'user_id',
         'tipo_contrato_id',
+        'codigo_ficha',
     ];
 
     protected $casts = [
@@ -60,5 +61,26 @@ class Personas extends Model
     public function esAdministrador()
     {
         return $this->user && $this->user->role && $this->user->role->name === 'admin';
+    }
+    public function ficha()
+{
+    return $this->belongsTo(Ficha::class, 'codigo_ficha', 'codigo_ficha');
+}
+public function redesConocimiento()
+{
+    return $this->belongsToMany(
+        RedConocimiento::class,
+        'instructor_red_conocimiento',
+        'persona_id',
+        'red_conocimiento_id'
+    )->withTimestamps();
+}
+
+    public function competencias()
+    {
+        return $this->belongsToMany(Competencia::class, 'competencia_instructor',
+            'instructor_id', 'competencia_id')
+            ->withPivot(['fecha_inicio', 'fecha_fin', 'horas_asignadas', 'estado', 'horario'])
+            ->withTimestamps();
     }
 }

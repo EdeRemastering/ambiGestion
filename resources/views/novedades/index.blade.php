@@ -1,9 +1,7 @@
 @extends('layouts.app')
 
-@section('titulo', 'Novedades')
 
-@section('contenido')
-@section('estados')
+@section('content')
     <!-- Enlace para crear una nueva novedad -->
 @foreach ($estados as $estado)
     @php
@@ -26,7 +24,6 @@
 <a href="{{ route('novedades.pdf') }}" class="btn boton-crear btn-success" target="_blank">PDF</a>
 
 </div>
-@endsection
 
 <!-- Tabla de novedades -->
 <table id="novedadesTable" class="table table-striped" style="width:100%">
@@ -34,6 +31,8 @@
         <tr>
             <th>ID</th>
             <th>Nombre</th>
+            <th>Id recurso</th>
+
             <th>Descripción</th>
             <th>Fecha de Registro</th>
             <th>Estado de Novedad</th>
@@ -47,6 +46,7 @@
         <tr>
             <td>{{ $novedad->id }}</td>
             <td>{{ $novedad->nombre }}</td>
+            <td>{{ $novedad->id_recurso }}</td>
             <td>{{ $novedad->descripcion }}</td>
             <td>{{ $novedad->fecha_registro }}</td>
             <td>{{ $novedad->nombre_estado_novedad }}</td>

@@ -81,13 +81,14 @@ thead {
 
 /* Estilos de la barra lateral */
 .barra-lateral {
-    height: 100vh;
+    height: 100%;
     width: 200px;
     position: fixed;
     top: 0;
     left: 0;
     background-color: white;
     color: var(--color-texto);
+    overflow-y: auto; /* Agrega scroll vertical */
     padding-top: 20px;
     border-right: 1px solid var(--color-borde);
     animation: slideIn .5s ease-in-out;
@@ -103,6 +104,23 @@ thead {
     }
 }
 
+.barra-lateral::-webkit-scrollbar {
+    width: 6px; /* Ancho de la barra de desplazamiento */
+}
+
+.barra-lateral::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Color de fondo del track */
+    border-radius: 10px;
+}
+
+.barra-lateral::-webkit-scrollbar-thumb {
+    background-color: #888; /* Color de la barra */
+    border-radius: 10px; /* Esquinas redondeadas */
+}
+
+.barra-lateral::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Color al pasar el ratón */
+}
 .barra-lateral.minimizada {
     width: 60px;
 }

@@ -2,124 +2,186 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
 use App\Models\Ficha;
-use Illuminate\Http\Request;
+use App\Models\ProgramaFormacion;
+use App\Models\RedConocimiento;
+use App\Models\Jornada;
+use App\Models\Personas;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
-
-class FichaController extends Controller
+class FichaController extends Controller 
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index() 
     {
-        $fichas = DB::table('fichas')
-            ->join('programas', 'fichas.id_programa_formacion', '=', 'programas.id') // Ajustado para que sea correcto
-            ->join('jornadas', 'fichas.jornada', '=', 'jornadas.id')
-            ->select('fichas.*',
-            'jornadas.nombre AS jornada',
-            'programas.nombre AS programa_nombre')
-            ->get();
+        $fichas = Ficha::with(['programaFormacion', 'redConocimiento', 'instructor'])
+            ->get()
+            ->map(function ($ficha) {
+                $ficha->fecha_inicio = Carbon::parse($ficha->fecha_inicio);
+                $ficha->fecha_fin = Carbon::parse($ficha->fecha_fin);
+                $ficha->fecha_fin_lectiva = Carbon::parse($ficha->fecha_fin_lectiva);
+                $ficha->fecha_inicio_practica = Carbon::parse($ficha->fecha_inicio_practica);
+                return $ficha;
+            });
+    
         return view('fichas.index', compact('fichas'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        $programas = DB::table('programas')->select('id', 'nombre')->get(); 
-        $jornadas = DB::table('jornadas')->select('id', 'nombre')->get();
-        return view('fichas.create', compact('programas', 'jornadas'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'id_ficha' => 'required|unique:fichas,id_ficha', // Validación para que id_ficha sea único
-            'id_programa_formacion' => 'required',
-            'nombre' => 'required',
-            'jornada' => 'required',
-            'fecha_inicio' => 'required|date',
-            'fecha_fin' => 'required|date'
-        ]);
-
-        Ficha::create($request->all());
-        return redirect()->route('fichas.index')->with('success', 'Ficha creada exitosamente.');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id_ficha)
-    {
-        $ficha = Ficha::findOrFail($id_ficha);
-        return view('fichas.show', compact('ficha'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id_ficha)
-    {
-        $ficha = Ficha::findOrFail($id_ficha);
-        $programas = DB::table('programas')->select('id', 'nombre')->get(); 
-        $jornadas = DB::table('jornadas')->select('id', 'nombre')->get();
-        return view('fichas.edit', compact('ficha', 'programas', 'jornadas'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id_ficha)
-    {
-        $request->validate([
-            'id_ficha' => 'required|unique:fichas,id_ficha,' . $id_ficha . ',id_ficha', // Se especifica id_ficha como columna
-            'id_programa_formacion' => 'required',
-            'nombre' => 'required',
-            'jornada' => 'required',
-            'fecha_inicio' => 'required|date',
-            'fecha_fin' => 'required|date'
-        ]);
+    public function create() 
+{
+    $jornadas = Jornada::select('id', 'nombre', 'hora_inicio', 'hora_fin')->get();
+    $programasFormacion = ProgramaFormacion::with('redConocimiento')->get();
     
-        $ficha = Ficha::findOrFail($id_ficha);
-        $ficha->update($request->all());
+    $instructores = Personas::whereHas('user.role', function($query) {
+        $query->where('name', 'instructor');
+    })
+    ->select('personas.id', 'personas.pnombre', 'personas.snombre', 
+             'personas.papellido', 'personas.sapellido', 'personas.documento')
+    ->with(['user.role', 'redesConocimiento'])
+    ->get();
+
+    return view('fichas.create', compact('jornadas', 'programasFormacion', 'instructores'));
+}
+    
+    public function getInstructoresPorRed($redId)
+    {
+        $instructores = Personas::whereHas('user.role', function($query) {
+            $query->where('name', 'instructor');
+        })
+        ->whereHas('redesConocimiento', function($query) use ($redId) {
+            $query->where('red_conocimientos.id', $redId);
+        })
+        ->select('personas.id', 'personas.pnombre', 'personas.snombre', 
+                 'personas.papellido', 'personas.sapellido', 'personas.documento')
+        ->with(['user.role', 'redesConocimiento'])
+        ->get()
+        ->map(function($instructor) {
+            return [
+                'id' => $instructor->id,
+                'texto' => trim(sprintf('%s %s %s %s - %s',
+                    $instructor->pnombre,
+                    $instructor->snombre ?: '',
+                    $instructor->papellido,
+                    $instructor->sapellido ?: '',
+                    $instructor->documento
+                ))
+            ];
+        });
+    
+        return response()->json($instructores);
+    }
+
+public function store(Request $request)
+{
+    $validatedData = $request->validate([
+        'codigo_ficha' => 'required|unique:fichas',
+        'instructor_lider' => 'required|exists:personas,id',
+        'numero_aprendices' => 'required|integer|min:1',
+        'fecha_inicio' => 'required|date',
+        'programa_formacion_id' => 'required|exists:programa__formacions,id',
+        'red_conocimiento_id' => 'required|exists:red_conocimientos,id',
+        'jornada_id' => 'required|exists:jornadas,id',
+        'hora_entrada' => 'required',
+        'hora_salida' => 'required',
+    ]);
+
+    try {
+        return DB::transaction(function() use ($validatedData) {
+            // Verificar que el instructor pertenece a la red de conocimiento
+            $instructor = Personas::findOrFail($validatedData['instructor_lider']);
+            
+            if (!$instructor->redesConocimiento()
+                           ->where('red_conocimiento_id', $validatedData['red_conocimiento_id'])
+                           ->exists()) {
+                throw new \Exception('El instructor no pertenece a la red de conocimiento del programa.');
+            }
+
+            $ficha = Ficha::create($validatedData);
+            $ficha->calcularFechas();
+            $ficha->save();
+
+            return redirect()
+                ->route('fichas.index')
+                ->with('success', 'Ficha creada exitosamente.');
+        });
+
+    } catch (\Exception $e) {
+        return back()
+            ->withErrors(['error' => $e->getMessage()])
+            ->withInput();
+    }
+}
+
+public function show(Ficha $ficha)
+{
+    $ficha->load(['programaFormacion', 'redConocimiento', 'instructor', 'jornada']);
+    
+    // Convertir fechas a Carbon
+    $ficha->fecha_inicio = Carbon::parse($ficha->fecha_inicio);
+    $ficha->fecha_fin = Carbon::parse($ficha->fecha_fin);
+    $ficha->fecha_fin_lectiva = Carbon::parse($ficha->fecha_fin_lectiva);
+    $ficha->fecha_inicio_practica = Carbon::parse($ficha->fecha_inicio_practica);
+    
+    return view('fichas.show', compact('ficha'));
+}
+
+public function edit(Ficha $ficha)
+{
+    $jornadas = Jornada::all();
+    $programasFormacion = ProgramaFormacion::with('redConocimiento')->get();
+    $redesConocimiento = RedConocimiento::all();
+    
+    // Convertir fechas a Carbon
+    $ficha->fecha_inicio = Carbon::parse($ficha->fecha_inicio);
+    $ficha->fecha_fin = Carbon::parse($ficha->fecha_fin);
+    $ficha->fecha_fin_lectiva = Carbon::parse($ficha->fecha_fin_lectiva);
+    $ficha->fecha_inicio_practica = Carbon::parse($ficha->fecha_inicio_practica);
+    
+    return view('fichas.edit', compact('ficha', 'jornadas', 'programasFormacion', 'redesConocimiento'));
+}
+
+    public function update(Request $request, Ficha $ficha)
+    {
+        $validatedData = $request->validate([
+            'codigo_ficha' => 'required|unique:fichas,codigo_ficha,' . $ficha->id,
+            'instructor_lider' => 'required|exists:personas,id',
+            'numero_aprendices' => 'required|integer|min:1',
+            'fecha_inicio' => 'required|date',
+            'programa_formacion_id' => 'required|exists:programa__formacions,id',
+            'red_conocimiento_id' => 'required|exists:red_conocimientos,id',
+            'jornada_id' => 'required|exists:jornadas,id',
+            'hora_entrada' => 'required',
+            'hora_salida' => 'required',
+        ]);
+
+        $ficha->fill($validatedData);
+        $ficha->calcularFechas();
+        $ficha->save();
+
         return redirect()->route('fichas.index')->with('success', 'Ficha actualizada exitosamente.');
     }
-    
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id_ficha)
+    public function destroy(Ficha $ficha)
     {
-        $ficha = Ficha::findOrFail($id_ficha);
         $ficha->delete();
         return redirect()->route('fichas.index')->with('success', 'Ficha eliminada exitosamente.');
     }
 
-    public function generarPDF()
-    {
-        $fichas = DB::table('fichas')
-        ->join('programas', 'fichas.id_programa_formacion', '=', 'programas.id') // Ajustado para que sea correcto
-        ->join('jornadas', 'fichas.jornada', '=', 'jornadas.id')
-        ->select('fichas.*',
-        'jornadas.nombre AS jornada',
-        'programas.nombre AS programa_nombre')
-        ->get();
-
-       // Generar el PDF con los datos y la vista 'pdf.ambientes'
-$pdf = PDF::loadView('fichas.pdf', compact('fichas'));
-
-// Retorna el PDF para que el navegador lo descargue o visualice
-return $pdf->stream('fichas.pdf'); // Para mostrar en navegador
-// return $pdf->download('ambientes.pdf'); // Para descargar directamente
-
-    }
     
+    public function imprimirAprendices(Ficha $ficha)
+{
+    $ficha->load(['programaFormacion', 'instructor', 'jornada']);
+    $aprendices = $ficha->aprendices()
+        ->orderBy('papellido')
+        ->orderBy('pnombre')
+        ->get();
+    
+    $pdf = PDF::loadView('fichas.imprimir-aprendices', 
+        compact('ficha', 'aprendices'))
+        ->setPaper('a4', 'landscape');
+    
+    return $pdf->stream("Listado_Aprendices_Ficha_{$ficha->codigo_ficha}.pdf");
+}
 }

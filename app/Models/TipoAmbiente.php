@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class TipoAmbiente extends Model
 {
     use HasFactory;
+
     protected $fillable = ['nombre'];
+
+    public function ambientes()
+    {
+        return $this->hasMany(Ambiente::class);
+    }
 }
-//aqui van los campos de mi tabla

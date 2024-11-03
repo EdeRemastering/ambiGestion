@@ -1,9 +1,17 @@
 @extends('layouts.app')
 
-@section('titulo', 'Crear Novedad')
 
-@section('contenido')
+@section('content')
 
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <div class="contenedor-principal">
 
     <div class="contenedor-secundario">
@@ -13,6 +21,16 @@
             <div class="form-group mb-3">
                 <label for="nombre">Nombre:</label>
                 <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Ingrese el nombre de la novedad" required>
+            </div>
+
+            
+            <div class="form-group mb-3">
+                <label for="id_recurso">Recurso:</label>
+                <select id="id_recurso" name="id_recurso" class="form-control" required>
+                    @foreach ($recursos as $recurso)
+                        <option value="{{ $recurso->id_recurso}}">{{ $recurso->descripcion }}</option>
+                    @endforeach
+                </select>
             </div>
 
             <div class="form-group mb-3">

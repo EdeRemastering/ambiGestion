@@ -1,10 +1,8 @@
 @extends('layouts.app')
 
-@section('titulo', 'Recursos')
 
-@section('contenido')
+@section('content')
 
-@section('estados')
     
     @foreach ($estados as $estado)
         @php
@@ -27,7 +25,7 @@
     <a href="{{ route('recursos.pdf') }}" class="btn boton-crear btn-success" target="_blank">PDF</a>
 
     </div>
-@endsection
+
 
 <!-- Tabla de recursos -->
 <table id="recursosTable" class="table table-striped" style="width:100%">

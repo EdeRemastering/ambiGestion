@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
-@section('titulo', 'Crear')
-
-@section('contenido')
+@section('content')
 <div class="container">
     <h2>Crear Persona</h2>
     <form action="{{ route('personas.store') }}" method="POST">
@@ -10,7 +8,7 @@
 
         <div class="form-group">
             <label for="documento">Documento</label>
-            <input type="number" class="form-control" name="documento" id="documento" placeholder="Documento" value="{{ old('documento') }}" required>
+            <input type="text" class="form-control" name="documento" id="documento" placeholder="Documento" value="{{ old('documento') }}" required>
             @error('documento')
                 <small class="text-danger">{{ $message }}</small>
             @enderror
@@ -50,7 +48,7 @@
 
         <div class="form-group">
             <label for="telefono">Teléfono</label>
-            <input type="number" class="form-control" name="telefono" id="telefono" placeholder="Teléfono" value="{{ old('telefono') }}" required>
+            <input type="text" class="form-control" name="telefono" id="telefono" placeholder="Teléfono" value="{{ old('telefono') }}" required>
             @error('telefono')
                 <small class="text-danger">{{ $message }}</small>
             @enderror

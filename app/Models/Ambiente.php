@@ -9,13 +9,51 @@ class Ambiente extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['numero', 'alias', 'capacidad',  'descripcion', 'tipo', 'estado', 'red_de_conocimiento'];
+    protected $table = 'ambientes';
 
-    public function tipoAmbinete() {
-        return $this->belongsTo(TipoAmbiente::class, 'tipo');
+    protected $fillable = [
+        'numero', 
+        'alias', 
+        'capacidad', 
+        'descripcion', 
+        'tipo_id',  // Cambiado de 'tipo'
+        'estado_id', // Cambiado de 'estado'
+        'red_conocimiento_id' // Cambiado de 'red_de_conocimiento'
+    ];
+
+    public function estadoAmbiente()
+    {
+        return $this->belongsTo(EstadoAmbiente::class, 'estado_id');
     }
 
-    public function redDeConocimiento() {
-        return $this->belongsTo(red_conocimiento::class, 'red_de_conocimiento');
+    public function tipoAmbiente()
+    {
+        return $this->belongsTo(TipoAmbiente::class, 'tipo_id'); // Cambiado de 'tipo'
+    }
+
+    public function redConocimiento()
+    {
+        return $this->belongsTo(RedConocimiento::class, 'red_conocimiento_id'); // Cambiado
+    }
+
+    // Método para obtener ambientes con relaciones
+    public static function getAmbientesConRelaciones()
+    {
+        return self::with(['estadoAmbiente', 'tipoAmbiente', 'redConocimiento'])->get();
+    }
+
+    // Método para obtener estadísticas
+    public static function getEstadisticas()
+    {
+        $ambientesPorEstado = self::groupBy('estado_id') // Cambiado de 'estado'
+            ->selectRaw('estado_id, count(*) as total')
+            ->get();
+
+        $ambientesTotal = self::count();
+
+        return [
+            'ambientesPorEstado' => $ambientesPorEstado,
+            'ambientesTotal' => $ambientesTotal
+        ];
     }
 }

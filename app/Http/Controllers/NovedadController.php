@@ -20,6 +20,7 @@ class NovedadController extends Controller
         ->select(
             'novedad.id',
             'novedad.nombre',
+            'id_recurso',
             'novedad.descripcion',
             'novedad.fecha_registro',
             'estado_novedad.nombre AS nombre_estado_novedad',
@@ -49,7 +50,9 @@ class NovedadController extends Controller
     {   
 
         $estados = DB::table('estado_novedad')->select('id', 'nombre')->get();
-        return view('novedades.create', compact('estados'));
+        $recursos = DB::table('recurso')->select('*')->get();
+
+        return view('novedades.create', compact('estados', 'recursos'));
     }
 
     /**
@@ -57,24 +60,26 @@ class NovedadController extends Controller
      */
     public function store(Request $request)
     {
-
-        try {
+        // Muestra todos los datos recibidos desde el formulario y detiene la ejecución.
+     
+        // Validación de los datos
         $request->validate([
             'nombre' => 'required|string|max:255',
+            'id_recurso' => 'required|integer',
             'descripcion' => 'required|string',
             'estado' => 'required|integer',
-            'fecha_solucion' => 'nullable|datetime'
+            'fecha_solucion' => 'nullable|date'
         ]);
-
-
-
+    
+        try {
+            // Crear la novedad en la base de datos
             Novedad::create($request->all());
             return redirect()->route('novedades.index')->with('success', 'Novedad creada exitosamente.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Error al crear la novedad.' . $e->getMessage());
+            return redirect()->back()->with('error', 'Error al crear la novedad. ' . $e->getMessage());
         }
-      
     }
+    
 
     /**
      * Display the specified resource.
@@ -86,6 +91,7 @@ class NovedadController extends Controller
         ->select(
             'novedad.id',
             'novedad.nombre',
+            'novedad.id_recurso',
             'novedad.descripcion',
             'novedad.fecha_registro',
             'estado_novedad.nombre AS nombre_estado_novedad',
@@ -104,7 +110,8 @@ class NovedadController extends Controller
     {
         $novedad = Novedad::findOrFail($id);
         $estados = DB::table('estado_novedad')->select('id', 'nombre')->get();
-        return view('novedades.edit', compact('novedad', 'estados'));
+        $recursos = DB::table('recurso')->select('*')->get();
+        return view('novedades.edit', compact('novedad', 'estados', 'recursos'));
     }
 
     /**
@@ -116,9 +123,11 @@ class NovedadController extends Controller
         try {
         $request->validate([
             'nombre' => 'required|string|max:255',
+            'id_recurso' => 'required|integer',
             'descripcion' => 'required|string',
             'estado' => 'required|integer',
-            'fecha_solucion' => 'nullable|date'
+            'fecha_solucion' => 'nullable|date',
+            'descripcion_solucion' => 'nullable|string'
         ]);
 
   

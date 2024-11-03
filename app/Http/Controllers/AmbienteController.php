@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Models\Ambiente;
-use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\EstadoAmbiente;
+use App\Models\TipoAmbiente;
+use Illuminate\Support\Facades\Log;
+
 use Illuminate\Http\Request;
 
 class AmbienteController extends Controller
@@ -12,48 +15,27 @@ class AmbienteController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $ambientes = DB::table('ambientes')
-        ->join('estado_ambiente', 'ambientes.estado', '=', 'estado_ambiente.id')
-        ->join('red_de_formacion', 'ambientes.red_de_conocimiento', '=', 'red_de_formacion.id_area_formacion')
-        ->join('tipo_ambiente', 'ambientes.tipo', '=', 'tipo_ambiente.id')
-        ->select(
-            'ambientes.id',
-            'ambientes.numero',
-            'ambientes.alias',
-            'ambientes.capacidad',
-            'ambientes.descripcion',
-            'tipo_ambiente.nombre AS tipo_ambiente',
-            'estado_ambiente.nombre AS estado_ambiente', // Nombre del estado
-            'red_de_formacion.nombre AS nombre_red_de_conocimiento' // Nombre de la red de formación
-        )
-        ->get();    
-
-        // Obtener los estados y la cantidad de ambientes por estado
-        $ambientesPorEstado = DB::table('ambientes')
-            ->select('estado', DB::raw('count(*) as total'))
-            ->groupBy('estado')
-            ->get();
-
-        // Obtener todos los estados de la tabla estado_ambiente
-        $estados = DB::table('estado_ambiente')->select('id', 'nombre')->get();
-
-        // Total de ambientes
-        $ambientesTotal = DB::table('ambientes')->count();
-
-        // Pasar los datos a la vista
-        return view('ambientes.index', compact('ambientes', 'ambientesPorEstado', 'estados', 'ambientesTotal'));
+{
     
-    }
+    $ambientes = Ambiente::with(['tipoAmbiente', 'estadoAmbiente', 'redConocimiento'])->get();
+    $estadisticas = [
+        'ambientesPorEstado' => Ambiente::selectRaw('estado_id as estado, count(*) as total')
+                                        ->groupBy('estado_id')
+                                        ->get(),
+        'ambientesTotal' => Ambiente::count()
+    ];
+    $estados = EstadoAmbiente::all();
 
+    return view('ambientes.index', compact('ambientes', 'estadisticas', 'estados'));
+}
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
         $estados = DB::table('estado_ambiente')->select('id', 'nombre')->get();
-        $redes_de_conocimiento = DB::table('red_de_formacion')->select('id_area_formacion', 'nombre')->get();
-        $tipos = DB::table('tipo_ambiente')->select('id', 'nombre')->get();
+        $redes_de_conocimiento = DB::table('red_conocimientos')->select('id', 'nombre')->get();
+        $tipos = DB::table('tipo_ambientes')->select('id', 'nombre')->get();
         return view('ambientes.create', compact('estados', 'redes_de_conocimiento', 'tipos'));
     }
 
@@ -62,27 +44,39 @@ class AmbienteController extends Controller
      */
     public function store(Request $request)
     {
-
         try {
-        $request->validate([
-        'numero' => 'required',
-            'alias' => 'required',
-            'capacidad' => 'required',
-            'descripcion' => 'required',
-            'tipo' => 'required',
-            'estado' => 'required',
-            'red_de_conocimiento' => 'required'
-        ]);
-
-
-            Ambiente::create($request->all());
-            return redirect()->route('ambientes.index')->with('success', 'Ambiente creado exitosamente.');
+            \Log::info('Datos recibidos:', $request->all());
+    
+            $request->validate([
+                'numero' => 'required',
+                'alias' => 'required',
+                'capacidad' => 'required',
+                'descripcion' => 'required',
+                'tipo' => 'required|exists:tipo_ambientes,id',
+                'estado' => 'required|exists:estado_ambiente,id',
+                'red_de_conocimiento' => 'required|exists:red_conocimientos,id'
+            ]);
+    
+            $ambiente = Ambiente::create([
+                'numero' => $request->numero,
+                'alias' => $request->alias,
+                'capacidad' => $request->capacidad,
+                'descripcion' => $request->descripcion,
+                'tipo_id' => $request->tipo,
+                'estado_id' => $request->estado,
+                'red_conocimiento_id' => $request->red_de_conocimiento
+            ]);
+    
+            \Log::info('Ambiente creado:', $ambiente->toArray());
+    
+            return redirect()->route('ambientes.index')
+                ->with('success', 'Ambiente creado exitosamente.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Error al crear el ambiente.' . $e->getMessage()) ;
+            \Log::error('Error al crear ambiente: ' . $e->getMessage());
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Error al crear el ambiente: ' . $e->getMessage());
         }
-
-        
-      
     }
 
     /**
@@ -90,22 +84,6 @@ class AmbienteController extends Controller
      */
     public function show(string $id)
     {
-        $ambiente = DB::table('ambientes')
-        ->join('estado_ambiente', 'ambientes.estado', '=', 'estado_ambiente.id')
-        ->join('red_de_formacion', 'ambientes.red_de_conocimiento', '=', 'red_de_formacion.id_area_formacion')
-        ->join('tipo_ambiente', 'ambientes.tipo', '=', 'tipo_ambiente.id')
-        ->select(
-            'ambientes.id',
-            'ambientes.numero',
-            'ambientes.alias',
-            'ambientes.capacidad',
-            'ambientes.descripcion',
-            'tipo_ambiente.nombre AS tipo_ambiente',
-            'estado_ambiente.nombre AS estado_ambiente', // Nombre del estado
-            'red_de_formacion.nombre AS nombre_red_de_conocimiento' // Nombre de la red de formación
-        )
-        ->where('ambientes.id', $id)
-        ->first();   
         return view('ambientes.show', compact('ambiente'));
     }
 
@@ -114,38 +92,56 @@ class AmbienteController extends Controller
      */
     public function edit(string $id)
     {
-        $ambiente = Ambiente::findOrFail($id);
-        $estados = DB::table('estado_ambiente')->select('id', 'nombre')->get();
-        $tipos = DB::table('tipo_ambiente')->select('id', 'nombre')->get();
-        $redes_de_conocimiento = DB::table('red_de_formacion')->select('id_area_formacion', 'nombre')->get();
-        return view('ambientes.edit', compact('ambiente', 'estados', 'redes_de_conocimiento', 'tipos'));
+        try {
+            $ambiente = Ambiente::findOrFail($id);
+            $estados = DB::table('estado_ambiente')->select('id', 'nombre')->get();
+            $tipos = DB::table('tipo_ambientes')->select('id', 'nombre')->get();
+            // Corregido: cambiado red_de_formacion por red_conocimientos
+            $redes_de_conocimiento = DB::table('red_conocimientos')->select('id', 'nombre')->get();
+            
+            return view('ambientes.edit', compact('ambiente', 'estados', 'redes_de_conocimiento', 'tipos'));
+        } catch (\Exception $e) {
+            \Log::error('Error en edit: ' . $e->getMessage());
+            return redirect()->route('ambientes.index')->with('error', 'No se encontró el ambiente.');
+        }
     }
-
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {
-
-        try {
+{
+    try {
+        $ambiente = Ambiente::findOrFail($id);
+        
         $request->validate([
-            'numero',
-            'alias',
-            'capacidad',
-            'descripcion',
-            'tipo',
-            'estado',
-            'red_de_conocimiento'
+            'numero' => 'required',
+            'alias' => 'required',
+            'capacidad' => 'required|numeric',
+            'descripcion' => 'required',
+            'tipo' => 'required|exists:tipo_ambientes,id',
+            'estado' => 'required|exists:estado_ambiente,id',
+            'red_de_conocimiento' => 'required|exists:red_conocimientos,id'
         ]);
 
+        $ambiente->update([
+            'numero' => $request->numero,
+            'alias' => $request->alias,
+            'capacidad' => $request->capacidad,
+            'descripcion' => $request->descripcion,
+            'tipo_id' => $request->tipo,
+            'estado_id' => $request->estado,
+            'red_conocimiento_id' => $request->red_de_conocimiento
+        ]);
 
-            $ambiente = Ambiente::findOrFail($id);
-            $ambiente->update($request->all());
-            return redirect()->route('ambientes.index')->with('success', 'Ambiente actualizado exitosamente.');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Error al actualizar el ambiente.' . $e->getMessage());
-        }
+        return redirect()->route('ambientes.index')
+            ->with('success', 'Ambiente actualizado exitosamente.');
+    } catch (\Exception $e) {
+        \Log::error('Error al actualizar ambiente: ' . $e->getMessage());
+        return redirect()->back()
+            ->withInput()
+            ->with('error', 'Error al actualizar el ambiente: ' . $e->getMessage());
     }
+}
 
     /**
      * Remove the specified resource from storage.
@@ -162,43 +158,4 @@ class AmbienteController extends Controller
             return redirect()->back()->with('error', 'Error al eliminar el ambiente.' . $e->getMessage());
         }
     }
-
-    public function generarPDF()
-    {
-        // Obtener todos los ambientes junto con su estado, tipo y red de conocimiento
-        $ambientes = DB::table('ambientes')
-            ->join('estado_ambiente', 'ambientes.estado', '=', 'estado_ambiente.id')
-            ->join('red_de_formacion', 'ambientes.red_de_conocimiento', '=', 'red_de_formacion.id_area_formacion')
-            ->join('tipo_ambiente', 'ambientes.tipo', '=', 'tipo_ambiente.id')
-            ->select(
-                'ambientes.id',
-                'ambientes.numero',
-                'ambientes.alias',
-                'ambientes.capacidad',
-                'ambientes.descripcion',
-                'tipo_ambiente.nombre AS tipo_ambiente',
-                'estado_ambiente.nombre AS estado_ambiente', // Nombre del estado
-                'red_de_formacion.nombre AS nombre_red_de_conocimiento' // Nombre de la red de formación
-            )
-            ->get();
-    
-        // Obtener la cantidad de ambientes por estado
-        $ambientesPorEstado = DB::table('ambientes')
-            ->join('estado_ambiente', 'ambientes.estado', '=', 'estado_ambiente.id')
-            ->select('estado_ambiente.nombre AS estado_nombre', DB::raw('count(*) as total'))
-            ->groupBy('estado_ambiente.nombre')
-            ->get();
-    
-        // Total de ambientes
-        $ambientesTotal = $ambientes->count();
-    
-       // Generar el PDF con los datos y la vista 'pdf.ambientes'
-$pdf = PDF::loadView('ambientes.pdf', compact('ambientes', 'ambientesPorEstado', 'ambientesTotal'));
-
-// Retorna el PDF para que el navegador lo descargue o visualice
-return $pdf->stream('ambientes.pdf'); // Para mostrar en navegador
-// return $pdf->download('ambientes.pdf'); // Para descargar directamente
-
-    }
-    
 }

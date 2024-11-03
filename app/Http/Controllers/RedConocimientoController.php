@@ -2,64 +2,65 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\red_conocimiento;
+use App\Models\RedConocimiento;
 use Illuminate\Http\Request;
 
 class RedConocimientoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $redesConocimiento = RedConocimiento::all();
+        return view('red_conocimiento.index', compact('redesConocimiento'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('red_conocimiento.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'nullable|string',
+            'codigo' => 'required|string|unique:red_conocimientos,codigo',
+        ]);
+
+        RedConocimiento::create($validatedData);
+
+        return redirect()->route('red_conocimiento.index')
+            ->with('success', 'Red de Conocimiento creada exitosamente.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(red_conocimiento $red_conocimiento)
+    public function show(RedConocimiento $redConocimiento)
     {
-        //
+        return view('red_conocimiento.show', compact('redConocimiento'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(red_conocimiento $red_conocimiento)
+    public function edit(RedConocimiento $redConocimiento)
     {
-        //
+        return view('red_conocimiento.edit', compact('redConocimiento'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, red_conocimiento $red_conocimiento)
+    public function update(Request $request, RedConocimiento $redConocimiento)
     {
-        //
+        $validatedData = $request->validate([
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'nullable|string',
+            'codigo' => 'required|string|unique:red_conocimientos,codigo,' . $redConocimiento->id,
+        ]);
+
+        $redConocimiento->update($validatedData);
+
+        return redirect()->route('red_conocimiento.index')
+            ->with('success', 'Red de Conocimiento actualizada exitosamente.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(red_conocimiento $red_conocimiento)
+    public function destroy(RedConocimiento $redConocimiento)
     {
-        //
+        $redConocimiento->delete();
+
+        return redirect()->route('red_conocimiento.index')
+            ->with('success', 'Red de Conocimiento eliminada exitosamente.');
     }
 }

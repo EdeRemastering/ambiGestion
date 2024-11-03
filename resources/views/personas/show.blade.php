@@ -1,41 +1,80 @@
 @extends('layouts.app')
 
-@section('titulo', 'Ver Persona')
-
-@section('contenido')
-
-    <h1>{{ $persona->pnombre }} {{ $persona->papellido }}</h1>
-    <div class="contenedor-ver-elemento card">
-        <div class="card-header">Detalles de la Persona</div>
+@section('content')
+<div class="container">
+    <h1 class="mb-4">Detalles de la Persona</h1>
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h5 class="card-title mb-0">{{ $persona->pnombre }} {{ $persona->papellido }}</h5>
+        </div>
         <div class="card-body">
-            <p><strong>ID:</strong> {{ $persona->id }}</p>
-            <p><strong>Documento:</strong> {{ $persona->documento }}</p>
-            <p><strong>Nombre completo:</strong> {{ $persona->pnombre }} {{ $persona->snombre }} {{ $persona->papellido }} {{ $persona->sapellido }}</p>
-            <p><strong>Teléfono:</strong> {{ $persona->telefono }}</p>
-            <p><strong>Correo:</strong> {{ $persona->correo }}</p>
-            <p><strong>Dirección:</strong> {{ $persona->direccion }}</p>
-            <p><strong>Rol:</strong> {{ $persona->role_name ?? 'N/A' }}</p>
-            <p><strong>Grupo Sanguíneo:</strong> {{ $persona->grupo_sanguineo_descripcion ?? 'N/A' }}</p>
-            <p><strong>Tipo de Contrato:</strong> {{ $persona->contrato_descripcion ?? 'N/A' }}</p>
-            <p><strong>Fecha de Creación:</strong> {{ $persona->created_at}}</p>
-            <p><strong>Última Actualización:</strong> {{ $persona->updated_at}}</p>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <strong>ID:</strong> {{ $persona->id }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <strong>Documento:</strong> {{ $persona->documento }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <strong>Primer Nombre:</strong> {{ $persona->pnombre }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <strong>Segundo Nombre:</strong> {{ $persona->snombre ?? 'N/A' }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <strong>Primer Apellido:</strong> {{ $persona->papellido }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <strong>Segundo Apellido:</strong> {{ $persona->sapellido ?? 'N/A' }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <strong>Teléfono:</strong> {{ $persona->telefono }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <strong>Correo:</strong> {{ $persona->correo }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <strong>Dirección:</strong> {{ $persona->direccion }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <strong>Rol:</strong> {{ $persona->rol->descripcion ?? 'N/A' }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <strong>Grupo Sanguíneo:</strong> {{ $persona->grupoSanguineo->descripcion ?? 'N/A' }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <strong>Tipo de Contrato:</strong> {{ $persona->tipoContrato->descripcion ?? 'N/A' }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <strong>Fecha de Creación:</strong> {{ $persona->created_at->format('Y-m-d H:i:s') }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <strong>Última Actualización:</strong> {{ $persona->updated_at->format('Y-m-d H:i:s') }}
+                </div>
+            </div>
         </div>
     </div>
-
-    <div class="botones-mostrar-elemento mt-3">
-        @if(Auth::user()->role->name == 'admin')
-            <a href="{{ route('personas.edit', $persona->id) }}" class="btn btn-success btn-sm">
-                <i class="bi bi-pencil "></i> 
-            </a>
-            <form id="formularioEliminar-{{ $persona->id }}" action="{{ route('personas.destroy', $persona->id) }}" method="POST" style="display:inline;">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger btn-sm" onclick="mensajeDeEliminacion(event, '{{ $persona->id }}', '{{ $persona->pnombre }} {{ $persona->papellido }}', 'personas')">
-                    <i class="bi bi-trash3 "></i> 
-                </button>
-            </form>
-        @endif
-        <a href="{{ route('personas.index') }}" class="btn btn-secondary">Volver a la lista</a>
+    <div class="mt-4">
+        <a href="{{ route('personas.edit', $persona) }}" class="btn btn-primary mb-2 mb-md-0">Editar</a>
+        <a href="{{ route('personas.index') }}" class="btn btn-secondary mb-2 mb-md-0">Volver a la lista</a>
+        <form action="{{ route('personas.destroy', $persona) }}" method="POST" class="d-inline-block">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger mb-2 mb-md-0" onclick="return confirm('¿Estás seguro de que quieres eliminar esta persona?')">Eliminar</button>
+        </form>
     </div>
+</div>
 
+<style>
+    @media (max-width: 768px) {
+        .card-body .row > div {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .card-body .row > div:last-child {
+            border-bottom: none;
+        }
+    }
+</style>
 @endsection

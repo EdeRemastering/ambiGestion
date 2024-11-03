@@ -2,12 +2,29 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\AmbienteProgramacion;
+use App\Models\Competencia;
 
 class ResultadoAprendizaje extends Model
 {
-    use HasFactory;
-    protected $fillable = ['codigo', 'descripcion', 'duracion_horas', 'intensidad_horaria', 'competencia_id'];
+    protected $table = 'resultado_aprendizajes';
+
+    protected $fillable = [
+        'competencia_id',
+        'intensidad_horaria',
+        'is_manually_edited'
+    ];
+
+    public function competencia(): BelongsTo
+    {
+        return $this->belongsTo(Competencia::class);
+    }
+
+    public function programaciones(): HasMany
+    {
+        return $this->hasMany(AmbienteProgramacion::class, 'resultado_aprendizaje_id', 'id');
+    }
 }
-//aqui van los campos de mi tabla

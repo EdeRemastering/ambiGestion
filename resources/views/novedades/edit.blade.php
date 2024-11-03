@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
-@section('titulo', 'Editar Novedad')
 
-@section('contenido')
+@section('content')
 
 <div class="contenedor-principal">
     <div class="contenedor-secundario">
@@ -14,6 +13,17 @@
             <div class="form-group mb-3">
                 <label for="nombre">Nombre:</label>
                 <input type="text" id="nombre" name="nombre" class="form-control" value="{{ $novedad->nombre }}" required>
+            </div>
+            <div class="form-group mb-3">
+                <label for="id_recurso">Recurso:</label>
+                <select id="id_recurso" name="id_recurso" class="form-control" required>
+    @foreach ($recursos as $recurso)
+        <option value="{{ $recurso->id_recurso }}" {{ $novedad->id_recurso == $recurso->id_recurso ? 'selected' : '' }}>
+            {{ $recurso->descripcion }}
+        </option>
+    @endforeach
+</select>
+
             </div>
 
             <div class="form-group mb-3">
