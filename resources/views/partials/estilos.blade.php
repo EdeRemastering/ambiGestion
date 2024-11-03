@@ -21,3 +21,6 @@
     <script src="{{ asset('js/alertas.js') }}"></script>
     <script src="{{asset('js/storageTema.js')}}"></script>
     <!-- Sección para incluir estilos adicionales en vistas específicas -->
+
+    <!-- CSS de Select2 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet">

@@ -302,11 +302,3 @@ Route::get('/mensual/pdf', [ReporteProgramacionController::class, 'exportarMensu
              ->name('reportes-programacion.diario.pdf');
     });
 });
-
-
-
-
-
-
-
-
