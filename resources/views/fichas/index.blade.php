@@ -1,55 +1,5 @@
 @extends('layouts.app')
 
-@section('styles')
-<link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-<link href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap5.min.css" rel="stylesheet">
-<link href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.bootstrap5.min.css" rel="stylesheet">
-<style>
-    .estado-badge {
-        padding: 0.5em 1em;
-        border-radius: 15px;
-        font-weight: bold;
-        white-space: nowrap;
-    }
-    .por-iniciar { 
-        background-color: #ffd700; 
-        color: #000; 
-    }
-    .etapa-lectiva { 
-        background-color: #28a745; 
-        color: #fff; 
-    }
-    .etapa-practica { 
-        background-color: #1e90ff; 
-        color: #fff; 
-    }
-    .finalizada { 
-        background-color: #dc3545; 
-        color: #fff; 
-    }
-    .btn-group .btn {
-        margin-right: 2px;
-    }
-    .dataTables_wrapper .btn {
-        padding: 0.375rem 0.75rem;
-    }
-    .table thead th {
-        background-color: #f8f9fa;
-        border-bottom: 2px solid #dee2e6;
-    }
-    .table tbody tr:hover {
-        background-color: rgba(0,0,0,.075);
-    }
-    .modal-header {
-        background-color: #39A900;
-        color: white;
-    }
-    .modal-header .btn-close {
-        color: white;
-    }
-</style>
-@endsection
-
 @section('content')
 <div class="container-fluid">
     <div class="card">
@@ -71,9 +21,9 @@
                 </div>
             @endif
 
-            <div class="table-responsive">
-                <table id="fichasTable" class="table table-striped table-bordered dt-responsive nowrap">
-                    <thead class="table-light">
+  
+                <table id="fichasTable" class="table">
+                    <thead>
                         <tr>
                             <th>Código</th>
                             <th>Programa</th>
@@ -106,42 +56,38 @@
                                 <td>
                                     <div class="btn-group" role="group">
                                         <a href="{{ route('fichas.show', $ficha) }}" 
-                                           class="btn btn-info btn-sm" 
+                                           class="btn btn-success btn-sm" 
                                            title="Ver Detalles">
-                                            <i class="fas fa-eye"></i>
+                                            <i class="bi bi-eye"></i>
                                         </a>
                                         <a href="{{ route('fichas.edit', $ficha) }}" 
-                                           class="btn btn-primary btn-sm"
+                                           class="btn btn-success btn-sm"
                                            title="Editar">
-                                            <i class="fas fa-edit"></i>
+                                            <i class="bi bi-pencil"></i>
                                         </a>
-                                        <button type="button" 
-                                                class="btn btn-danger btn-sm" 
-                                                title="Eliminar"
-                                                onclick="confirmarEliminacion('{{ $ficha->id }}', '{{ $ficha->codigo_ficha }}')">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
+                                      
                                         <button type="button" 
                                                 class="btn btn-success btn-sm"
                                                 title="Ver Lista de Aprendices"
                                                 data-bs-toggle="modal" 
                                                 data-bs-target="#aprendicesModal{{ $ficha->id }}">
-                                            <i class="fas fa-users"></i>
+                                            <i class="bi bi-people"></i>
                                         </button>
                                     </div>
                                     <form id="eliminar-ficha-{{ $ficha->id }}" 
                                           action="{{ route('fichas.destroy', $ficha) }}" 
-                                          method="POST" 
-                                          style="display: none;">
+                                          method="POST">
                                         @csrf
                                         @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger"onclick="mensajeDeEliminacion(event, '{{ $ficha->id }}', '{{ $ficha->codigo }}', 'fichas')"><i class="bi bi-trash"></i></button>
+
                                     </form>
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
-            </div>
+       
         </div>
     </div>
 </div>

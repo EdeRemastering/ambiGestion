@@ -19,12 +19,12 @@
                 <td>{{ $red->codigo }}</td>
                 <td>{{ $red->nombre }}</td>
                 <td>
-                    <a href="{{ route('red_conocimiento.show', $red) }}" class="btn btn-sm btn-info">Ver</a>
-                    <a href="{{ route('red_conocimiento.edit', $red) }}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{{ route('red_conocimiento.show', $red) }}" class="btn btn-sm btn-success"><i class="bi bi-eye"></i></a>
+                    <a href="{{ route('red_conocimiento.edit', $red) }}" class="btn btn-sm btn-success"><i class="bi bi-pencil"></i></a>
                     <form action="{{ route('red_conocimiento.destroy', $red) }}" method="POST" style="display:inline">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro?')">Eliminar</button>
+                        <button type="submit" class="btn btn-sm btn-danger"onclick="mensajeDeEliminacion(event, '{{ $red->id }}', '{{ $red->nombre }}', 'redes de conocimiento')"><i class="bi bi-trash"></i></button>
                     </form>
                 </td>
             </tr>

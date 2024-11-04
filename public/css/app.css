@@ -388,6 +388,15 @@ thead {
     color: #fff;
 }
 
+/* Hacer que la DataTable ocupe el 100% de ancho */
+table.dataTable {
+    width: 100% !important; /* Fuerza el 100% de ancho */
+    table-layout: auto; /* Permite ajustar el ancho de las columnas */
+}
+
+.dataTables_wrapper {
+    width: 100%; /* Hace que el contenedor de la DataTable también ocupe el 100% de ancho */
+}
 input[type="checkbox"] {
     /* Tus estilos aquí */
     width: 20px; /* Ejemplo: Cambiar el tamaño */

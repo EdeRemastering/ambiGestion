@@ -47,7 +47,15 @@
             <td>{{ $recurso->nombre_estado }}</td>
             <td>
                 <a href="{{ route('recursos.show', $recurso->id_recurso) }}" class="btn btn-success btn-sm"><i class="bi bi-eye "></i></a>
-            
+                
+                <a href="{{ route('recursos.edit', $recurso->id_recurso) }}" class="btn btn-sm btn-success"><i class="bi bi-pencil"></i></a>
+                    @if(Auth::user()->role->name === 'admin')
+                        <form action="{{ route('recursos.destroy', $recurso->id_recurso) }}" method="POST" style="display:inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger"onclick="mensajeDeEliminacion(event, '{{ $recurso->id_recurso }}', '{{ $recurso->descripcion }}', 'recursos')"><i class="bi bi-trash"></i></button>
+                        </form>
+                    @endif
             </td>
         </tr>
         @endforeach

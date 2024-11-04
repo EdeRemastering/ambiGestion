@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
             ordering: true,
             lengthChange: true,
             language: {
-                url: '//cdn.datatables.net/plug-ins/2.1.7/i18n/es-MX.json'
+                "url": "https://cdn.datatables.net/plug-ins/2.1.7/i18n/es-MX.json"
             }
         });
     } else {

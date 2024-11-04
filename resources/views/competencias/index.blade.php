@@ -56,10 +56,10 @@
                             </td>
                             <td>
                                 @if($competencia->instructores->count() > 0)
-                                    <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" 
+                                    <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" 
                                             data-bs-target="#instructoresModal{{ $competencia->id }}">
-                                        <i class="fas fa-users"></i> 
-                                        Ver Instructores ({{ $competencia->instructores->count() }})
+                                        <i class="bi bi-eye"></i> 
+                                         ({{ $competencia->instructores->count() }})
                                     </button>
 
                                     <!-- Modal Instructores -->
@@ -114,30 +114,28 @@
                                 @else
                                     <span class="badge bg-secondary">Sin instructores</span>
                                 @endif
+                                <a href="{{ route('competencias.instructor.asignar', $competencia->id) }}" 
+                                       class="btn btn-success btn-sm" title="Asignar instructor">
+                                        <i class="bi bi-plus-circle"></i> 
+                                    </a>
                             </td>
                             <td>
                                 <div class="btn-group" role="group">
                                     <a href="{{ route('competencias.show', $competencia) }}" 
-                                       class="btn btn-info btn-sm" title="Ver detalles">
-                                        <i class="fas fa-eye"></i> Ver
+                                       class="btn btn-success btn-sm" title="Ver detalles">
+                                        <i class="bi bi-eye"></i>
                                     </a>
                                     <a href="{{ route('competencias.edit', $competencia) }}" 
-                                       class="btn btn-warning btn-sm" title="Editar">
-                                        <i class="fas fa-edit"></i> Editar
+                                       class="btn btn-success btn-sm" title="Editar">
+                                        <i class="bi bi-pencil"></i> 
                                     </a>
-                                    <a href="{{ route('competencias.instructor.asignar', $competencia->id) }}" 
-                                       class="btn btn-success btn-sm" title="Asignar instructor">
-                                        <i class="fas fa-user-plus"></i> Asignar
-                                    </a>
+                      
                                     <form action="{{ route('competencias.destroy', $competencia) }}" 
                                           method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm" 
-                                                onclick="return confirm('¿Está seguro de eliminar esta competencia?')"
-                                                title="Eliminar competencia">
-                                            <i class="fas fa-trash"></i> Eliminar
-                                        </button>
+                                        <button type="submit" class="btn btn-sm btn-danger"onclick="mensajeDeEliminacion(event, '{{ $competencia->id }}', '{{ $competencia->nombre }}', 'competencias')"><i class="bi bi-trash"></i></button>
+
                                     </form>
                                 </div>
                             </td>

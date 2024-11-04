@@ -22,12 +22,12 @@
                 <td>{{ $jornada->hora_inicio }}</td>
                 <td>{{ $jornada->hora_fin }}</td>
                 <td>
-                    <a href="{{ route('jornadas.show', $jornada) }}" class="btn btn-info btn-sm">Ver</a>
-                    <a href="{{ route('jornadas.edit', $jornada) }}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{{ route('jornadas.show', $jornada) }}" class="btn btn-success btn-sm"><i class="bi bi-eye"></i></a>
+                    <a href="{{ route('jornadas.edit', $jornada) }}" class="btn btn-success btn-sm"><i class="bi bi-pencil"></i></a>
                     <form action="{{ route('jornadas.destroy', $jornada) }}" method="POST" style="display:inline">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Está seguro de eliminar esta jornada?')">Eliminar</button>
+                        <button type="submit" class="btn btn-sm btn-danger"onclick="mensajeDeEliminacion(event, '{{ $jornada->id }}', '{{ $jornada->nombre }}', 'jornadas')"><i class="bi bi-trash"></i></button>
                     </form>
                 </td>
             </tr>

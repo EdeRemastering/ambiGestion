@@ -38,19 +38,18 @@
                             <td>{{ $estado->nombre }}</td>
                             <td>
                                 <div class="btn-group">
+                                <a href="{{ route('estado-ambientes.show', $estado->id) }}" 
+                                       class="btn btn-sm btn-success">
+                                       <i class="bi bi-eye"></i>
+                                    </a>
                                     <a href="{{ route('estado-ambientes.edit', $estado->id) }}" 
-                                       class="btn btn-sm btn-primary">
-                                        Editar
+                                       class="btn btn-sm btn-success">
+                                       <i class="bi bi-pencil"></i>
                                     </a>
                                     <form action="{{ route('estado-ambientes.destroy', $estado->id) }}" 
-                                          method="POST" 
-                                          style="display:inline"
-                                          onsubmit="return confirm('¿Estás seguro de eliminar este estado?')">
-                                        @csrf
+                                          method="POST" ></form>
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger">
-                                            Eliminar
-                                        </button>
+                                        <button type="submit" class="btn btn-sm btn-danger"  onclick="mensajeDeEliminacion(event, '{{ $estado->id }}', '{{ $estado->nombre }}', 'estado de ambientes')"><i class="bi bi-trash"></i></button>
                                     </form>
                                 </div>
                             </td>

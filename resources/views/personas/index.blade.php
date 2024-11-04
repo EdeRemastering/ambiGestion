@@ -31,12 +31,14 @@
                 <td>{{ $persona->correo }}</td>
                 <td>{{ $persona->user->role->name }}</td>
                 <td>
-                    <a href="{{ route('personas.edit', $persona) }}" class="btn btn-sm btn-primary">Editar</a>
+                <a href="{{ route('personas.show', $persona) }}" class="btn btn-sm btn-success"><i class="bi bi-eye"></i></a>
+
+                    <a href="{{ route('personas.edit', $persona) }}" class="btn btn-sm btn-success"><i class="bi bi-pencil"></i></a>
                     @if(Auth::user()->role->name === 'admin')
                         <form action="{{ route('personas.destroy', $persona) }}" method="POST" style="display:inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro?')">Eliminar</button>
+                            <button type="submit" class="btn btn-sm btn-danger"onclick="mensajeDeEliminacion(event, '{{ $persona->documento }}', '{{ $persona->pnombre }}', 'personas')"><i class="bi bi-trash"></i></button>
                         </form>
                     @endif
                 </td>

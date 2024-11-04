@@ -25,12 +25,12 @@
                 <td>{{ $programa->duracion_meses }}</td>
                 <td>{{ $programa->redConocimiento->nombre }}</td>
                 <td>
-                    <a href="{{ route('programas.show', $programa->id) }}" class="btn btn-sm btn-info">Ver</a>
-                    <a href="{{ route('programas.edit', $programa->id) }}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{{ route('programas.show', $programa->id) }}" class="btn btn-sm btn-success"><i class="bi bi-eye"></i></a>
+                    <a href="{{ route('programas.edit', $programa->id) }}" class="btn btn-sm btn-success"><id class="bi bi-pencil"></id></a>
                     <form action="{{ route('programas.destroy', $programa->id) }}" method="POST" style="display:inline">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro?')">Eliminar</button>
+                        <button type="submit" class="btn btn-sm btn-danger"onclick="mensajeDeEliminacion(event, '{{ $programa->id }}', '{{ $programa->nombre }}', 'programas')"><i class="bi bi-trash"></i></button>
                     </form>
                 </td>
             </tr>

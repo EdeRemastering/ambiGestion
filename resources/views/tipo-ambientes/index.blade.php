@@ -18,11 +18,12 @@
                     <td>{{ $tipo->id }}</td>
                     <td>{{ $tipo->nombre }}</td>
                     <td>
-                        <a href="{{ route('tipo-ambientes.edit', $tipo->id) }}" class="btn btn-sm btn-primary">Editar</a>
+                    <a href="{{ route('tipo-ambientes.show', $tipo->id) }}" class="btn btn-sm btn-success"><i class="bi bi-eye"></i></a>
+                        <a href="{{ route('tipo-ambientes.edit', $tipo->id) }}" class="btn btn-sm btn-success"><i class="bi bi-pencil"></i></a>
                         <form action="{{ route('tipo-ambientes.destroy', $tipo->id) }}" method="POST" style="display:inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro?')">Eliminar</button>
+                            <button type="submit" class="btn btn-sm btn-danger"  onclick="mensajeDeEliminacion(event, '{{ $tipo->id }}', '{{ $tipo->nombre }}', 'tipo de ambientes')"><i class="bi bi-trash"></i></button>
                         </form>
                     </td>
                 </tr>

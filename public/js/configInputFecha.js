@@ -3,7 +3,9 @@
         const fechaInicio = document.getElementById('fecha_inicio');
         const fechaFin = document.getElementById('fecha_fin');
 
-
+        if (fechaInicio == null || fechaFin == null) {
+            return console.log("no hay fechas para restringir")
+        }
         // Escuchar el cambio en el campo de fecha de inicio
         fechaInicio.addEventListener('change', function () {
             const fechaSeleccionada = new Date(fechaInicio.value);

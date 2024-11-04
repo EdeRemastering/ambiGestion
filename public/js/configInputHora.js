@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const horaInicio = document.getElementById('hora_inicio');
     const horaFin = document.getElementById('hora_fin');
 
+    if (horaInicio == null || horaFin == null) {
+        return console.log("no hay horas para restringir")
+    }
     // Al cambiar la ficha, se ajustan las horas según la jornada
     fichaSelect.addEventListener('change', function () {
         console.log('Cambio detectado en la ficha.');

@@ -43,13 +43,13 @@
                     @endif
                 </td>
                 <td>
-                    <a href="{{ route('resultados_aprendizaje.show', $resultado->id) }}" class="btn btn-sm btn-info">Ver</a>
-                    <a href="{{ route('resultados_aprendizaje.edit', ['resultadoAprendizaje' => $resultado->id]) }}" class="btn btn-warning">Editar</a>
+                    <a href="{{ route('resultados_aprendizaje.show', $resultado->id) }}" class="btn btn-sm btn-success"><i class="bi bi-eye"></i></a>
+                    <a href="{{ route('resultados_aprendizaje.edit', ['resultadoAprendizaje' => $resultado->id]) }}" class="btn btn-sm btn-success"><i class="bi bi-pencil"></i></a>
                      <form action="{{ route('resultados_aprendizaje.destroy', $resultado->id) }}" method="POST" style="display: inline-block;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de que quieres eliminar este resultado de aprendizaje?')">Eliminar</button>
-                    </form>
+                        <button type="submit" class="btn btn-sm btn-danger"onclick="mensajeDeEliminacion(event, '{{ $resultado->id }}', '{{ $resultado->nombre }}', 'resultados')"><i class="bi bi-trash"></i></button>
+                        </form>
                 </td>
             </tr>
             @endforeach

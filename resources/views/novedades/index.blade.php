@@ -54,6 +54,15 @@
             <td>{{ $novedad->descripcion_solucion }}</td>
             <td>
                 <a href="{{ route('novedades.show', $novedad->id) }}" class="btn btn-success btn-sm"><i class="bi bi-eye "></i></a>
+                
+                <a href="{{ route('novedades.edit', $novedad->id) }}" class="btn btn-sm btn-success"><i class="bi bi-pencil"></i></a>
+                    @if(Auth::user()->role->name === 'admin')
+                        <form action="{{ route('novedades.destroy', $novedad->id) }}" method="POST" style="display:inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger"onclick="mensajeDeEliminacion(event, '{{ $novedad->id }}', '{{ $novedad->nombre }}', 'novedades')"><i class="bi bi-trash"></i></button>
+                        </form>
+                    @endif
             </td>
         </tr>
         @endforeach
