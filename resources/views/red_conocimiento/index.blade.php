@@ -1,8 +1,9 @@
 @extends('layouts.app')
+@section('titulo', 'Redes de conocimiento')
 
 @section('content')
 <div class="container">
-    <h1>Redes de Conocimiento</h1>
+
     <a href="{{ route('red_conocimiento.create') }}" class="btn btn-primary mb-3">Crear Nueva Red de Conocimiento</a>
 
     <table id="red-conocimientoTable" class="table">

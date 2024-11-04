@@ -1,8 +1,9 @@
 @extends('layouts.app')
+@section('titulo', 'Programas')
 
 @section('content')
 <div class="container">
-    <h1>Programas de Formación</h1>
+
     <a href="{{ route('programas.create') }}" class="btn btn-primary mb-3">Crear Nuevo Programa</a>
     
     <table id="programasTable" class="table">

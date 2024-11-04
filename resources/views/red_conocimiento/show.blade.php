@@ -1,8 +1,9 @@
 @extends('layouts.app')
+@section('titulo', 'Ver red de conocimiento')
 
 @section('content')
 <div class="container">
-    <h1>Detalles de la Red de Conocimiento</h1>
+
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">{{ $redConocimiento->nombre }}</h5>

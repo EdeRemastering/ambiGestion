@@ -1,8 +1,9 @@
 @extends('layouts.app')
+@section('titulo', 'Editar competencia')
 
 @section('content')
-<div class="container">
-    <h1>Editar Competencia</h1>
+<div class="contenedor-principal">
+    <div class="contenedor-secundario">
     <form action="{{ route('competencias.update', $competencia->id) }}" method="POST">
         @csrf
         @method('PUT')
@@ -31,5 +32,7 @@
         <button type="submit" class="btn btn-primary">Actualizar Competencia</button>
     </form>
     <a href="{{ route('competencias.index') }}" class="btn btn-secondary mt-3">Volver al listado</a>
+</div>
+</div>
 </div>
 @endsection

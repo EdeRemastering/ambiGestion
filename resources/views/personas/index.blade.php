@@ -1,15 +1,9 @@
 @extends('layouts.app')
+@section('titulo', 'Personas')
 
 @section('content')
 <div class="container">
-    <h2>Lista de Personas</h2>
 
-    <form action="{{ route('personas.index') }}" method="GET" class="mb-3">
-        <div class="input-group">
-            <input type="text" name="search" class="form-control" placeholder="Buscar personas..." value="{{ request('search') }}">
-            <button type="submit" class="btn btn-primary">Buscar</button>
-        </div>
-    </form>
 
     <table id="personasTable" class="table">
         <thead>

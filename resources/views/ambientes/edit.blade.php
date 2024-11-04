@@ -1,18 +1,9 @@
 @extends('layouts.app')
+@section('titulo', 'Editar ambiente')
 
 @section('content')
 <div class="container">
-    <h2 class="mb-4">Editar Ambiente</h2>
 
-    @if($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
 
     <form action="{{ route('ambientes.update', $ambiente->id) }}" method="POST">
         @csrf

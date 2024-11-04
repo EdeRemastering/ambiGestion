@@ -1,18 +1,10 @@
 @extends('layouts.app')
+@section('titulo', 'Crear ambiente')
 
 @section('content')
 <div class="container">
-    <h2 class="mb-4 text-success">Crear Nuevo Ambiente</h2>
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+
 
     <form action="{{ route('ambientes.store') }}" method="POST">
         @csrf

@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('titulo', 'Editar recurso')
 
 @section('content')
 

@@ -1,59 +1,11 @@
 @extends('layouts.app')
+@section('titulo', 'Crear ficha')
 
-@section('styles')
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<style>
-    .select2-container {
-        width: 100% !important;
-    }
-    .select2-container .select2-selection--single {
-        height: 38px !important;
-        border: 1px solid #ced4da;
-        border-radius: 0.375rem;
-    }
-    .select2-container--default .select2-selection--single .select2-selection__rendered {
-        line-height: 38px !important;
-        padding-left: 12px;
-    }
-    .select2-container--default .select2-selection--single .select2-selection__arrow {
-        height: 36px !important;
-    }
-    .select2-container--default .select2-selection--single .select2-selection__placeholder {
-        color: #6c757d;
-    }
-    .select2-container--default .select2-results__option--highlighted[aria-selected] {
-        background-color: #28a745;
-    }
-    .form-label.required:after {
-        content: " *";
-        color: red;
-    }
-</style>
-@endsection
 
 @section('content')
 <div class="container">
-    <div class="card">
-        <div class="card-header bg-success text-white">
-            <div class="d-flex justify-content-between align-items-center">
-                <h1 class="mb-0">Crear Nueva Ficha</h1>
-                <a href="{{ route('fichas.index') }}" class="btn btn-light">
-                    <i class="fas fa-arrow-left"></i> Volver
-                </a>
-            </div>
-        </div>
 
-        <div class="card-body">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul class="mb-0">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
+      
             <form action="{{ route('fichas.store') }}" method="POST" id="fichaForm">
                 @csrf
                 <div class="row">
@@ -187,8 +139,7 @@
                 </div>
             </form>
         </div>
-    </div>
-</div>
+
 @endsection
 
 @push('scripts')

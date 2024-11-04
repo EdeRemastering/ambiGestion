@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('titulo', 'Ver competencia')
 
 @section('content')
 <div class="container">
@@ -7,12 +8,12 @@
     <p>Horas disponibles: {{ $competencia->horasDisponibles() }} horas</p>
 
     <h2>Resultados de Aprendizaje</h2>
-    <a href="{{ route('competencias.distribuir-horas', $competencia) }}" class="btn btn-primary">Distribuir Horas Automáticamente</a>
+    <a href="{{ route('competencias.distribuir-horas', $competencia) }}" class="btn btn-success">Distribuir Horas Automáticamente</a>
 
     <form action="{{ route('resultados-aprendizaje.update-horas', $competencia) }}" method="POST">
         @csrf
         @method('PUT')
-        <table class="table">
+        <table id="competencias" class="table">
             <thead>
                 <tr>
                     <th>Descripción</th>

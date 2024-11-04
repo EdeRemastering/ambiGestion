@@ -1,9 +1,9 @@
 @extends('layouts.app')
+@section('titulo', 'Ver programa')
 
 @section('content')
 <div class="container">
-    <h1>Detalles del Programa de Formación</h1>
-    
+
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">{{ $programa->nombre }}</h5>

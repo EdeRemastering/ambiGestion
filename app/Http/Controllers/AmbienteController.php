@@ -84,6 +84,7 @@ class AmbienteController extends Controller
      */
     public function show(string $id)
     {
+        $ambiente = Ambiente::find($id);
         return view('ambientes.show', compact('ambiente'));
     }
 

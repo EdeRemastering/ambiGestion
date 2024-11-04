@@ -1,8 +1,9 @@
 @extends('layouts.app')
+@section('titulo', 'jornadas')
 
 @section('content')
 <div class="container">
-    <h1 class="text-center text-success mb-4">Listado de Jornadas</h1>
+  
 
     <a href="{{ route('jornadas.create') }}" class="btn btn-success mb-3">Crear Nueva Jornada</a>
 

@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('titulo', 'Ver recurso')
 
 
 @section('content')

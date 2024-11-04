@@ -1,8 +1,8 @@
 @extends('layouts.app')
+@section('titulo', 'Ver jornada')
 
 @section('content')
 <div class="container">
-    <h1 class="text-center text-success mb-4">Detalles de la Jornada</h1>
 
     <div class="card">
         <div class="card-body">

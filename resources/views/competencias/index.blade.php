@@ -1,11 +1,9 @@
 @extends('layouts.app')
+@section('titulo', 'Competencias')
 
 @section('content')
 <div class="container">
     <div class="row justify-content-between mb-4">
-        <div class="col">
-            <h1 class="text-success">Listado de Competencias</h1>
-        </div>
         <div class="col-auto">
             <a href="{{ route('competencias.create') }}" class="btn btn-success">
                 <i class="fas fa-plus"></i> Crear Nueva Competencia
@@ -13,18 +11,8 @@
         </div>
     </div>
 
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-
-    <div class="card">
-        <div class="card-body">
-            <div class="table-responsive">
                 <table id="competenciasTable" class="table table-striped table-hover">
-                    <thead class="table-green-header">
+                    <thead>
                         <tr>
                             <th>Código</th>
                             <th>Descripción</th>
@@ -143,9 +131,9 @@
                         @endforeach
                     </tbody>
                 </table>
-            </div>
-        </div>
-    </div>
+
+   
+    
 </div>
 
 @push('styles')

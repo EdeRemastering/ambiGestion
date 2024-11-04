@@ -1,19 +1,10 @@
 @extends('layouts.app')
+@section('titulo', 'Editar resultado de aprendizaje')
 
 @section('content')
-<div class="container">
-    <h1>Editar Resultado de Aprendizaje</h1>
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
+<div class="contenedor-principal">
+    <div class="contenedor-secundario">
     <form action="{{ route('resultados_aprendizaje.update', $resultadoAprendizaje->id) }}" method="POST">
     @csrf
     @method('PUT')
@@ -48,5 +39,7 @@
 </form>
 
     <a href="{{ route('resultados_aprendizaje.index') }}" class="btn btn-secondary mt-3">Volver al listado</a>
+</div>
+</div>
 </div>
 @endsection

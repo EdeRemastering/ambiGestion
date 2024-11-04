@@ -1,27 +1,14 @@
 @extends('layouts.app')
+@section('titulo', 'Fichas')
 
 @section('content')
 <div class="container-fluid">
-    <div class="card">
-        <div class="card-header bg-success text-white">
-            <div class="d-flex justify-content-between align-items-center">
-                <h1 class="mb-0">
-                    <i class="fas fa-chalkboard-teacher"></i> Gestión de Fichas
-                </h1>
-                <a href="{{ route('fichas.create') }}" class="btn btn-light">
+
+                <a href="{{ route('fichas.create') }}" class="btn btn-success">
                     <i class="fas fa-plus"></i> Nueva Ficha
                 </a>
-            </div>
-        </div>
-        <div class="card-body">
-            @if(session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <i class="fas fa-check-circle"></i> {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
 
-  
+
                 <table id="fichasTable" class="table">
                     <thead>
                         <tr>
@@ -89,7 +76,7 @@
                 </table>
        
         </div>
-    </div>
+
 </div>
 
 <!-- Modales de Aprendices -->

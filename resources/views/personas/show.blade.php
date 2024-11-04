@@ -1,10 +1,10 @@
 @extends('layouts.app')
+@section('titulo', 'Ver persona')
 
 @section('content')
 <div class="container">
-    <h1 class="mb-4">Detalles de la Persona</h1>
     <div class="card">
-        <div class="card-header bg-primary text-white">
+        <div class="card-header bg-success text-white">
             <h5 class="card-title mb-0">{{ $persona->pnombre }} {{ $persona->papellido }}</h5>
         </div>
         <div class="card-body">
@@ -55,13 +55,14 @@
         </div>
     </div>
     <div class="mt-4">
-        <a href="{{ route('personas.edit', $persona) }}" class="btn btn-primary mb-2 mb-md-0">Editar</a>
-        <a href="{{ route('personas.index') }}" class="btn btn-secondary mb-2 mb-md-0">Volver a la lista</a>
+        <a href="{{ route('personas.edit', $persona) }}" class="btn btn-success btn-sm mb-2 mb-md-0"><i class="bi bi-eye"></i></a>
         <form action="{{ route('personas.destroy', $persona) }}" method="POST" class="d-inline-block">
             @csrf
             @method('DELETE')
-            <button type="submit" class="btn btn-danger mb-2 mb-md-0" onclick="return confirm('¿Estás seguro de que quieres eliminar esta persona?')">Eliminar</button>
-        </form>
+            <button type="submit" class="btn btn-sm btn-danger"onclick="mensajeDeEliminacion(event, '{{ $persona->documento }}', '{{ $persona->pnombre }}', 'personas')"><i class="bi bi-trash"></i></button>
+            </form>
+            <a href="{{ route('personas.index') }}" class="btn btn-secondary btn-sm mb-2 mb-md-0">Volver a la lista</a>
+
     </div>
 </div>
 

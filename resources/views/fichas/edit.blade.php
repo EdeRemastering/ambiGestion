@@ -1,55 +1,9 @@
 @extends('layouts.app')
-
-@section('styles')
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<style>
-    .select2-container {
-        width: 100% !important;
-    }
-    .select2-container .select2-selection--single {
-        height: 38px !important;
-        border: 1px solid #ced4da;
-        border-radius: 0.375rem;
-    }
-    .select2-container--default .select2-selection--single .select2-selection__rendered {
-        line-height: 38px !important;
-        padding-left: 12px;
-    }
-    .select2-container--default .select2-selection--single .select2-selection__arrow {
-        height: 36px !important;
-    }
-    .select2-container--default .select2-selection--single .select2-selection__placeholder {
-        color: #6c757d;
-    }
-    .form-label.required:after {
-        content: " *";
-        color: red;
-    }
-</style>
-@endsection
+@section('titulo', 'Editar ficha')
 
 @section('content')
 <div class="container">
-    <div class="card">
-        <div class="card-header bg-primary text-white">
-            <div class="d-flex justify-content-between align-items-center">
-                <h1 class="mb-0">Editar Ficha #{{ $ficha->codigo_ficha }}</h1>
-                <a href="{{ route('fichas.index') }}" class="btn btn-light">
-                    <i class="fas fa-arrow-left"></i> Volver
-                </a>
-            </div>
-        </div>
-
-        <div class="card-body">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul class="mb-0">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+ 
 
             <form action="{{ route('fichas.update', $ficha) }}" method="POST">
                 @csrf
@@ -172,7 +126,7 @@
 
                 <div class="row mt-4">
                     <div class="col-12">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-success">
                             <i class="fas fa-save"></i> Actualizar Ficha
                         </button>
                         <a href="{{ route('fichas.index') }}" class="btn btn-secondary">
@@ -191,11 +145,6 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
 $(document).ready(function() {
-    $('.select2-basic').select2({
-        placeholder: 'Seleccione una opción',
-        allowClear: true,
-        width: '100%'
-    });
 
     $('#programa_formacion_id').change(function() {
         const selectedOption = $(this).find('option:selected');

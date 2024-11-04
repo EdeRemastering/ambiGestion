@@ -1,21 +1,9 @@
 @extends('layouts.app')
+@section('titulo', 'Resultados de aprendizaje')
 
 @section('content')
 <div class="container">
-    <h1>Resultados de Aprendizaje</h1>
     <a href="{{ route('resultados_aprendizaje.create') }}" class="btn btn-primary mb-3">Crear Nuevo Resultado de Aprendizaje</a>
-
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if(session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
 
     <table id="resultados_aprendizajeTable" class="table">
         <thead>

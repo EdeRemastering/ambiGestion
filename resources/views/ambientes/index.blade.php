@@ -1,8 +1,9 @@
 @extends('layouts.app')
+@section('titulo', 'Ambientes')
 
 @section('content')
 <div class="container">
-    <h1 class="mb-4">Listado de Ambientes</h1>
+    
 
     <div class="mb-3">
         @foreach ($estados as $estado)

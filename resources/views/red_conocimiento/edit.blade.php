@@ -1,8 +1,11 @@
 @extends('layouts.app')
-
+@section('titulo', 'Editar red de conocimiento')
 @section('content')
-<div class="container">
-    <h1>Editar Red de Conocimiento</h1>
+<div class="contenedor-principal">
+    <div class="contenedor-secundario">
+
+
+
     <form action="{{ route('red_conocimiento.update', $redConocimiento) }}" method="POST">
         @csrf
         @method('PUT')
@@ -35,5 +38,6 @@
         </div>
         <button type="submit" class="btn btn-primary">Actualizar Red de Conocimiento</button>
     </form>
-</div>
+    </div>
+    </div>
 @endsection

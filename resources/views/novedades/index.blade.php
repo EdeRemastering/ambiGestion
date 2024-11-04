@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('titulo', 'Novedades')
 
 @section('content')
     <!-- Enlace para crear una nueva novedad -->

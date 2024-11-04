@@ -1,28 +1,15 @@
 @extends('layouts.app')
+@section('titulo', 'Estados de ambientes')
 
 @section('content')
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>Estados de Ambiente</h2>
         <a href="{{ route('estado-ambientes.create') }}" class="btn btn-success">
             Crear Nuevo Estado
         </a>
     </div>
 
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if(session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
-
-    <div class="card">
-        <div class="card-body">
+    
             <table id="estado-ambientesTable" class="table">
                 <thead>
                     <tr>
@@ -57,7 +44,6 @@
                     @endforeach
                 </tbody>
             </table>
-        </div>
-    </div>
+
 </div>
 @endsection

@@ -1,8 +1,9 @@
 @extends('layouts.app')
+@section('titulo', 'Editar programa')
 
 @section('content')
-<div class="container">
-    <h1>Editar Programa de Formación</h1>
+<div class="contenedor-principal">
+    <div class="contenedor-secundario">
     @if(isset($programa))
         <form action="{{ route('programas.update', $programa->id) }}" method="POST">
             @csrf
@@ -45,6 +46,7 @@
         </div>
         <button type="submit" class="btn btn-primary">Actualizar Programa de Formación</button>
     </form>
+</div>
 </div>
 
     @else

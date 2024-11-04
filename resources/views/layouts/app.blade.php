@@ -69,74 +69,74 @@ $persona = Personas::where('user_id', $user->id)->first();
 
     @auth
     @if(auth()->user()->hasRole('admin'))
-        <a href="{{ route('reportes-programacion.index') }}" class="opcion-barra-navegacion {{ Request::is('*/reportes-programacion*') ? 'active' : '' }}">
+        <a href="{{ route('reportes-programacion.index') }}" class="opcion-barra-navegacion {{ Request::is('*reportes-programacion*') ? 'active' : '' }}">
             <i class="bi bi-speedometer2"></i> <span class="texto-barra-lateral">Dashboard</span>
         </a>
-        <a href="{{ route('ambiente-programacion.index') }}" class="opcion-barra-navegacion {{ Request::is('*/ambiente-programacion*') ? 'active' : '' }}">
+        <a href="{{ route('ambiente-programacion.index') }}" class="opcion-barra-navegacion {{ Request::is('*ambiente-programacion*') ? 'active' : '' }}">
             <i class="bi bi-calendar4-event"></i> <span class="texto-barra-lateral">Programación</span>
         </a>
-        <a href="{{ route('red_conocimiento.index') }}" class="opcion-barra-navegacion {{ Request::is('*/red_conocimiento*') ? 'active' : '' }}">
+        <a href="{{ route('red_conocimiento.index') }}" class="opcion-barra-navegacion {{ Request::is('*red-conocimiento*') ? 'active' : '' }}">
             <i class="bi bi-people"></i> <span class="texto-barra-lateral">Red de Conocimiento</span>
         </a>
-        <a href="{{ route('programas.index') }}" class="opcion-barra-navegacion {{ Request::is('*/programas*') ? 'active' : '' }}">
+        <a href="{{ route('programas.index') }}" class="opcion-barra-navegacion {{ Request::is('*programas*') ? 'active' : '' }}">
             <i class="bi bi-book"></i> <span class="texto-barra-lateral">Programa de Formación</span>
         </a>
-        <a href="{{ route('fichas.index') }}" class="opcion-barra-navegacion {{ Request::is('*/fichas*') ? 'active' : '' }}">
+        <a href="{{ route('fichas.index') }}" class="opcion-barra-navegacion {{ Request::is('*fichas*') ? 'active' : '' }}">
             <i class="bi bi-card-list"></i> <span class="texto-barra-lateral">Fichas</span>
         </a>
-        <a href="{{ route('jornadas.index') }}" class="opcion-barra-navegacion {{ Request::is('*/jornadas*') ? 'active' : '' }}">
+        <a href="{{ route('jornadas.index') }}" class="opcion-barra-navegacion {{ Request::is('*jornadas*') ? 'active' : '' }}">
             <i class="bi bi-clock-history"></i> <span class="texto-barra-lateral">Jornadas</span>
         </a>
-        <a href="{{ route('competencias.index') }}" class="opcion-barra-navegacion {{ Request::is('*/competencias*') ? 'active' : '' }}">
+        <a href="{{ route('competencias.index') }}" class="opcion-barra-navegacion {{ Request::is('*competencias*') ? 'active' : '' }}">
             <i class="bi bi-award"></i> <span class="texto-barra-lateral">Competencias</span>
         </a>
-        <a href="{{ route('resultados_aprendizaje.index') }}" class="opcion-barra-navegacion {{ Request::is('*/resultados_aprendizaje*') ? 'active' : '' }}">
+        <a href="{{ route('resultados_aprendizaje.index') }}" class="opcion-barra-navegacion {{ Request::is('*resultados_aprendizaje*') ? 'active' : '' }}">
             <i class="bi bi-bar-chart"></i> <span class="texto-barra-lateral">Resultado de Aprendizaje</span>
         </a>
-        <a href="{{ route('recursos.index') }}" class="opcion-barra-navegacion {{ Request::is('*/recursos*') ? 'active' : '' }}">
+        <a href="{{ route('recursos.index') }}" class="opcion-barra-navegacion {{ Request::is('*recursos*') ? 'active' : '' }}">
             <i class="bi bi-box-seam"></i> <span class="texto-barra-lateral">Recursos</span>
         </a>
-        <a href="{{ route('novedades.index') }}" class="opcion-barra-navegacion {{ Request::is('*/novedades*') ? 'active' : '' }}">
+        <a href="{{ route('novedades.index') }}" class="opcion-barra-navegacion {{ Request::is('*novedades*') ? 'active' : '' }}">
             <i class="bi bi-bell"></i> <span class="texto-barra-lateral">Novedades</span>
         </a>
         <a href="{{ route('ambientes.index') }}" class="opcion-barra-navegacion {{ Request::is('*/ambientes*') ? 'active' : '' }}">
             <i class="bi bi-building"></i> <span class="texto-barra-lateral">Ambientes</span>
         </a>
-        <a href="{{ route('tipo-ambientes.index') }}" class="opcion-barra-navegacion {{ Request::is('*/tipo-ambientes*') ? 'active' : '' }}">
+        <a href="{{ route('tipo-ambientes.index') }}" class="opcion-barra-navegacion {{ Request::is('*tipo-ambientes*') ? 'active' : '' }}">
             <i class="bi bi-geo-alt"></i> <span class="texto-barra-lateral">Tipo Ambientes</span>
         </a>
-        <a href="{{ route('estado-ambientes.index') }}" class="opcion-barra-navegacion {{ Request::is('*/estado-ambientes*') ? 'active' : '' }}">
+        <a href="{{ route('estado-ambientes.index') }}" class="opcion-barra-navegacion {{ Request::is('*estado-ambientes*') ? 'active' : '' }}">
             <i class="bi bi-lightbulb"></i> <span class="texto-barra-lateral">Estado Ambientes</span>
         </a>
-        <a href="{{ route('personas.index') }}" class="opcion-barra-navegacion {{ Request::is('*/personas*') ? 'active' : '' }}">
+        <a href="{{ route('personas.index') }}" class="opcion-barra-navegacion {{ Request::is('*personas*') ? 'active' : '' }}">
             <i class="bi bi-person"></i> <span class="texto-barra-lateral">Persona</span>
         </a>
 
     @elseif(auth()->user()->hasRole('instructor'))
-        <a href="{{ route('reportes-programacion.instructor.diario') }}" class="opcion-barra-navegacion {{ Request::is('*/instructor/diario*') ? 'active' : '' }}">
+        <a href="{{ route('reportes-programacion.instructor.diario') }}" class="opcion-barra-navegacion {{ Request::is('*instructor/diario*') ? 'active' : '' }}">
             <i class="bi bi-calendar-day"></i> <span class="texto-barra-lateral">Reporte Diario</span>
         </a>
-        <a href="{{ route('reportes-programacion.instructor.semanal') }}" class="opcion-barra-navegacion {{ Request::is('*/instructor/semanal*') ? 'active' : '' }}">
+        <a href="{{ route('reportes-programacion.instructor.semanal') }}" class="opcion-barra-navegacion {{ Request::is('*instructor/semanal*') ? 'active' : '' }}">
             <i class="bi bi-calendar-week"></i> <span class="texto-barra-lateral">Reporte Semanal</span>
         </a>
-        <a href="{{ route('reportes-programacion.instructor.mensual') }}" class="opcion-barra-navegacion {{ Request::is('*/instructor/mensual*') ? 'active' : '' }}">
+        <a href="{{ route('reportes-programacion.instructor.mensual') }}" class="opcion-barra-navegacion {{ Request::is('*instructor/mensual*') ? 'active' : '' }}">
             <i class="bi bi-calendar-month"></i> <span class="texto-barra-lateral">Reporte Mensual</span>
         </a>
-        <a href="{{ route('personas.index') }}" class="opcion-barra-navegacion {{ Request::is('*/personas*') ? 'active' : '' }}">
+        <a href="{{ route('personas.index') }}" class="opcion-barra-navegacion {{ Request::is('*personas*') ? 'active' : '' }}">
             <i class="bi bi-person"></i> <span class="texto-barra-lateral">Persona</span>
         </a>
 
     @elseif(auth()->user()->hasRole('aprendiz'))
-        <a href="{{ route('reportes-programacion.aprendiz.diario') }}" class="opcion-barra-navegacion {{ Request::is('*/aprendiz/diario*') ? 'active' : '' }}">
+        <a href="{{ route('reportes-programacion.aprendiz.diario') }}" class="opcion-barra-navegacion {{ Request::is('*aprendiz/diario*') ? 'active' : '' }}">
             <i class="bi bi-calendar-day"></i> <span class="texto-barra-lateral">Reporte Diario</span>
         </a>
-        <a href="{{ route('reportes-programacion.aprendiz.semanal') }}" class="opcion-barra-navegacion {{ Request::is('*/aprendiz/semanal*') ? 'active' : '' }}">
+        <a href="{{ route('reportes-programacion.aprendiz.semanal') }}" class="opcion-barra-navegacion {{ Request::is('*aprendiz/semanal*') ? 'active' : '' }}">
             <i class="bi bi-calendar-week"></i> <span class="texto-barra-lateral">Reporte Semanal</span>
         </a>
-        <a href="{{ route('reportes-programacion.aprendiz.mensual') }}" class="opcion-barra-navegacion {{ Request::is('*/aprendiz/mensual*') ? 'active' : '' }}">
+        <a href="{{ route('reportes-programacion.aprendiz.mensual') }}" class="opcion-barra-navegacion {{ Request::is('*aprendiz/mensual*') ? 'active' : '' }}">
             <i class="bi bi-calendar-month"></i> <span class="texto-barra-lateral">Reporte Mensual</span>
         </a>
-        <a href="{{ route('personas.index') }}" class="opcion-barra-navegacion {{ Request::is('*/personas*') ? 'active' : '' }}">
+        <a href="{{ route('personas.index') }}" class="opcion-barra-navegacion {{ Request::is('*personas*') ? 'active' : '' }}">
             <i class="bi bi-person"></i> <span class="texto-barra-lateral">Persona</span>
         </a>
     @endif

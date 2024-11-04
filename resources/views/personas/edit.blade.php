@@ -1,24 +1,15 @@
 @extends('layouts.app')
+@section('titulo', 'Editar persona')
 
 @section('content')
 <div class="container">
-    <h2 class="mb-4">Editar Perfil</h2>
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul class="mb-0">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
 
     <form action="{{ route('personas.update', $persona->id) }}" method="POST">
         @csrf
         @method('PUT')
         
         <div class="card mb-4">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header bg-success text-white">
                 Información Personal
             </div>
             <div class="card-body">
@@ -60,7 +51,7 @@
         </div>
 
         <div class="card mb-4">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header bg-success text-white">
                 Información Adicional
             </div>
             <div class="card-body">
@@ -134,7 +125,7 @@
         </div>
 
         <div class="card mb-4">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header bg-success text-white">
                 Cambio de Contraseña
             </div>
             <div class="card-body">
@@ -164,7 +155,7 @@
 
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <a href="{{ route('personas.index') }}" class="btn btn-secondary me-md-2">Cancelar</a>
-            <button type="submit" class="btn btn-primary">Actualizar</button>
+            <button type="submit" class="btn btn-success">Actualizar</button>
         </div>
     </form>
 </div>

@@ -1,28 +1,17 @@
 @extends('layouts.app')
+@section('titulo', 'Asignar instructor a una competencia')
 
 @section('content')
-<div class="container">
-    <div class="card">
-        <div class="card-header bg-success text-white">
-            <h4 class="mb-0">Asignar Instructor a Competencia</h4>
-        </div>
 
-        <div class="card-body">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul class="mb-0">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+<div class="contenedor-principal">
+    <div class="contenedor-secundario">
 
+   
             <form action="{{ route('competencias.instructor.guardar', $competencia) }}" method="POST">
                 @csrf
 
                 <div class="mb-4">
-                    <h5>Información de la Competencia</h5>
+                    <h5><strong>Información de la Competencia</strong></h5>
                     <p><strong>Código:</strong> {{ $competencia->codigo }}</p>
                     <p><strong>Descripción:</strong> {{ $competencia->descripcion }}</p>
                     <p><strong>Red de Conocimiento:</strong> {{ $competencia->programaFormacion->redConocimiento->nombre }}</p>
@@ -87,7 +76,7 @@
                     </div>
                 </div>
 
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                <div class="">
                     <a href="{{ route('competencias.index') }}" class="btn btn-secondary me-2">Cancelar</a>
                     <button type="submit" class="btn btn-success">Asignar Instructor</button>
                 </div>

@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('titulo', 'Editar novedad')
 
 
 @section('content')

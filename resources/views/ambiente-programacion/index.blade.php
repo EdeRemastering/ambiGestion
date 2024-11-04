@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('titulo', 'Programación de ambientes')
 
 @section('content')
 <div class="container mx-auto px-4 py-6">
@@ -11,7 +12,7 @@
                 <h3 class="text-lg font-bold mt-2">Programación Semanal de Ambientes</h3>
             </div>
             <a href="{{ route('ambiente-programacion.create') }}" 
-               class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+               class="btn btn-success">
                 Nueva Programación
             </a>
         </div>

@@ -1,7 +1,7 @@
 @extends('layouts.app')
+@section('titulo', 'Tipos de ambiente')
 
 @section('content')
-    <h1>Tipos de Ambiente</h1>
     <a href="{{ route('tipo-ambientes.create') }}" class="btn btn-primary">Crear Nuevo Tipo</a>
     
     <table id="tipo-ambientesTable" class="table">

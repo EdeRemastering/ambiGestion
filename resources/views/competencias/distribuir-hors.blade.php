@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('titulo', 'Distribuir horas - competencia')
 
 @section('content')
 <div class="container">

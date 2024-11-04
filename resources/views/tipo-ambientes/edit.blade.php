@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <h2>Editar Tipo de Ambiente</h2>
+<div class="contenedor-principal">
+    <div class="contenedor-secundario">
         <form action="{{ route('tipo-ambientes.update', $tipoAmbiente->id) }}" method="POST">
             @csrf
             @method('PUT')
@@ -13,5 +13,7 @@
             <button type="submit" class="btn btn-primary mt-3">Actualizar</button>
         </form>
         <a href="{{ route('tipo-ambientes.index') }}" class="btn btn-secondary mt-3">Volver</a>
+   
     </div>
+</div>
 @endsection

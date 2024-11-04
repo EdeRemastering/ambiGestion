@@ -1,9 +1,8 @@
 @extends('layouts.app')
-
+@section('titulo', 'Editar jornada')
 @section('content')
-<div class="container">
-    <h1 class="text-center text-success mb-4">Editar Jornada</h1>
-
+<div class="contenedor-principal">
+    <div class="contenedor-secundario">
     <form action="{{ route('jornadas.update', $jornada) }}" method="POST">
         @csrf
         @method('PUT')
@@ -21,5 +20,6 @@
         </div>
         <button type="submit" class="btn btn-success">Actualizar Jornada</button>
     </form>
+</div>
 </div>
 @endsection
