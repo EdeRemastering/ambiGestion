@@ -2,9 +2,9 @@
 @section('titulo', 'Tipos de ambiente')
 
 @section('content')
-    <a href="{{ route('tipo-ambientes.create') }}" class="btn btn-primary">Crear Nuevo Tipo</a>
+    <a href="{{ route('tipo-ambientes.create') }}" class="btn btn-success mb-3 boton-crear">Crear Tipo</a>
     
-    <table id="tipo-ambientesTable" class="table">
+    <table id="tipo-ambientesTable" class="table table-striped">
         <thead>
             <tr>
                 <th>ID</th>

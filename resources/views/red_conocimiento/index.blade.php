@@ -4,9 +4,9 @@
 @section('content')
 <div class="container">
 
-    <a href="{{ route('red_conocimiento.create') }}" class="btn btn-primary mb-3">Crear Nueva Red de Conocimiento</a>
+    <a href="{{ route('red_conocimiento.create') }}" class="btn btn-success mb-3 boton-crear">Crear Red</a>
 
-    <table id="red-conocimientoTable" class="table">
+    <table id="red-conocimientoTable" class="table table-striped">
         <thead>
             <tr>
                 <th>Código</th>

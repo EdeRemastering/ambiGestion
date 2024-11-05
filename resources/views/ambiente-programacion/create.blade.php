@@ -1,31 +1,9 @@
 @extends('layouts.app')
+@section('titulo', 'Crear programación')
 
 @section('content')
-<div class="container mx-auto px-4 py-6">
-    <div class="mb-6">
-        <div class="flex justify-between items-center mb-4">
-            <div>
-                <h1 class="text-2xl font-bold text-gray-800">SERVICIO NACIONAL DE APRENDIZAJE SENA</h1>
-                <h2 class="text-xl">Centro de Servicios y Gestión Empresarial</h2>
-                <h3 class="text-lg font-bold mt-2">Programación Semanal de Ambientes</h3>
-            </div>
-            <a href="{{ route('ambiente-programacion.index') }}" 
-               class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
-                Volver al Listado
-            </a>
-        </div>
 
-        @if ($errors->any())
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
-            <ul class="list-disc list-inside">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-        @endif
-
-        <form action="{{ route('ambiente-programacion.store') }}" method="POST" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <form action="{{ route('ambiente-programacion.store') }}" method="POST" class="">
             @csrf
             
             <div class="overflow-x-auto">
@@ -33,9 +11,9 @@
                     <p class="text-gray-700">Semana del: {{ $diasSemana[0]->format('d/m/Y') }} al {{ $diasSemana[6]->format('d/m/Y') }}</p>
                 </div>
 
-                <table class="min-w-full bg-white border border-gray-300">
+                <table class="table table-striped">
                     <thead>
-                        <tr class="bg-gray-100">
+                        <tr class="">
                             <th class="py-2 px-4 border font-bold">Día</th>
                             <th class="py-2 px-4 border font-bold">Ambiente</th>
                             <th class="py-2 px-4 border font-bold">Ficha</th>
@@ -134,23 +112,23 @@
                 </table>
             </div>
 
-            <div class="flex items-center justify-end mt-6 gap-4">
+            <div style="display:inline-block;">
                 <button type="button" 
-                        class="copiar-anterior bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                        class="copiar-anterior btn btn-success">
                     Copiar día anterior
                 </button>
                 <a href="{{ route('ambiente-programacion.index') }}" 
-                   class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                   class="btn btn-secondary">
                     Cancelar
                 </a>
-                <button type="submit" 
-                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          
+            </div>
+            <button type="submit" 
+                        class="btn btn-success">
                     Guardar Programación
                 </button>
-            </div>
         </form>
-    </div>
-</div>
+
 
 @push('scripts')
 <script>

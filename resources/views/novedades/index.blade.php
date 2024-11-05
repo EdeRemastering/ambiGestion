@@ -61,7 +61,7 @@
                         <form action="{{ route('novedades.destroy', $novedad->id) }}" method="POST" style="display:inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger"onclick="mensajeDeEliminacion(event, '{{ $novedad->id }}', '{{ $novedad->nombre }}', 'novedades')"><i class="bi bi-trash"></i></button>
+                            <button type="submit" class="btn btn-sm btn-danger mt-1"onclick="mensajeDeEliminacion(event, '{{ $novedad->id }}', '{{ $novedad->nombre }}', 'novedades')"><i class="bi bi-trash"></i></button>
                         </form>
                     @endif
             </td>

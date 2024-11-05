@@ -4,12 +4,12 @@
 @section('content')
 <div class="container-fluid">
 
-                <a href="{{ route('fichas.create') }}" class="btn btn-success">
-                    <i class="fas fa-plus"></i> Nueva Ficha
+                <a href="{{ route('fichas.create') }}" class="btn btn-success mb-3 boton-crear">
+                    <i class="fas fa-plus"></i> Crear Ficha
                 </a>
 
 
-                <table id="fichasTable" class="table">
+                <table id="fichasTable" class="table table-striped">
                     <thead>
                         <tr>
                             <th>Código</th>
@@ -41,7 +41,6 @@
                                 </td>
                                 <td>{{ $ficha->jornada->nombre }}</td>
                                 <td>
-                                    <div class="btn-group" role="group">
                                         <a href="{{ route('fichas.show', $ficha) }}" 
                                            class="btn btn-success btn-sm" 
                                            title="Ver Detalles">
@@ -60,13 +59,13 @@
                                                 data-bs-target="#aprendicesModal{{ $ficha->id }}">
                                             <i class="bi bi-people"></i>
                                         </button>
-                                    </div>
+
                                     <form id="eliminar-ficha-{{ $ficha->id }}" 
                                           action="{{ route('fichas.destroy', $ficha) }}" 
-                                          method="POST">
+                                          method="POST" style="display:inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger"onclick="mensajeDeEliminacion(event, '{{ $ficha->id }}', '{{ $ficha->codigo }}', 'fichas')"><i class="bi bi-trash"></i></button>
+                                        <button type="submit" class="btn btn-sm btn-danger mt-1"onclick="mensajeDeEliminacion(event, '{{ $ficha->id }}', '{{ $ficha->codigo }}', 'fichas')"><i class="bi bi-trash"></i></button>
 
                                     </form>
                                 </td>

@@ -243,4 +243,91 @@ class PersonasController extends Controller
             return back()->with('error', 'Ocurrió un error al eliminar el perfil. Por favor, intenta de nuevo.');
         }
     }
+
+    
+    public function settings()
+    {
+        $user = Auth::user();
+    
+        // Obtener la persona asociada al usuario autenticado usando Eloquent
+        $persona = Personas::with('user')->where('user_id', $user->id)->first();
+    
+        // Verifica si la persona existe
+        if (!$persona) {
+            return back()->withErrors(['error' => 'No se encontró la persona asociada.'])->withInput();
+        }
+    
+        // Obtener roles, grupos sanguíneos y contratos si se necesitan en la vista
+        $roles = Roles::select('id', 'name', 'descripcion')->get();
+        $gruposSanguineos = Grupo_sanguineo::select('id', 'descripcion')->get();
+        $tiposContratos = Contratos::select('id', 'descripcion')->get();
+    
+        $canChangeRole = $user->role->name === 'admin';
+        $isAprendiz = $persona->user->role->name === 'aprendiz';
+    
+        return view('personas.settings', compact('persona', 'roles', 'gruposSanguineos', 'tiposContratos', 'canChangeRole', 'isAprendiz'));
+    }
+    
+
+
+
+    public function updateSettings(Request $request)
+    {
+        $user = Auth::user();
+        $persona = Personas::where('user_id', $user->id)->first();
+    
+        if (!$persona) {
+            return back()->withErrors(['error' => 'No se encontró la persona asociada.'])->withInput();
+        }
+    
+        $rules = [
+            'documento' => 'required',
+            'pnombre' => 'required',
+            'snombre' => 'nullable',
+            'papellido' => 'required',
+            'sapellido' => 'nullable',
+            'telefono' => 'required',
+            'correo' => 'required|email',
+            'direccion' => 'required',
+            'tipo_sangre_id' => 'required|exists:grupo_sanguineos,id',
+            'password' => 'nullable|min:6',
+        ];
+    
+        if ($persona->user->role->name !== 'aprendiz') {
+            $rules['tipo_contrato_id'] = 'required|exists:contratos,id';
+        }
+    
+        $validatedData = $request->validate($rules);
+    
+        try {
+            DB::beginTransaction();
+    
+            // Actualizar usando joins
+            DB::table('personas')
+                ->join('users', 'personas.user_id', '=', 'users.id')
+                ->where('users.id', $user->id)
+                ->update([
+                    'personas.documento' => $validatedData['documento'],
+                    'personas.pnombre' => $validatedData['pnombre'],
+                    'personas.snombre' => $validatedData['snombre'],
+                    'personas.papellido' => $validatedData['papellido'],
+                    'personas.sapellido' => $validatedData['sapellido'],
+                    'personas.telefono' => $validatedData['telefono'],
+                    'personas.correo' => $validatedData['correo'],
+                    'personas.direccion' => $validatedData['direccion'],
+                    'personas.tipo_sangre_id' => $validatedData['tipo_sangre_id'],
+                    'personas.tipo_contrato_id' => $validatedData['tipo_contrato_id'] ?? null,
+                    'users.email' => $validatedData['correo'],
+                    'users.password' => $request->filled('password') ? Hash::make($request->password) : $user->password,
+                ]);
+    
+            DB::commit();
+            return redirect()->route('dashboard')->with('success', 'Perfil actualizado exitosamente');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Error al actualizar configuración: ' . $e->getMessage());
+            return back()->withErrors(['error' => 'Ocurrió un error al actualizar. Inténtalo nuevamente.'])->withInput();
+        }
+    }
+
 }

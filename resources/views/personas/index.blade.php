@@ -5,7 +5,7 @@
 <div class="container">
 
 
-    <table id="personasTable" class="table">
+    <table id="personasTable" class="table table-striped">
         <thead>
             <tr>
                 <th>Documento</th>

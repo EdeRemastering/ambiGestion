@@ -23,7 +23,13 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\CheckPersonaRegistration;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
+});
+
+
+Route::middleware([CheckPersonaRegistration::class])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    // Otras rutas protegidas
 });
 
 Route::get('/verificar-documento/{documento}', [App\Http\Controllers\Auth\RegisterController::class, 'verificarDocumento'])
@@ -42,7 +48,6 @@ Route::get('/api/competencias/{competencia}/resultados', [AmbienteProgramacionCo
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 
 
@@ -63,11 +68,9 @@ Route::prefix('personas')->group(function () {
     });
     
 
-    Route::middleware([CheckPersonaRegistration::class])->group(function () {
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-        // Otras rutas protegidas
-    });
 });
+
+
 
 
 // Rutas para ProgramaFormacion

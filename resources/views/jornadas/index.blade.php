@@ -5,7 +5,7 @@
 <div class="container">
   
 
-    <a href="{{ route('jornadas.create') }}" class="btn btn-success mb-3">Crear Nueva Jornada</a>
+    <a href="{{ route('jornadas.create') }}" class="btn btn-success mb-3 boton-crear">Crear Jornada</a>
 
     <table id="jornadasTable" class="table table-striped">
         <thead>

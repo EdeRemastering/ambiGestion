@@ -389,6 +389,28 @@ thead {
     background-color: #222;
     color: #fff;
 }
+.dataTables_paginate .paginate_button {
+    background-color: var(--color-borde); /* Cambia el color de fondo */
+    color: var(--color-texto); /* Cambia el color del texto */
+    padding: 5px 10px;
+    margin: 2px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: .3s all ease;
+}
+
+.dataTables_paginate .paginate_button:hover {
+    background-color: var(--color-primario-claro); /* Color al pasar el mouse */
+    color: white;
+}
+
+.dataTables_paginate .paginate_button.current {
+    background-color:  var(--color-principal); /* Color del botón activo */
+    font-weight: bold;
+    color: white;
+}
 
 /* Hacer que la DataTable ocupe el 100% de ancho */
 table.dataTable {
@@ -553,4 +575,23 @@ box-shadow: none;
     color: var(--color-texto-oscuro); /* Texto claro */
     cursor: not-allowed;
     opacity: 0.8; /* Ajuste de opacidad para dar un efecto visual */
+}
+
+
+
+.modo-oscuro .dataTables_paginate .paginate_button {
+    background-color: var(--color-borde-oscuro); /* Cambia el color de fondo */
+    color: var(--color-texto-oscuro); /* Cambia el color del texto */
+ 
+}
+
+.modo-oscuro .dataTables_paginate .paginate_button:hover {
+    background-color: var(--color-primario-claro); /* Color al pasar el mouse */
+    color: white;
+}
+
+.modo-oscuro .dataTables_paginate .paginate_button.current {
+    background-color:  var(--color-primario-claro); /* Color del botón activo */
+    font-weight: bold;
+    color: white;
 }

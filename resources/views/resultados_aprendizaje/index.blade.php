@@ -3,9 +3,9 @@
 
 @section('content')
 <div class="container">
-    <a href="{{ route('resultados_aprendizaje.create') }}" class="btn btn-primary mb-3">Crear Nuevo Resultado de Aprendizaje</a>
+    <a href="{{ route('resultados_aprendizaje.create') }}" class="btn btn-success mb-3 boton-crear">Crear Resultado</a>
 
-    <table id="resultados_aprendizajeTable" class="table">
+    <table id="resultados_aprendizajeTable" class="table table-striped">
         <thead>
             <tr>
                 <th>Código</th>
@@ -33,10 +33,10 @@
                 <td>
                     <a href="{{ route('resultados_aprendizaje.show', $resultado->id) }}" class="btn btn-sm btn-success"><i class="bi bi-eye"></i></a>
                     <a href="{{ route('resultados_aprendizaje.edit', ['resultadoAprendizaje' => $resultado->id]) }}" class="btn btn-sm btn-success"><i class="bi bi-pencil"></i></a>
-                     <form action="{{ route('resultados_aprendizaje.destroy', $resultado->id) }}" method="POST" style="display: inline-block;">
+                     <form action="{{ route('resultados_aprendizaje.destroy', $resultado->id) }}" method="POST" style="display: inline;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger"onclick="mensajeDeEliminacion(event, '{{ $resultado->id }}', '{{ $resultado->nombre }}', 'resultados')"><i class="bi bi-trash"></i></button>
+                        <button type="submit" class="btn btn-sm btn-danger mt-1"onclick="mensajeDeEliminacion(event, '{{ $resultado->id }}', '{{ $resultado->nombre }}', 'resultados')"><i class="bi bi-trash"></i></button>
                         </form>
                 </td>
             </tr>

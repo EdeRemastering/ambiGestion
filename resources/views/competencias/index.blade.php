@@ -5,13 +5,13 @@
 <div class="container">
     <div class="row justify-content-between mb-4">
         <div class="col-auto">
-            <a href="{{ route('competencias.create') }}" class="btn btn-success">
-                <i class="fas fa-plus"></i> Crear Nueva Competencia
+            <a href="{{ route('competencias.create') }}" class="btn btn-success boton-crear">
+                <i class="fas fa-plus"></i> Crear Competencia
             </a>
         </div>
     </div>
 
-                <table id="competenciasTable" class="table table-striped table-hover">
+                <table id="competenciasTable" class="table table-striped">
                     <thead>
                         <tr>
                             <th>Código</th>
@@ -108,7 +108,6 @@
                                     </a>
                             </td>
                             <td>
-                                <div class="btn-group" role="group">
                                     <a href="{{ route('competencias.show', $competencia) }}" 
                                        class="btn btn-success btn-sm" title="Ver detalles">
                                         <i class="bi bi-eye"></i>
@@ -119,13 +118,12 @@
                                     </a>
                       
                                     <form action="{{ route('competencias.destroy', $competencia) }}" 
-                                          method="POST" class="d-inline">
+                                          method="POST" style="display: inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger"onclick="mensajeDeEliminacion(event, '{{ $competencia->id }}', '{{ $competencia->nombre }}', 'competencias')"><i class="bi bi-trash"></i></button>
+                                        <button type="submit" class="btn btn-sm btn-danger mt-1"onclick="mensajeDeEliminacion(event, '{{ $competencia->id }}', '{{ $competencia->nombre }}', 'competencias')"><i class="bi bi-trash"></i></button>
 
                                     </form>
-                                </div>
                             </td>
                         </tr>
                         @endforeach

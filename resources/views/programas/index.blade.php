@@ -4,9 +4,9 @@
 @section('content')
 <div class="container">
 
-    <a href="{{ route('programas.create') }}" class="btn btn-primary mb-3">Crear Nuevo Programa</a>
+    <a href="{{ route('programas.create') }}" class="btn btn-success mb-3 boton-crear">Crear Programa</a>
     
-    <table id="programasTable" class="table">
+    <table id="programasTable" class="table table-striped">
         <thead>
             <tr>
                 <th>Código</th>

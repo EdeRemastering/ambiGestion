@@ -2,23 +2,17 @@
 @section('titulo', 'Programación de ambientes')
 
 @section('content')
-<div class="container mx-auto px-4 py-6">
+
     <div class="mb-6">
-        <!-- Encabezado -->
-        <div class="flex justify-between items-center mb-4">
-            <div>
-                <h1 class="text-2xl font-bold text-gray-800">SERVICIO NACIONAL DE APRENDIZAJE SENA</h1>
-                <h2 class="text-xl">Centro de Servicios y Gestión Empresarial</h2>
-                <h3 class="text-lg font-bold mt-2">Programación Semanal de Ambientes</h3>
-            </div>
+ 
             <a href="{{ route('ambiente-programacion.create') }}" 
-               class="btn btn-success">
-                Nueva Programación
+               class="btn btn-success boton-crear">
+                Crear Programación
             </a>
-        </div>
+
 
         <!-- Filtros -->
-        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div class="">
             <form action="{{ route('ambiente-programacion.index') }}" method="GET" class="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div>
                     <label class="block text-gray-700 text-sm font-bold mb-2">Semana del:</label>
@@ -55,7 +49,7 @@
 
                 <div class="flex items-end">
                     <button type="submit" 
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            class="btn btn-success mt-3">
                         Filtrar
                     </button>
                 </div>
@@ -142,5 +136,5 @@
             </tbody>
         </table>
     </div>
-</div>
+
 @endsection

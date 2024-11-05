@@ -18,7 +18,7 @@
         <a class="btn btn-success botonEstadoTotal">Total: {{ $estadisticas['ambientesTotal'] }}</a>
     </div>
 
-    <a href="{{ route('ambientes.create') }}" class="btn btn-primary mb-3">Crear Nuevo Ambiente</a>
+    <a href="{{ route('ambientes.create') }}" class="btn btn-success mb-3 boton-crear">Crear Ambiente</a>
 
     <table id="ambientesTable" class="table table-striped" style="width:100%">
         <thead>
