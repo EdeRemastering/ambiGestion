@@ -72,7 +72,6 @@ Route::prefix('personas')->group(function () {
 
 
 
-
 // Rutas para ProgramaFormacion
 Route::prefix('programas')->middleware(['auth'])->group(function () {
     Route::get('/', [ProgramaFormacionController::class, 'index'])->name('programas.index');
@@ -177,22 +176,22 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::put('/novedades/{id}', [NovedadController::class, 'update'])->name('novedades.update');
     Route::delete('/novedades/{id}', [NovedadController::class, 'destroy'])->name('novedades.destroy');
    
-     Route::get('/tipo-ambientes', [TipoAmbienteController::class, 'index'])->name('tipo-ambientes.index');
+    Route::get('/tipo-ambientes', [TipoAmbienteController::class, 'index'])->name('tipo-ambientes.index');
     Route::get('/tipo-ambientes/create', [TipoAmbienteController::class, 'create'])->name('tipo-ambientes.create');
     Route::post('/tipo-ambientes', [TipoAmbienteController::class, 'store'])->name('tipo-ambientes.store');
-    Route::get('/tipo-ambientes/{tipoAmbiente}', [TipoAmbienteController::class, 'show'])->name('tipo-ambientes.show');
-    Route::get('/tipo-ambientes/{tipoAmbiente}/edit', [TipoAmbienteController::class, 'edit'])->name('tipo-ambientes.edit');
-    Route::put('/tipo-ambientes/{tipoAmbiente}', [TipoAmbienteController::class, 'update'])->name('tipo-ambientes.update');
-    Route::delete('/tipo-ambientes/{tipoAmbiente}', [TipoAmbienteController::class, 'destroy'])->name('tipo-ambientes.destroy');
+    Route::get('/tipo-ambientes/{id}', [TipoAmbienteController::class, 'show'])->name('tipo-ambientes.show');
+    Route::get('/tipo-ambientes/{id}/edit', [TipoAmbienteController::class, 'edit'])->name('tipo-ambientes.edit');
+    Route::put('/tipo-ambientes/{id}', [TipoAmbienteController::class, 'update'])->name('tipo-ambientes.update');
+    Route::delete('/tipo-ambientes/{id}', [TipoAmbienteController::class, 'destroy'])->name('tipo-ambientes.destroy');
     
 // Rutas para Estado Ambiente
 Route::get('/estado-ambientes', [EstadoAmbienteController::class, 'index'])->name('estado-ambientes.index');
 Route::get('/estado-ambientes/create', [EstadoAmbienteController::class, 'create'])->name('estado-ambientes.create');
 Route::post('/estado-ambientes', [EstadoAmbienteController::class, 'store'])->name('estado-ambientes.store');
-Route::get('/estado-ambientes/{estadoAmbiente}', [EstadoAmbienteController::class, 'show'])->name('estado-ambientes.show');
-Route::get('/estado-ambientes/{estadoAmbiente}/edit', [EstadoAmbienteController::class, 'edit'])->name('estado-ambientes.edit');
-Route::put('/estado-ambientes/{estadoAmbiente}', [EstadoAmbienteController::class, 'update'])->name('estado-ambientes.update');
-Route::delete('/estado-ambientes/{estadoAmbiente}', [EstadoAmbienteController::class, 'destroy'])->name('estado-ambientes.destroy');
+Route::get('/estado-ambientes/{id}', [EstadoAmbienteController::class, 'show'])->name('estado-ambientes.show');
+Route::get('/estado-ambientes/{id}/edit', [EstadoAmbienteController::class, 'edit'])->name('estado-ambientes.edit');
+Route::put('/estado-ambientes/{id}', [EstadoAmbienteController::class, 'update'])->name('estado-ambientes.update');
+Route::delete('/estado-ambientes/{id}', [EstadoAmbienteController::class, 'destroy'])->name('estado-ambientes.destroy');
 });
 
 
@@ -208,7 +207,7 @@ Route::prefix('ambiente-programacion')->middleware(['auth'])->group(function () 
         ->name('ambiente-programacion.generar-sesiones');
     
     Route::get('/api/competencias/{competencia}/resultados', [AmbienteProgramacionController::class, 'getResultados'])->name('competencias.resultados');
-
+    
 });
 
 
@@ -220,34 +219,30 @@ Route::middleware(['auth'])->group(function () {
         ->name('reportes-programacion.index');
 
     // Rutas para administrador
-    Route::middleware(['role:admin'])->group(function () {
+
         Route::get('/reportes-programacion/diario', [ReporteProgramacionController::class, 'diario'])
             ->name('reportes-programacion.diario');
         Route::get('/reportes-programacion/semanal', [ReporteProgramacionController::class, 'semanal'])
             ->name('reportes-programacion.semanal');
         Route::get('/reportes-programacion/mensual', [ReporteProgramacionController::class, 'mensual'])
             ->name('reportes-programacion.mensual');
-    });
 
     // Rutas para instructor
-    Route::middleware(['role:instructor'])->prefix('reportes-programacion/instructor')->group(function () {
+ 
         Route::get('/diario', [ReporteProgramacionController::class, 'diario'])
             ->name('reportes-programacion.instructor.diario');
         Route::get('/semanal', [ReporteProgramacionController::class, 'semanal'])
             ->name('reportes-programacion.instructor.semanal');
         Route::get('/mensual', [ReporteProgramacionController::class, 'mensual'])
             ->name('reportes-programacion.instructor.mensual');
-    });
-
+   
     // Rutas para aprendiz
-    Route::middleware(['role:aprendiz'])->prefix('reportes-programacion/aprendiz')->group(function () {
         Route::get('/diario', [ReporteProgramacionController::class, 'diario'])
             ->name('reportes-programacion.aprendiz.diario');
         Route::get('/semanal', [ReporteProgramacionController::class, 'semanal'])
             ->name('reportes-programacion.aprendiz.semanal');
         Route::get('/mensual', [ReporteProgramacionController::class, 'mensual'])
             ->name('reportes-programacion.aprendiz.mensual');
-    });
 });
 
 

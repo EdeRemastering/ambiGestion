@@ -1,14 +1,13 @@
 {{-- resources/views/reportes-programacion/index.blade.php --}}
 @extends('layouts.app')
 
-@section('titulo', 'Reportes de programación')
-
 @section('content')
+<div class="container mx-auto px-4 py-6">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">Reportes de Programación</h1>
 
-
-    <div class="">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         {{-- Reporte Diario --}}
-        <div class="">
+        <div class="bg-white rounded-lg shadow-md p-6">
             <h2 class="text-xl font-semibold text-gray-800 mb-4">Reporte Diario</h2>
             <p class="text-gray-600 mb-4">Visualiza la programación de un día específico.</p>
             
@@ -35,14 +34,14 @@
                 </div>
                 @endif
 
-                <button type="submit" class="btn btn-success">
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300">
                     Ver Reporte Diario
                 </button>
             </form>
         </div>
 
         {{-- Reporte Semanal --}}
-        <div class="">
+        <div class="bg-white rounded-lg shadow-md p-6">
             <h2 class="text-xl font-semibold text-gray-800 mb-4">Reporte Semanal</h2>
             <p class="text-gray-600 mb-4">Visualiza la programación de una semana completa.</p>
             
@@ -69,14 +68,14 @@
                 </div>
                 @endif
 
-                <button type="submit" class="btn btn-success">
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300">
                     Ver Reporte Semanal
                 </button>
             </form>
         </div>
 
         {{-- Reporte Mensual --}}
-        <div class="">
+        <div class="bg-white rounded-lg shadow-md p-6">
             <h2 class="text-xl font-semibold text-gray-800 mb-4">Reporte Mensual</h2>
             <p class="text-gray-600 mb-4">Visualiza la programación de un mes completo.</p>
             
@@ -113,11 +112,11 @@
                 </div>
                 @endif
 
-                <button type="submit" class="btn btn-success">
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300">
                     Ver Reporte Mensual
                 </button>
             </form>
         </div>
     </div>
-
+</div>
 @endsection

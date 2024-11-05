@@ -64,7 +64,7 @@ $persona = Personas::where('user_id', $user->id)->first();
 <div class="barra-lateral" id="barraLateral">
    
     <h2>
-        <img class="icono-barra-lateral" src="{{asset('img/logosena.png')}}" style="width: 100px;" alt="">
+        <img class="icono-barra-lateral" src="{{asset('img/logosena.png')}}" style="width: 100px; margin: auto;" alt="">
     </h2>
 
     @auth
