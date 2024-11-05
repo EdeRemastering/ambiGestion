@@ -1,18 +1,12 @@
 @extends('layouts.app')
-
-
+@section('titulo', 'Programación Semanal de Ambientes')
 @section('content')
 <div class="container mx-auto px-4 py-6">
     {{-- Reemplaza el div del encabezado existente con este nuevo --}}
 <div class="mb-6">
     {{-- Encabezado con títulos y navegación --}}
     <div class="flex flex-col space-y-4 mb-6">
-        {{-- Títulos --}}
-        <div class="text-center">
-            <h1 class="text-2xl font-bold text-gray-800">SERVICIO NACIONAL DE APRENDIZAJE SENA</h1>
-            <h2 class="text-xl">Centro de Servicios y Gestión Empresarial</h2>
-            <h3 class="text-lg font-bold mt-2">Programación Semanal de Ambientes</h3>
-        </div>
+   
 
         {{-- Navegación de Semanas --}}
         <div class="flex items-center justify-between bg-white p-4 rounded-lg shadow">
@@ -26,7 +20,7 @@
             {{-- Botones de navegación --}}
             <div class="flex space-x-4">
                 <a href="{{ route('ambiente-programacion.create', ['fecha_inicio' => $semanaAnterior]) }}" 
-                   class="flex items-center px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">
+                   class="btn btn-success">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
                     </svg>
@@ -34,7 +28,7 @@
                 </a>
 
                 <a href="{{ route('ambiente-programacion.create', ['fecha_inicio' => $semanaSiguiente]) }}" 
-                   class="flex items-center px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">
+                   class="btn btn-success">
                     Semana Siguiente
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -185,7 +179,7 @@
                     Cancelar
                 </a>
                 <button type="submit" 
-                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        class="btn btn-success boton-crear">
                     Guardar Programación
                 </button>
             </div>

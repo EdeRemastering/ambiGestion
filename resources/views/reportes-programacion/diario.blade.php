@@ -1,12 +1,10 @@
 @extends('layouts.app')
+@section('titulo', 'Reporte diario de programación')
 
 @section('content')
 <div class="container mx-auto px-4 py-6">
     {{-- Encabezado tipo planilla --}}
     <div class="text-center mb-8">
-        <h1 class="text-xl font-bold uppercase">Servicio Nacional de Aprendizaje SENA</h1>
-        <h2 class="text-lg">Centro de Servicios y Gestión Empresarial</h2>
-        <h3 class="text-lg font-bold mt-4">Reporte Diario de Programación</h3>
         @php
             setlocale(LC_TIME, 'es_ES.UTF-8', 'Spanish_Spain.1252');
             \Carbon\Carbon::setLocale('es');
@@ -30,7 +28,7 @@
             </div>
 
             <div class="flex items-center gap-2">
-                <button type="submit" class="bg-blue-600 text-white px-4 py-1 text-sm rounded hover:bg-blue-700">
+                <button type="submit" class="btn btn-success btn-sm">
                     Filtrar
                 </button>
 
@@ -40,12 +38,12 @@
                     'ambiente_id' => request('ambiente_id'),
                     'instructor_id' => request('instructor_id')
                 ]) }}" 
-                   class="bg-[#39A900] text-white px-4 py-1 text-sm rounded hover:bg-[#2d8600]">
+                   class="btn btn-success boton-crear btn-sm">
                     <i class="fas fa-calendar me-1"></i> Volver al Calendario
                 </a>
 
                 <a href="{{ route('reportes-programacion.index') }}" 
-                   class="bg-gray-500 text-white px-4 py-1 text-sm rounded hover:bg-gray-700">
+                   class="btn btn-secondary btn-sm">
                     Volver
                 </a>
 
@@ -59,23 +57,23 @@
         <div class="grid grid-cols-4 divide-x divide-gray-300">
             <div class="p-4 text-center">
                 <div class="text-sm font-medium text-gray-600">Total Programaciones</div>
-                <div class="text-xl font-bold text-blue-600 mt-1">{{ $totalProgramaciones }}</div>
+                <div class="">{{ $totalProgramaciones }}</div>
             </div>
             <div class="p-4 text-center">
                 <div class="text-sm font-medium text-gray-600">Programadas</div>
-                <div class="text-xl font-bold text-yellow-600 mt-1">
+                <div class="">
                     {{ $programacionesPorEstado->get('programado', collect())->count() }}
                 </div>
             </div>
             <div class="p-4 text-center">
                 <div class="text-sm font-medium text-gray-600">En Curso</div>
-                <div class="text-xl font-bold text-blue-600 mt-1">
+                <div class="">
                     {{ $programacionesPorEstado->get('en_curso', collect())->count() }}
                 </div>
             </div>
             <div class="p-4 text-center">
                 <div class="text-sm font-medium text-gray-600">Completadas</div>
-                <div class="text-xl font-bold text-green-600 mt-1">
+                <div class="">
                     {{ $programacionesPorEstado->get('completado', collect())->count() }}
                 </div>
             </div>

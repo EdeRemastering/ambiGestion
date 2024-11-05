@@ -1,12 +1,10 @@
 @extends('layouts.app')
+@section('titulo', 'Reporte semanal de programación')
 
 @section('content')
 <div class="container mx-auto px-4 py-6">
     {{-- Encabezado tipo planilla --}}
     <div class="text-center mb-8">
-        <h1 class="text-xl font-bold uppercase">Servicio Nacional de Aprendizaje SENA</h1>
-        <h2 class="text-lg">Centro de Servicios y Gestión Empresarial</h2>
-        <h3 class="text-lg font-bold mt-4">Programación Semanal de Ambientes</h3>
         <p class="text-sm mt-2">
             Semana del {{ \Carbon\Carbon::parse($fechaInicio)->isoFormat('LL') }} 
             al {{ \Carbon\Carbon::parse($fechaInicio)->addDays(6)->isoFormat('LL') }}
@@ -38,12 +36,11 @@
                 </div>
             @endif
 
-            <button type="submit" class="bg-blue-600 text-white px-4 py-1 text-sm rounded hover:bg-blue-700">
+            <button type="submit" class="btn btn-success btn-sm">
                 Filtrar
             </button>
 
-            <a href="{{ route('reportes-programacion.index') }}" 
-               class="bg-gray-500 text-white px-4 py-1 text-sm rounded hover:bg-gray-700">
+            <a href="{{ route('reportes-programacion.index') }}" class="btn btn-secondary btn-sm">
                 Volver
             </a>
         </form>

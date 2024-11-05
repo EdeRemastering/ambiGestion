@@ -1,12 +1,10 @@
 @extends('layouts.app')
+@section('titulo', 'Calendario mensual de programaciones')
 
 @section('content')
 <div class="container mx-auto px-4 py-6">
     {{-- Encabezado tipo planilla --}}
     <div class="text-center mb-8">
-        <h1 class="text-xl font-bold uppercase">Servicio Nacional de Aprendizaje SENA</h1>
-        <h2 class="text-lg">Centro de Servicios y Gestión Empresarial</h2>
-        <h3 class="text-lg font-bold mt-4">Calendario Mensual de Programación</h3>
         
         @php
             setlocale(LC_TIME, 'es_ES.UTF-8', 'Spanish_Spain.1252');

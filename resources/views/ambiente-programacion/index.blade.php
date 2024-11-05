@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('titulo', 'Programación semanal de ambientes')
 
 @section('content')
 <div class="container mx-auto px-4 py-6">
@@ -6,12 +7,10 @@
         <!-- Encabezado -->
         <div class="flex justify-between items-center mb-4">
             <div>
-                <h1 class="text-2xl font-bold text-gray-800">SERVICIO NACIONAL DE APRENDIZAJE SENA</h1>
-                <h2 class="text-xl">Centro de Servicios y Gestión Empresarial</h2>
-                <h3 class="text-lg font-bold mt-2">Programación Semanal de Ambientes</h3>
+   
             </div>
             <a href="{{ route('ambiente-programacion.create') }}" 
-               class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+               class="btn btn-success boton-crear">
                 Nueva Programación
             </a>
         </div>
@@ -54,7 +53,7 @@
 
                 <div class="flex items-end">
                     <button type="submit" 
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            class="btn btn-success">
                         Filtrar
                     </button>
                 </div>
@@ -68,8 +67,8 @@
             </div>
             
             <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
+                <table class="table table-stripped">
+                    <thead class="">
                         <tr>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Día y Fecha
@@ -138,9 +137,9 @@
                                         <td class="px-6 py-4 text-sm font-medium">
                                             <div class="flex space-x-3">
                                                 <a href="{{ route('ambiente-programacion.show', $prog->id) }}" 
-                                                   class="text-blue-600 hover:text-blue-900">Ver</a>
+                                                   class="btn btn-success btn-sm"><i class="bi bi-eye"></i></a>
                                                 <a href="{{ route('ambiente-programacion.edit', $prog->id) }}" 
-                                                   class="text-yellow-600 hover:text-yellow-900">Editar</a>
+                                                   class="btn btn-success btn-sm"><i class="bi bi-pencil"></i></a>
                                             </div>
                                         </td>
                                     </tr>

@@ -1,13 +1,12 @@
 @extends('layouts.app')
+@section('titulo', 'Editar programación')
 
 @section('content')
 <div class="container mx-auto px-4 py-6">
     <div class="mb-6">
         <div class="flex justify-between items-center mb-4">
             <div>
-                <h1 class="text-2xl font-bold text-gray-800">SERVICIO NACIONAL DE APRENDIZAJE SENA</h1>
-                <h2 class="text-xl">Centro de Servicios y Gestión Empresarial</h2>
-                <h3 class="text-lg font-bold mt-2">Editar Programación</h3>
+
             </div>
             <a href="{{ route('ambiente-programacion.index') }}" 
                class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
@@ -158,7 +157,7 @@
                     Cancelar
                 </a>
                 <button type="submit" 
-                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300">
+                        class="btn btn-success boton-crear">
                     Actualizar Programación
                 </button>
             </div>
