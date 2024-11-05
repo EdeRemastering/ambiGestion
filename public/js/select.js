@@ -1,5 +1,6 @@
 $(document).ready(function() {
-    // Inicializa Select2 en tus selectores
-    $('select').select2();
-
+    $('select').select2({
+        placeholder: 'Seleccione una opción', // Un placeholder opcional
+        allowClear: true // Permite limpiar la selección
+    });
 });

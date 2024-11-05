@@ -1,19 +1,84 @@
 @extends('layouts.app')
-@section('titulo', 'Crear programación')
+
 
 @section('content')
+<div class="container mx-auto px-4 py-6">
+    {{-- Reemplaza el div del encabezado existente con este nuevo --}}
+<div class="mb-6">
+    {{-- Encabezado con títulos y navegación --}}
+    <div class="flex flex-col space-y-4 mb-6">
+        {{-- Títulos --}}
+        <div class="text-center">
+            <h1 class="text-2xl font-bold text-gray-800">SERVICIO NACIONAL DE APRENDIZAJE SENA</h1>
+            <h2 class="text-xl">Centro de Servicios y Gestión Empresarial</h2>
+            <h3 class="text-lg font-bold mt-2">Programación Semanal de Ambientes</h3>
+        </div>
 
-        <form action="{{ route('ambiente-programacion.store') }}" method="POST" class="">
+        {{-- Navegación de Semanas --}}
+        <div class="flex items-center justify-between bg-white p-4 rounded-lg shadow">
+            {{-- Información de la semana actual --}}
+            <div class="text-center flex-grow">
+                <h4 class="text-lg font-semibold text-gray-700">
+                    Semana del: {{ $diasSemana[0]->format('d/m/Y') }} al {{ $diasSemana[6]->format('d/m/Y') }}
+                </h4>
+            </div>
+            
+            {{-- Botones de navegación --}}
+            <div class="flex space-x-4">
+                <a href="{{ route('ambiente-programacion.create', ['fecha_inicio' => $semanaAnterior]) }}" 
+                   class="flex items-center px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+                    </svg>
+                    Semana Anterior
+                </a>
+
+                <a href="{{ route('ambiente-programacion.create', ['fecha_inicio' => $semanaSiguiente]) }}" 
+                   class="flex items-center px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">
+                    Semana Siguiente
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+               
+                <a href="{{ route('ambiente-programacion.index') }}" 
+                   class="flex items-center px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+                    </svg>
+                    Volver al Listado
+                </a>
+            </div>
+        </div>
+    </div>
+
+        {{-- Mensajes de Error --}}
+        @if ($errors->any())
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+            <ul class="list-disc list-inside">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+
+        {{-- Formulario Principal --}}
+        <form action="{{ route('ambiente-programacion.store') }}" method="POST" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             @csrf
             
             <div class="overflow-x-auto">
-                <div class="mb-4">
-                    <p class="text-gray-700">Semana del: {{ $diasSemana[0]->format('d/m/Y') }} al {{ $diasSemana[6]->format('d/m/Y') }}</p>
+                {{-- Información de la Semana --}}
+                <div class="mb-4 text-center">
+                    <p class="text-lg font-semibold text-gray-700">
+                        Semana del: {{ $diasSemana[0]->format('d/m/Y') }} al {{ $diasSemana[6]->format('d/m/Y') }}
+                    </p>
                 </div>
 
-                <table class="table table-striped">
+                {{-- Tabla de Programación --}}
+                <table class="min-w-full bg-white border border-gray-300">
                     <thead>
-                        <tr class="">
+                        <tr class="bg-gray-100">
                             <th class="py-2 px-4 border font-bold">Día</th>
                             <th class="py-2 px-4 border font-bold">Ambiente</th>
                             <th class="py-2 px-4 border font-bold">Ficha</th>
@@ -112,23 +177,21 @@
                 </table>
             </div>
 
-            <div style="display:inline-block;">
-                <button type="button" 
-                        class="copiar-anterior btn btn-success">
-                    Copiar día anterior
-                </button>
+            {{-- Botones de Acción --}}
+            <div class="flex items-center justify-end mt-6 gap-4">
+                
                 <a href="{{ route('ambiente-programacion.index') }}" 
-                   class="btn btn-secondary">
+                   class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
                     Cancelar
                 </a>
-          
-            </div>
-            <button type="submit" 
-                        class="btn btn-success">
+                <button type="submit" 
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     Guardar Programación
                 </button>
+            </div>
         </form>
-
+    </div>
+</div>
 
 @push('scripts')
 <script>
@@ -183,15 +246,20 @@ async function verificarDisponibilidadInstructor(fecha, jornadaId, personaId, in
     
     try {
         if (fecha && jornadaId && personaId) {
-            horasInfo.textContent = 'Verificando disponibilidad del instructor...';
+            const response = await fetch(`/verificar-disponibilidad-instructor?fecha=${fecha}&jornada_id=${jornadaId}&persona_id=${personaId}`);
+            const data = await response.json();
+            
+            if (!data.disponible) {
+                horasInfo.textContent = 'El instructor no está disponible en este horario';
+                Swal.fire({
+                    title: 'Atención',
+                    text: 'El instructor ya tiene una programación en este horario',
+                    icon: 'warning'
+                });
+            }
         }
     } catch (error) {
         console.error('Error al verificar disponibilidad:', error);
-        Swal.fire({
-            title: 'Error',
-            text: 'Error al verificar disponibilidad del instructor',
-            icon: 'error'
-        });
     }
 }
 
@@ -200,15 +268,20 @@ async function verificarDisponibilidadAmbiente(fecha, jornadaId, ambienteId, ind
     
     try {
         if (fecha && jornadaId && ambienteId) {
-            horasInfo.textContent = 'Verificando disponibilidad del ambiente...';
+            const response = await fetch(`/verificar-disponibilidad-ambiente?fecha=${fecha}&jornada_id=${jornadaId}&ambiente_id=${ambienteId}`);
+            const data = await response.json();
+            
+            if (!data.disponible) {
+                horasInfo.textContent = 'El ambiente no está disponible en este horario';
+                Swal.fire({
+                    title: 'Atención',
+                    text: 'El ambiente ya está ocupado en este horario',
+                    icon: 'warning'
+                });
+            }
         }
     } catch (error) {
         console.error('Error al verificar disponibilidad:', error);
-        Swal.fire({
-            title: 'Error',
-            text: 'Error al verificar disponibilidad del ambiente',
-            icon: 'error'
-        });
     }
 }
 
@@ -241,7 +314,99 @@ function copiarDiaAnterior(index) {
     });
 }
 
-// Validación del formulario
+async function cargarProgramacionSemanaAnterior() {
+    try {
+        // Mostrar loading
+        Swal.fire({
+            title: 'Cargando...',
+            text: 'Obteniendo programación de la semana anterior',
+            allowOutsideClick: false,
+            showConfirmButton: false,
+            willOpen: () => {
+                Swal.showLoading();
+            }
+        });
+
+        // Obtener la fecha actual de la vista
+        const primeraFecha = document.querySelector('input[type="hidden"][name="programaciones[0][fecha]"]').value;
+        
+        // Obtener programaciones de la semana anterior
+        const response = await fetch(`/ambiente-programacion/semana-anterior/${primeraFecha}`);
+        const data = await response.json();
+
+        if (!data.success) {
+            throw new Error(data.message || 'Error al obtener la programación');
+        }
+
+        if (data.programaciones.length === 0) {
+            Swal.fire({
+                icon: 'info',
+                title: 'Sin programaciones',
+                text: 'No hay programaciones en la semana anterior para copiar.'
+            });
+            return;
+        }
+
+        // Iterar sobre las filas de la tabla actual
+        document.querySelectorAll('tbody tr').forEach((fila, index) => {
+            const fechaActual = fila.querySelector('input[type="hidden"]').value;
+            
+            // Buscar programación correspondiente por día de la semana
+            const diaActual = new Date(fechaActual).getDay();
+            const programacion = data.programaciones.find(p => 
+                new Date(p.fecha).getDay() === diaActual
+            );
+
+            if (programacion) {
+                // Actualizar campos básicos
+                const selects = {
+                    ambiente: fila.querySelector(`select[name="programaciones[${index}][ambiente_id]"]`),
+                    ficha: fila.querySelector(`select[name="programaciones[${index}][ficha_id]"]`),
+                    jornada: fila.querySelector(`select[name="programaciones[${index}][jornada_id]"]`),
+                    persona: fila.querySelector(`select[name="programaciones[${index}][persona_id]"]`),
+                    competencia: fila.querySelector(`select[name="programaciones[${index}][competencia_id]"]`)
+                };
+
+                // Actualizar cada select si existe
+                if (selects.ambiente) selects.ambiente.value = programacion.ambiente_id;
+                if (selects.ficha) selects.ficha.value = programacion.ficha_id;
+                if (selects.jornada) selects.jornada.value = programacion.jornada_id;
+                if (selects.persona) selects.persona.value = programacion.persona_id;
+                
+                // Actualizar competencia y disparar evento para cargar resultados
+                if (selects.competencia) {
+                    selects.competencia.value = programacion.competencia_id;
+                    selects.competencia.dispatchEvent(new Event('change'));
+
+                    // Esperar a que se carguen los resultados y seleccionar el correcto
+                    setTimeout(() => {
+                        const resultadoSelect = fila.querySelector(`select[name="programaciones[${index}][resultado_aprendizaje_id]"]`);
+                        if (resultadoSelect && !resultadoSelect.disabled) {
+                            resultadoSelect.value = programacion.resultado_aprendizaje_id;
+                        }
+                    }, 500);
+                }
+            }
+        });
+
+        Swal.fire({
+            icon: 'success',
+            title: '¡Completado!',
+            text: 'Se ha copiado la programación de la semana anterior',
+            timer: 2000,
+            showConfirmButton: false
+        });
+
+    } catch (error) {
+        console.error('Error:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.message || 'Error al copiar la programación'
+        });
+    }
+}
+
 function validarFormulario(form) {
     const errores = [];
     let hayProgramaciones = false;
@@ -312,6 +477,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Botón para copiar semana anterior
+    const btnCopiarSemanaAnterior = document.getElementById('copiarSemanaAnterior');
+    if (btnCopiarSemanaAnterior) {
+        btnCopiarSemanaAnterior.addEventListener('click', cargarProgramacionSemanaAnterior);
+    }
+
     // Event listeners para los selectores
     document.querySelectorAll('select').forEach(select => {
         select.addEventListener('change', function() {
@@ -346,7 +517,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 return false;
             }
 
-            // Si pasa la validación, mostrar confirmación
             Swal.fire({
                 title: '¿Está seguro?',
                 text: "¿Desea guardar esta programación?",
@@ -358,13 +528,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 cancelButtonText: 'Cancelar'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    this.submit(); // Enviar el formulario
+                    this.submit();
                 }
             });
         });
     }
 
-    // Mostrar mensajes de error del servidor si existen
+    // Mostrar mensajes de error del servidor
     @if(Session::has('error'))
         Swal.fire({
             icon: 'error',
@@ -374,7 +544,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     @endif
 
-    // Mostrar mensajes de éxito del servidor si existen
+    // Mostrar mensajes de éxito del servidor
     @if(Session::has('success'))
         Swal.fire({
             icon: 'success',

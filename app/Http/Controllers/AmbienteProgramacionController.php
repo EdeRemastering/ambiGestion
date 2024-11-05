@@ -117,48 +117,68 @@ class AmbienteProgramacionController extends Controller
         }
     }
 
-    public function create()
-    {
-        $ambientes = Ambiente::all();
-        $fichas = Ficha::all();
-        $jornadas = Jornada::all();
-        $competencias = Competencia::with('resultadosAprendizaje')->get();
-        $instructores = Personas::whereHas('user.role', function($query) {
-            $query->where('name', 'instructor');
-        })->get();
+    public function create(Request $request)
+{
+    // Obtener la fecha de inicio desde el request o usar la fecha actual
+    $fechaInicio = $request->fecha_inicio ? 
+        Carbon::parse($request->fecha_inicio) : 
+        Carbon::now();
     
-        // Obtener todos los resultados con sus horas asignadas
-        $resultadosAprendizaje = ResultadoAprendizaje::select('id', 'codigo', 'descripcion', 'competencia_id', 'intensidad_horaria')
-            ->selectRaw('(SELECT COALESCE(SUM(horas_asignadas), 0) FROM ambiente_programacions WHERE resultado_aprendizaje_id = resultado_aprendizajes.id) as horas_programadas')
-            ->get()
-            ->map(function($resultado) {
-                return [
-                    'id' => $resultado->id,
-                    'codigo' => $resultado->codigo,
-                    'descripcion' => $resultado->descripcion,
-                    'competencia_id' => $resultado->competencia_id,
-                    'intensidad_horaria' => $resultado->intensidad_horaria,
-                    'horas_disponibles' => $resultado->intensidad_horaria - $resultado->horas_programadas
-                ];
-            });
+    // Asegurar que la fecha inicie en lunes
+    $fechaInicio = $fechaInicio->startOfWeek();
     
-        // Generar días de la semana
-        $fechaInicio = Carbon::now()->startOfWeek();
-        $diasSemana = [];
-        for ($i = 0; $i < 7; $i++) {
-            $diasSemana[] = $fechaInicio->copy()->addDays($i);
-        }
-    
-        return view('ambiente-programacion.create', compact(
-            'ambientes',
-            'fichas',
-            'jornadas',
-            'competencias',
-            'instructores',
-            'diasSemana',
-            'resultadosAprendizaje'
-        ));
+    $ambientes = Ambiente::all();
+    $fichas = Ficha::all();
+    $jornadas = Jornada::all();
+    $competencias = Competencia::with('resultadosAprendizaje')->get();
+    $instructores = Personas::whereHas('user.role', function($query) {
+        $query->where('name', 'instructor');
+    })->get();
+
+    // Obtener resultados con sus horas disponibles
+    $resultadosAprendizaje = ResultadoAprendizaje::select(
+        'id', 
+        'codigo', 
+        'descripcion', 
+        'competencia_id', 
+        'intensidad_horaria'
+    )
+    ->selectRaw('(SELECT COALESCE(SUM(horas_asignadas), 0) FROM ambiente_programacions WHERE resultado_aprendizaje_id = resultado_aprendizajes.id) as horas_programadas')
+    ->get()
+    ->map(function($resultado) {
+        return [
+            'id' => $resultado->id,
+            'codigo' => $resultado->codigo,
+            'descripcion' => $resultado->descripcion,
+            'competencia_id' => $resultado->competencia_id,
+            'intensidad_horaria' => $resultado->intensidad_horaria,
+            'horas_disponibles' => $resultado->intensidad_horaria - $resultado->horas_programadas
+        ];
+    });
+
+    // Generar días de la semana a partir de la fecha de inicio
+    $diasSemana = [];
+    for ($i = 0; $i < 7; $i++) {
+        $diasSemana[] = $fechaInicio->copy()->addDays($i);
     }
+
+    // Calcular semana anterior y siguiente
+    $semanaAnterior = $fechaInicio->copy()->subWeek()->format('Y-m-d');
+    $semanaSiguiente = $fechaInicio->copy()->addWeek()->format('Y-m-d');
+
+    return view('ambiente-programacion.create', compact(
+        'ambientes',
+        'fichas',
+        'jornadas',
+        'competencias',
+        'instructores',
+        'diasSemana',
+        'resultadosAprendizaje',
+        'semanaAnterior',
+        'semanaSiguiente',
+        'fechaInicio'
+    ));
+}
 
     public function store(Request $request)
 {
@@ -428,4 +448,89 @@ class AmbienteProgramacionController extends Controller
             return back()->with('error', 'Error al eliminar la programación: ' . $e->getMessage());
         }
     }
+
+    public function verificarProgramacion(Request $request)
+{
+    $exists = AmbienteProgramacion::where('fecha', $request->fecha)->exists();
+    return response()->json(['exists' => $exists]);
+}
+
+public function getProgramacionSemanaAnterior($fecha)
+{
+    try {
+        // Convertir la fecha recibida a Carbon
+        $fechaActual = Carbon::parse($fecha);
+        
+        // Obtener el inicio de la semana anterior
+        $inicioSemanaAnterior = $fechaActual->copy()->subWeek()->startOfWeek();
+        $finSemanaAnterior = $inicioSemanaAnterior->copy()->endOfWeek();
+
+        // Log para debugging
+        Log::info('Buscando programaciones entre:', [
+            'inicio' => $inicioSemanaAnterior->format('Y-m-d'),
+            'fin' => $finSemanaAnterior->format('Y-m-d')
+        ]);
+
+        // Obtener las programaciones de la semana anterior
+        $programaciones = AmbienteProgramacion::with([
+            'ambiente',
+            'ficha',
+            'jornada',
+            'competencia',
+            'resultadoAprendizaje',
+            'instructor'
+        ])
+        ->whereBetween('fecha', [
+            $inicioSemanaAnterior->format('Y-m-d'),
+            $finSemanaAnterior->format('Y-m-d')
+        ])
+        ->orderBy('fecha')
+        ->get();
+
+        // Log para debugging
+        Log::info('Programaciones encontradas:', [
+            'cantidad' => $programaciones->count(),
+            'datos' => $programaciones->map(function($prog) {
+                return [
+                    'fecha' => $prog->fecha,
+                    'ambiente_id' => $prog->ambiente_id,
+                    'ficha_id' => $prog->ficha_id,
+                    'jornada_id' => $prog->jornada_id,
+                    'persona_id' => $prog->persona_id,
+                    'competencia_id' => $prog->competencia_id,
+                    'resultado_aprendizaje_id' => $prog->resultado_aprendizaje_id
+                ];
+            })
+        ]);
+
+        $programacionesMapeadas = $programaciones->map(function($prog) {
+            return [
+                'fecha' => $prog->fecha,
+                'ambiente_id' => $prog->ambiente_id,
+                'ficha_id' => $prog->ficha_id,
+                'jornada_id' => $prog->jornada_id,
+                'persona_id' => $prog->persona_id,
+                'competencia_id' => $prog->competencia_id,
+                'resultado_aprendizaje_id' => $prog->resultado_aprendizaje_id
+            ];
+        })->values()->all();
+
+        return response()->json([
+            'success' => true,
+            'programaciones' => $programacionesMapeadas
+        ]);
+
+    } catch (\Exception $e) {
+        Log::error('Error en getProgramacionSemanaAnterior:', [
+            'mensaje' => $e->getMessage(),
+            'trace' => $e->getTraceAsString()
+        ]);
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Error al obtener la programación: ' . $e->getMessage()
+        ], 500);
+    }
+}
+
 }

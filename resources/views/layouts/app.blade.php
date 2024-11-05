@@ -173,6 +173,8 @@ $persona = Personas::where('user_id', $user->id)->first();
 
 @include('partials.scripts')
 <!-- Sección para incluir scripts adicionales en vistas específicas -->
+
+@stack('scripts')
 @yield('scripts')
 
 </body>
