@@ -140,7 +140,7 @@
     <div class="mt-8 bg-gray-50 p-4 border border-gray-300 rounded-lg">
         <h4 class="font-medium mb-4">Resumen de la Semana</h4>
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div class="bg-white p-3 rounded border border-gray-200">
+            <div class="">
                 <p class="text-sm text-gray-600">Total Programaciones</p>
                 <p class="text-2xl font-bold">{{ $programaciones->count() }}</p>
             </div>

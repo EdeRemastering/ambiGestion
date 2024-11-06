@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-10-2024 a las 05:20:21
+-- Tiempo de generación: 06-11-2024 a las 05:26:29
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -60,12 +60,12 @@ CREATE TABLE `ambiente_programacions` (
   `ficha_id` bigint(20) UNSIGNED NOT NULL,
   `jornada_id` bigint(20) UNSIGNED NOT NULL,
   `competencia_id` bigint(20) UNSIGNED NOT NULL,
+  `resultado_aprendizaje_id` bigint(20) UNSIGNED NOT NULL,
   `persona_id` bigint(20) UNSIGNED NOT NULL,
   `fecha` date NOT NULL,
   `hora_inicio` time NOT NULL,
   `hora_fin` time NOT NULL,
-  `horas_asignadas` int(11) DEFAULT NULL,
-  `horas_restantes` int(11) DEFAULT NULL,
+  `horas_asignadas` int(11) DEFAULT 6,
   `estado` enum('programado','en_curso','completado') NOT NULL DEFAULT 'programado',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -75,84 +75,12 @@ CREATE TABLE `ambiente_programacions` (
 -- Volcado de datos para la tabla `ambiente_programacions`
 --
 
-INSERT INTO `ambiente_programacions` (`id`, `ambiente_id`, `ficha_id`, `jornada_id`, `competencia_id`, `persona_id`, `fecha`, `hora_inicio`, `hora_fin`, `horas_asignadas`, `horas_restantes`, `estado`, `created_at`, `updated_at`) VALUES
-(524645, 93243, 3, 2, 5, 17, '2024-10-29', '13:00:00', '19:00:00', 6, 194, 'programado', '2024-10-29 22:30:04', '2024-10-29 22:30:04'),
-(524646, 93243, 3, 2, 5, 17, '2024-11-05', '13:00:00', '19:00:00', 6, 188, 'programado', '2024-10-29 22:32:49', '2024-10-29 22:32:49'),
-(524647, 93243, 3, 2, 5, 17, '2024-11-12', '13:00:00', '19:00:00', 6, 182, 'programado', '2024-10-29 22:32:49', '2024-10-29 22:32:49'),
-(524648, 93243, 3, 2, 5, 17, '2024-11-19', '13:00:00', '19:00:00', 6, 176, 'programado', '2024-10-29 22:32:49', '2024-10-29 22:32:49'),
-(524649, 93243, 3, 2, 5, 17, '2024-11-26', '13:00:00', '19:00:00', 6, 170, 'programado', '2024-10-29 22:32:49', '2024-10-29 22:32:49'),
-(524650, 93243, 3, 2, 5, 17, '2024-12-03', '13:00:00', '19:00:00', 6, 164, 'programado', '2024-10-29 22:32:49', '2024-10-29 22:32:49'),
-(524651, 93243, 3, 2, 5, 17, '2024-12-10', '13:00:00', '19:00:00', 6, 158, 'programado', '2024-10-29 22:32:49', '2024-10-29 22:32:49'),
-(524652, 93243, 3, 2, 5, 17, '2024-12-17', '13:00:00', '19:00:00', 6, 152, 'programado', '2024-10-29 22:32:49', '2024-10-29 22:32:49'),
-(524653, 93243, 3, 2, 5, 17, '2024-12-24', '13:00:00', '19:00:00', 6, 146, 'programado', '2024-10-29 22:32:49', '2024-10-29 22:32:49'),
-(524654, 93243, 3, 2, 5, 17, '2024-12-31', '13:00:00', '19:00:00', 6, 140, 'programado', '2024-10-29 22:32:49', '2024-10-29 22:32:49'),
-(524655, 93243, 3, 2, 5, 17, '2025-01-07', '13:00:00', '19:00:00', 6, 134, 'programado', '2024-10-29 22:32:49', '2024-10-29 22:32:49'),
-(524656, 93243, 3, 2, 5, 17, '2025-01-14', '13:00:00', '19:00:00', 6, 128, 'programado', '2024-10-29 22:32:49', '2024-10-29 22:32:49'),
-(524657, 93243, 3, 2, 5, 17, '2025-01-21', '13:00:00', '19:00:00', 6, 122, 'programado', '2024-10-29 22:32:49', '2024-10-29 22:32:49'),
-(524658, 93243, 3, 2, 5, 17, '2025-01-28', '13:00:00', '19:00:00', 6, 116, 'programado', '2024-10-29 22:32:49', '2024-10-29 22:32:49'),
-(524659, 93243, 3, 2, 5, 17, '2025-02-04', '13:00:00', '19:00:00', 6, 110, 'programado', '2024-10-29 22:32:49', '2024-10-29 22:32:49'),
-(524660, 93243, 3, 2, 5, 17, '2025-02-11', '13:00:00', '19:00:00', 6, 104, 'programado', '2024-10-29 22:32:49', '2024-10-29 22:32:49'),
-(524661, 93243, 3, 2, 5, 17, '2025-02-18', '13:00:00', '19:00:00', 6, 98, 'programado', '2024-10-29 22:32:49', '2024-10-29 22:32:49'),
-(524662, 93243, 3, 2, 5, 17, '2025-02-25', '13:00:00', '19:00:00', 6, 92, 'programado', '2024-10-29 22:32:49', '2024-10-29 22:32:49'),
-(524663, 93243, 3, 2, 5, 17, '2025-03-04', '13:00:00', '19:00:00', 6, 86, 'programado', '2024-10-29 22:32:49', '2024-10-29 22:32:49'),
-(524664, 93243, 3, 2, 5, 17, '2025-03-11', '13:00:00', '19:00:00', 6, 80, 'programado', '2024-10-29 22:32:49', '2024-10-29 22:32:49'),
-(524665, 93243, 3, 2, 5, 17, '2025-03-18', '13:00:00', '19:00:00', 6, 74, 'programado', '2024-10-29 22:32:49', '2024-10-29 22:32:49'),
-(524666, 93243, 3, 2, 5, 17, '2025-03-25', '13:00:00', '19:00:00', 6, 68, 'programado', '2024-10-29 22:32:49', '2024-10-29 22:32:49'),
-(524667, 93243, 3, 2, 5, 17, '2025-04-01', '13:00:00', '19:00:00', 6, 62, 'programado', '2024-10-29 22:32:49', '2024-10-29 22:32:49'),
-(524668, 93243, 3, 2, 5, 17, '2025-04-08', '13:00:00', '19:00:00', 6, 56, 'programado', '2024-10-29 22:32:49', '2024-10-29 22:32:49'),
-(524669, 93243, 3, 2, 5, 17, '2025-04-15', '13:00:00', '19:00:00', 6, 50, 'programado', '2024-10-29 22:32:49', '2024-10-29 22:32:49'),
-(524670, 93243, 3, 2, 5, 17, '2025-04-22', '13:00:00', '19:00:00', 6, 44, 'programado', '2024-10-29 22:32:49', '2024-10-29 22:32:49'),
-(524671, 93243, 3, 2, 5, 17, '2025-04-29', '13:00:00', '19:00:00', 6, 38, 'programado', '2024-10-29 22:32:49', '2024-10-29 22:32:49'),
-(524672, 93243, 3, 2, 5, 17, '2025-05-06', '13:00:00', '19:00:00', 6, 32, 'programado', '2024-10-29 22:32:49', '2024-10-29 22:32:49'),
-(524673, 93243, 3, 2, 5, 17, '2025-05-13', '13:00:00', '19:00:00', 6, 26, 'programado', '2024-10-29 22:32:49', '2024-10-29 22:32:49'),
-(524674, 93243, 3, 2, 5, 17, '2025-05-20', '13:00:00', '19:00:00', 6, 20, 'programado', '2024-10-29 22:32:49', '2024-10-29 22:32:49'),
-(524675, 93243, 3, 2, 5, 17, '2025-05-27', '13:00:00', '19:00:00', 6, 14, 'programado', '2024-10-29 22:32:49', '2024-10-29 22:32:49'),
-(524676, 93243, 3, 2, 5, 17, '2025-06-03', '13:00:00', '19:00:00', 6, 8, 'programado', '2024-10-29 22:32:49', '2024-10-29 22:32:49'),
-(524677, 93243, 3, 2, 5, 17, '2025-06-10', '13:00:00', '19:00:00', 6, 2, 'programado', '2024-10-29 22:32:49', '2024-10-29 22:32:49'),
-(524678, 93243, 3, 2, 5, 17, '2025-06-17', '13:00:00', '19:00:00', 2, 0, 'programado', '2024-10-29 22:32:49', '2024-10-29 22:32:49'),
-(524679, 93243, 3, 2, 6, 23, '2024-10-30', '13:00:00', '19:00:00', 6, 194, 'programado', '2024-10-29 22:37:06', '2024-10-29 22:37:06'),
-(524680, 93243, 3, 2, 6, 23, '2024-11-06', '13:00:00', '19:00:00', 6, 188, 'programado', '2024-10-29 22:37:48', '2024-10-29 22:37:48'),
-(524681, 93243, 3, 2, 6, 23, '2024-11-13', '13:00:00', '19:00:00', 6, 182, 'programado', '2024-10-29 22:37:48', '2024-10-29 22:37:48'),
-(524682, 93243, 3, 2, 6, 23, '2024-11-20', '13:00:00', '19:00:00', 6, 176, 'programado', '2024-10-29 22:37:48', '2024-10-29 22:37:48'),
-(524683, 93243, 3, 2, 6, 23, '2024-11-27', '13:00:00', '19:00:00', 6, 170, 'programado', '2024-10-29 22:37:48', '2024-10-29 22:37:48'),
-(524684, 93243, 3, 2, 6, 23, '2024-12-04', '13:00:00', '19:00:00', 6, 164, 'programado', '2024-10-29 22:37:48', '2024-10-29 22:37:48'),
-(524685, 93243, 3, 2, 6, 23, '2024-12-11', '13:00:00', '19:00:00', 6, 158, 'programado', '2024-10-29 22:37:48', '2024-10-29 22:37:48'),
-(524686, 93243, 3, 2, 6, 23, '2024-12-18', '13:00:00', '19:00:00', 6, 152, 'programado', '2024-10-29 22:37:48', '2024-10-29 22:37:48'),
-(524687, 93243, 3, 2, 6, 23, '2024-12-25', '13:00:00', '19:00:00', 6, 146, 'programado', '2024-10-29 22:37:48', '2024-10-29 22:37:48'),
-(524688, 93243, 3, 2, 6, 23, '2025-01-01', '13:00:00', '19:00:00', 6, 140, 'programado', '2024-10-29 22:37:48', '2024-10-29 22:37:48'),
-(524689, 93243, 3, 2, 6, 23, '2025-01-08', '13:00:00', '19:00:00', 6, 134, 'programado', '2024-10-29 22:37:48', '2024-10-29 22:37:48'),
-(524690, 93243, 3, 2, 6, 23, '2025-01-15', '13:00:00', '19:00:00', 6, 128, 'programado', '2024-10-29 22:37:48', '2024-10-29 22:37:48'),
-(524691, 93243, 3, 2, 6, 23, '2025-01-22', '13:00:00', '19:00:00', 6, 122, 'programado', '2024-10-29 22:37:48', '2024-10-29 22:37:48'),
-(524692, 93243, 3, 2, 6, 23, '2025-01-29', '13:00:00', '19:00:00', 6, 116, 'programado', '2024-10-29 22:37:48', '2024-10-29 22:37:48'),
-(524693, 93243, 3, 2, 6, 23, '2025-02-05', '13:00:00', '19:00:00', 6, 110, 'programado', '2024-10-29 22:37:48', '2024-10-29 22:37:48'),
-(524694, 93243, 3, 2, 6, 23, '2025-02-12', '13:00:00', '19:00:00', 6, 104, 'programado', '2024-10-29 22:37:48', '2024-10-29 22:37:48'),
-(524695, 93243, 3, 2, 6, 23, '2025-02-19', '13:00:00', '19:00:00', 6, 98, 'programado', '2024-10-29 22:37:48', '2024-10-29 22:37:48'),
-(524696, 93243, 3, 2, 6, 23, '2025-02-26', '13:00:00', '19:00:00', 6, 92, 'programado', '2024-10-29 22:37:48', '2024-10-29 22:37:48'),
-(524697, 93243, 3, 2, 6, 23, '2025-03-05', '13:00:00', '19:00:00', 6, 86, 'programado', '2024-10-29 22:37:48', '2024-10-29 22:37:48'),
-(524698, 93243, 3, 2, 6, 23, '2025-03-12', '13:00:00', '19:00:00', 6, 80, 'programado', '2024-10-29 22:37:48', '2024-10-29 22:37:48'),
-(524699, 93243, 3, 2, 6, 23, '2025-03-19', '13:00:00', '19:00:00', 6, 74, 'programado', '2024-10-29 22:37:48', '2024-10-29 22:37:48'),
-(524700, 93243, 3, 2, 6, 23, '2025-03-26', '13:00:00', '19:00:00', 6, 68, 'programado', '2024-10-29 22:37:48', '2024-10-29 22:37:48'),
-(524701, 93243, 3, 2, 6, 23, '2025-04-02', '13:00:00', '19:00:00', 6, 62, 'programado', '2024-10-29 22:37:48', '2024-10-29 22:37:48'),
-(524702, 93243, 3, 2, 6, 23, '2025-04-09', '13:00:00', '19:00:00', 6, 56, 'programado', '2024-10-29 22:37:48', '2024-10-29 22:37:48'),
-(524703, 93243, 3, 2, 6, 23, '2025-04-16', '13:00:00', '19:00:00', 6, 50, 'programado', '2024-10-29 22:37:48', '2024-10-29 22:37:48'),
-(524704, 93243, 3, 2, 6, 23, '2025-04-23', '13:00:00', '19:00:00', 6, 44, 'programado', '2024-10-29 22:37:48', '2024-10-29 22:37:48'),
-(524705, 93243, 3, 2, 6, 23, '2025-04-30', '13:00:00', '19:00:00', 6, 38, 'programado', '2024-10-29 22:37:48', '2024-10-29 22:37:48'),
-(524706, 93243, 3, 2, 6, 23, '2025-05-07', '13:00:00', '19:00:00', 6, 32, 'programado', '2024-10-29 22:37:48', '2024-10-29 22:37:48'),
-(524707, 93243, 3, 2, 6, 23, '2025-05-14', '13:00:00', '19:00:00', 6, 26, 'programado', '2024-10-29 22:37:48', '2024-10-29 22:37:48'),
-(524708, 93243, 3, 2, 6, 23, '2025-05-21', '13:00:00', '19:00:00', 6, 20, 'programado', '2024-10-29 22:37:48', '2024-10-29 22:37:48'),
-(524709, 93243, 3, 2, 6, 23, '2025-05-28', '13:00:00', '19:00:00', 6, 14, 'programado', '2024-10-29 22:37:48', '2024-10-29 22:37:48'),
-(524710, 93243, 3, 2, 6, 23, '2025-06-04', '13:00:00', '19:00:00', 6, 8, 'programado', '2024-10-29 22:37:48', '2024-10-29 22:37:48'),
-(524711, 93243, 3, 2, 6, 23, '2025-06-11', '13:00:00', '19:00:00', 6, 2, 'programado', '2024-10-29 22:37:48', '2024-10-29 22:37:48'),
-(524712, 93243, 3, 2, 6, 23, '2025-06-18', '13:00:00', '19:00:00', 2, 0, 'programado', '2024-10-29 22:37:48', '2024-10-29 22:37:48'),
-(524713, 93244, 4, 1, 7, 23, '2024-10-29', '07:00:00', '13:00:00', 6, 44, 'programado', '2024-10-29 22:51:09', '2024-10-29 22:51:09'),
-(524714, 93244, 4, 1, 7, 23, '2024-11-05', '07:00:00', '13:00:00', 6, 38, 'programado', '2024-10-29 22:51:24', '2024-10-29 22:51:24'),
-(524715, 93244, 4, 1, 7, 23, '2024-11-12', '07:00:00', '13:00:00', 6, 32, 'programado', '2024-10-29 22:51:24', '2024-10-29 22:51:24'),
-(524716, 93244, 4, 1, 7, 23, '2024-11-19', '07:00:00', '13:00:00', 6, 26, 'programado', '2024-10-29 22:51:24', '2024-10-29 22:51:24'),
-(524717, 93244, 4, 1, 7, 23, '2024-11-26', '07:00:00', '13:00:00', 6, 20, 'programado', '2024-10-29 22:51:24', '2024-10-29 22:51:24'),
-(524718, 93244, 4, 1, 7, 23, '2024-12-03', '07:00:00', '13:00:00', 6, 14, 'programado', '2024-10-29 22:51:24', '2024-10-29 22:51:24'),
-(524719, 93244, 4, 1, 7, 23, '2024-12-10', '07:00:00', '13:00:00', 6, 8, 'programado', '2024-10-29 22:51:24', '2024-10-29 22:51:24'),
-(524720, 93244, 4, 1, 7, 23, '2024-12-17', '07:00:00', '13:00:00', 6, 2, 'programado', '2024-10-29 22:51:24', '2024-10-29 22:51:24'),
-(524721, 93244, 4, 1, 7, 23, '2024-12-24', '07:00:00', '13:00:00', 2, 0, 'programado', '2024-10-29 22:51:24', '2024-10-29 22:51:24');
+INSERT INTO `ambiente_programacions` (`id`, `ambiente_id`, `ficha_id`, `jornada_id`, `competencia_id`, `resultado_aprendizaje_id`, `persona_id`, `fecha`, `hora_inicio`, `hora_fin`, `horas_asignadas`, `estado`, `created_at`, `updated_at`) VALUES
+(524722, 93243, 5, 2, 5, 12, 23, '2024-10-28', '13:00:00', '19:00:00', 6, 'programado', '2024-11-02 21:04:36', '2024-11-02 21:04:36'),
+(524723, 93243, 5, 2, 5, 13, 17, '2024-10-29', '13:00:00', '19:00:00', 6, 'programado', '2024-11-02 23:46:12', '2024-11-02 23:46:12'),
+(524724, 93243, 6, 1, 5, 15, 17, '2024-10-30', '07:00:00', '13:00:00', 6, 'programado', '2024-11-03 00:42:32', '2024-11-03 00:42:32'),
+(524727, 93244, 7, 3, 5, 14, 17, '2024-11-05', '19:00:00', '22:00:00', 6, 'programado', '2024-11-05 18:30:40', '2024-11-05 18:30:40'),
+(524728, 93244, 6, 2, 5, 14, 23, '2024-11-05', '13:00:00', '19:00:00', 6, 'programado', '2024-11-05 19:28:29', '2024-11-05 19:28:29');
 
 -- --------------------------------------------------------
 
@@ -177,6 +105,28 @@ CREATE TABLE `cache_locks` (
   `owner` varchar(255) NOT NULL,
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cedulas_autorizadas`
+--
+
+CREATE TABLE `cedulas_autorizadas` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `documento` varchar(255) NOT NULL,
+  `tipo` enum('instructor','aprendiz') NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `cedulas_autorizadas`
+--
+
+INSERT INTO `cedulas_autorizadas` (`id`, `documento`, `tipo`, `created_at`, `updated_at`) VALUES
+(1, '1038805081', 'aprendiz', '2024-11-01 20:28:37', '2024-11-01 20:28:37'),
+(2, '1032178212', 'aprendiz', '2024-11-02 00:30:44', '2024-11-02 00:30:44');
 
 -- --------------------------------------------------------
 
@@ -253,19 +203,6 @@ INSERT INTO `contratos` (`id`, `descripcion`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `estados_novedad`
---
-
-CREATE TABLE `estados_novedad` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `nombre` varchar(255) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `estado_ambiente`
 --
 
@@ -282,6 +219,44 @@ INSERT INTO `estado_ambiente` (`id`, `nombre`) VALUES
 (9, 'DISPONIBLE'),
 (10, 'OCUPADO'),
 (11, 'NOVEDAD');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estado_novedad`
+--
+
+CREATE TABLE `estado_novedad` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `estado_novedad`
+--
+
+INSERT INTO `estado_novedad` (`id`, `nombre`) VALUES
+(1, 'pendiente'),
+(2, 'solucionado');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estado_recurso`
+--
+
+CREATE TABLE `estado_recurso` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `estado_recurso`
+--
+
+INSERT INTO `estado_recurso` (`id`, `nombre`) VALUES
+(1, 'disponible'),
+(2, 'mantenimiento');
 
 -- --------------------------------------------------------
 
@@ -308,7 +283,8 @@ CREATE TABLE `failed_jobs` (
 CREATE TABLE `fichas` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `codigo_ficha` varchar(255) NOT NULL,
-  `nombre` varchar(255) NOT NULL,
+  `instructor_lider` bigint(20) UNSIGNED NOT NULL,
+  `numero_aprendices` int(11) NOT NULL,
   `fecha_inicio` date NOT NULL,
   `fecha_fin` date NOT NULL,
   `fecha_fin_lectiva` date NOT NULL,
@@ -326,9 +302,10 @@ CREATE TABLE `fichas` (
 -- Volcado de datos para la tabla `fichas`
 --
 
-INSERT INTO `fichas` (`id`, `codigo_ficha`, `nombre`, `fecha_inicio`, `fecha_fin`, `fecha_fin_lectiva`, `fecha_inicio_practica`, `hora_entrada`, `hora_salida`, `programa_formacion_id`, `red_conocimiento_id`, `jornada_id`, `created_at`, `updated_at`) VALUES
-(3, '2673033', 'ADSO', '2023-01-23', '2025-04-23', '2024-10-23', '2024-10-24', '13:00:00', '19:00:00', 5, 3, 2, '2024-10-22 20:28:49', '2024-10-22 20:28:49'),
-(4, '2673007', 'ADSI', '2024-09-29', '2026-09-29', '2026-03-29', '2026-03-30', '07:00:00', '13:00:00', 6, 3, 1, '2024-10-29 22:50:17', '2024-10-29 22:50:17');
+INSERT INTO `fichas` (`id`, `codigo_ficha`, `instructor_lider`, `numero_aprendices`, `fecha_inicio`, `fecha_fin`, `fecha_fin_lectiva`, `fecha_inicio_practica`, `hora_entrada`, `hora_salida`, `programa_formacion_id`, `red_conocimiento_id`, `jornada_id`, `created_at`, `updated_at`) VALUES
+(5, '2673033', 23, 27, '2023-01-23', '2025-04-23', '2024-10-23', '2024-10-24', '13:00:00', '19:00:00', 5, 3, 2, '2024-11-02 05:07:08', '2024-11-02 05:07:08'),
+(6, '2673007', 17, 27, '2024-11-02', '2027-02-02', '2026-08-02', '2026-08-03', '07:00:00', '13:00:00', 5, 3, 1, '2024-11-03 00:37:54', '2024-11-03 00:37:54'),
+(7, '2457890', 17, 15, '2024-11-03', '2026-11-03', '2026-05-03', '2026-05-04', '19:00:00', '22:00:00', 6, 3, 3, '2024-11-03 15:40:38', '2024-11-03 15:40:38');
 
 -- --------------------------------------------------------
 
@@ -473,21 +450,33 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (14, '2024_10_14_021239_create_novedades_table', 5),
 (15, '2024_10_14_021612_create_estados_novedad_table', 6),
 (16, '2024_10_22_125612_create_instructor_red_conocimiento_table', 7),
-(17, '2024_10_23_041026_create_competencia_instructor_table', 8);
+(17, '2024_10_23_041026_create_competencia_instructor_table', 8),
+(18, '2024_11_01_141721_create_cedulas_autorizadas_table', 9),
+(19, '2024_11_01_205852_modify_fichas_table_add_numero_aprendices', 10);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `novedades`
+-- Estructura de tabla para la tabla `novedad`
 --
 
-CREATE TABLE `novedades` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `titulo` varchar(255) NOT NULL,
-  `descripcion` text NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE `novedad` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(30) NOT NULL,
+  `id_recurso` int(11) NOT NULL,
+  `descripcion` varchar(256) NOT NULL,
+  `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp(),
+  `estado` int(11) NOT NULL,
+  `fecha_solucion` timestamp NULL DEFAULT NULL,
+  `descripcion_solucion` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `novedad`
+--
+
+INSERT INTO `novedad` (`id`, `nombre`, `id_recurso`, `descripcion`, `fecha_registro`, `estado`, `fecha_solucion`, `descripcion_solucion`) VALUES
+(1, 'jl', 3, 'k', '2024-11-01 17:27:12', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -530,18 +519,10 @@ CREATE TABLE `personas` (
 --
 
 INSERT INTO `personas` (`id`, `documento`, `pnombre`, `snombre`, `papellido`, `sapellido`, `telefono`, `correo`, `direccion`, `tipo_sangre_id`, `tipo_contrato_id`, `codigo_ficha`, `created_at`, `updated_at`, `user_id`) VALUES
-(8, '8437347', 'Luis', 'Carlos', 'Correa', 'Arrieta', '3012481020', 'pcapacho24@gmail.com', 'Carrera 112a # 90a-10', 7, 1, NULL, '2024-10-01 20:35:29', '2024-10-08 03:49:40', 10),
-(12, '1028038615', 'Sebastian', NULL, 'Montiel', 'Espinosa', '3117887100', 'montiieel3@gmail.com', 'Barrio Nueva Civilizacion', 7, 1, '2673033', '2024-10-01 23:13:27', '2024-10-28 07:21:02', 12),
-(13, '1040373102', 'jhonny', 'javier', 'mosquera', 'moreno', '3008825320', 'jhonnymosquera16@gmail.com', 'pepe', 7, 1, '2673033', '2024-10-01 23:54:35', '2024-10-28 07:21:15', 13),
-(14, '1045492185', 'daniela', NULL, 'gomez', 'usuga', '3184998526', 'daniela@gmail.com', 'salvador', 7, 1, '2673033', '2024-10-02 01:18:59', '2024-10-28 07:21:38', 14),
-(15, '1027950562', 'Jair', 'Stiven', 'Martinez', 'Palacios', '3227469143', 'mjairstiven@gmail.com', 'CAA83-06', 7, 1, '2673033', '2024-10-02 03:26:08', '2024-10-28 07:21:52', 15),
-(16, '1038805081', 'Sandra', 'Miladys', 'Mora', 'Benitez', '3502768415', 'sandmorbe@gmail.com', 'Carrera 112a # 90a-10 11', 7, 1, '2673033', '2024-10-05 09:53:21', '2024-10-28 07:22:06', 16),
+(8, '8437347', 'Luisa', 'Carlos', 'Correa', 'Arrieta', '3012481020', 'pcapacho24@gmail.com', 'Carrera 112a # 90a-10', 7, 1, NULL, '2024-10-01 20:35:29', '2024-11-03 23:19:54', 10),
 (17, '108827194', 'cindy', 'johanna', 'gualtero', NULL, '3145135853', 'cjgualtero@sena.edu.co', 'mz 3 c 1', 1, 1, NULL, '2024-10-08 03:15:29', '2024-10-08 03:15:29', 17),
-(18, '1027', 'alexandra', 'yuliet', 'torres', 'viloria', '322', 'ale@gmail.com', 'porvenkr', 1, NULL, '2673033', '2024-10-08 23:43:44', '2024-10-28 07:22:18', 19),
-(20, '1037134640', 'andres', 'camilo', 'acosta', 'correa', '3502768415', 'pcapacho24@hotmail.com', 'Carrera 112a # 90a-10', 7, NULL, '2673033', '2024-10-13 10:54:01', '2024-10-28 07:22:33', 24),
-(21, '8456874', 'andres', 'manuel', 'romero', 'castro', '3214568787', 'pcapacho25@gmail.com', 'calle66', 6, NULL, '2673033', '2024-10-14 05:45:09', '2024-10-28 07:22:52', 25),
-(22, '123458745', 'luis', 'Carlos', 'mosquera', 'Cordoba', '3214569898', 'luiscarlosc@gmail.com', 'Carrera 112a # 90a-10', 7, NULL, '2673033', '2024-10-22 20:30:41', '2024-10-22 20:30:41', 26),
-(23, '123587469', 'manuela', NULL, 'Mora', 'nia', '3214569797', 'manuelas4@gmail.com', 'CRR 105 # 102-24', 7, 2, NULL, '2024-10-22 20:42:32', '2024-10-22 20:42:32', 27);
+(23, '123587469', 'manuela', NULL, 'Mora', 'nia', '3214569797', 'manuelas4@gmail.com', 'CRR 105 # 102-24', 7, 2, NULL, '2024-10-22 20:42:32', '2024-10-22 20:42:32', 27),
+(27, '1038805081', 'Sandra', 'Miladys', 'Mora', 'Benitez', '3502768415', 'sandmorbe@gmail.com', 'Carrera 112a # 90a-10', 7, NULL, '2673033', '2024-11-02 13:36:33', '2024-11-02 13:36:33', 31);
 
 -- --------------------------------------------------------
 
@@ -577,11 +558,19 @@ INSERT INTO `programa__formacions` (`id`, `nombre`, `codigo`, `version`, `descri
 
 CREATE TABLE `recurso` (
   `id_recurso` int(11) NOT NULL,
-  `id_ambiente` int(11) DEFAULT NULL,
+  `id_ambiente` bigint(20) UNSIGNED DEFAULT NULL,
   `descripcion` text DEFAULT NULL,
   `fecha_registro` timestamp NULL DEFAULT current_timestamp(),
   `estado` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `recurso`
+--
+
+INSERT INTO `recurso` (`id_recurso`, `id_ambiente`, `descripcion`, `fecha_registro`, `estado`) VALUES
+(2, 93243, 'alsdjfk', '2024-11-01 15:51:47', 1),
+(3, 93243, 'forestgump', '2024-11-01 15:51:58', 1);
 
 -- --------------------------------------------------------
 
@@ -627,10 +616,10 @@ CREATE TABLE `resultado_aprendizajes` (
 --
 
 INSERT INTO `resultado_aprendizajes` (`id`, `codigo`, `descripcion`, `intensidad_horaria`, `competencia_id`, `created_at`, `updated_at`, `is_manually_edited`) VALUES
-(8, '2', 'creacion de pagina html, css y js', 50, 5, '2024-10-28 07:00:17', '2024-10-28 08:00:42', 0),
-(9, '3', 'etiquetado html', 50, 5, '2024-10-28 07:01:49', '2024-10-28 07:02:01', 1),
-(10, '4', 'stylos css', 50, 5, '2024-10-28 07:02:35', '2024-10-28 07:02:48', 1),
-(11, '5', 'javascript', 50, 5, '2024-10-28 07:03:32', '2024-10-28 08:00:42', 1);
+(12, '574', 'entornos basicos de htm, css y js', 60, 5, '2024-11-02 19:30:50', '2024-11-02 19:33:30', 1),
+(13, '5741', 'crear paginas web basicas aplicando htm, css y js', 47, 5, '2024-11-02 19:31:38', '2024-11-02 19:33:30', 0),
+(14, '5742', 'aplicar stiles de css y bootstrap a las paginas', 47, 5, '2024-11-02 19:32:20', '2024-11-02 19:33:30', 0),
+(15, '5743', 'aplicar resposives a las paginas con bootstrap y los recursos', 46, 5, '2024-11-02 19:33:15', '2024-11-02 19:33:30', 0);
 
 -- --------------------------------------------------------
 
@@ -673,7 +662,18 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('TGohcm8hAHTQYf6cZrzaYA4KOeAaeXgfwjYScXJU', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiZmxuNFozQ2FXNzEyQzROQWpoaXJoWEZmUnNFRlRqNXFVOENYOXVpbiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTg6Imh0dHA6Ly9zZ3BhYzIudGVzdCI7fX0=', 1730261904);
+('3ftELhlU45kEo3PWl3oCfuBOiaEHNNgn8L4tqQpf', 10, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiekIzdjBJckNkRTZjTXJSVlh3Nks0RzZIbGFhN200dDJwdVRZWk9jcCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTA5OiJodHRwOi8vbG9jYWxob3N0L2xhcmF2ZWwvdHJhYmFqb19maW5hbC9wdWJsaWMvcmVwb3J0ZXMtcHJvZ3JhbWFjaW9uL2RpYXJpbz9hbWJpZW50ZV9pZD05MzI0MyZmZWNoYT0yMDI0LTExLTA1Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTA7czo0OiJhdXRoIjthOjE6e3M6MjE6InBhc3N3b3JkX2NvbmZpcm1lZF9hdCI7aToxNzMwODE1NDU1O319', 1730816430),
+('8CH0CHHQrUaTtuGHyYBvZ5F0Ff8PRXS74OB4MoEw', 10, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoia3NpbG53T2hrNk9ncHRqbmE2U0p6SzFzMXBTUnNBMENQbXp6bExJRCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Njc6Imh0dHA6Ly9sb2NhbGhvc3QvbGFyYXZlbC90cmFiYWpvX2ZpbmFsL3B1YmxpYy9yZXBvcnRlcy1wcm9ncmFtYWNpb24iO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxMDtzOjQ6ImF1dGgiO2E6MTp7czoyMToicGFzc3dvcmRfY29uZmlybWVkX2F0IjtpOjE3MzA4NTcwMTg7fX0=', 1730866888),
+('AtAmh2bS8uOwz2dDEiBbTqCpNROokELIcFaN8XUi', 10, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoibENjNTFhTmtlSXRUT2ZjWERTUnB1aGhLaTZNRUZydzBONE41WWhLWCI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjExNDoiaHR0cDovL2xvY2FsaG9zdC9sYXJhdmVsL3RyYWJham9fZmluYWwvcHVibGljL3JlcG9ydGVzLXByb2dyYW1hY2lvbi9zZW1hbmFsP2ZlY2hhX2luaWNpbz0yMDI0LTExLTA0Jmluc3RydWN0b3JfaWQ9Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTA7czo0OiJhdXRoIjthOjE6e3M6MjE6InBhc3N3b3JkX2NvbmZpcm1lZF9hdCI7aToxNzMwODE3NDE3O319', 1730823529),
+('cNVXoW9HoEGWnLp6OJG4jLlf0lpgSxKRR83mC8xf', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiR1FOS1NQUkRwQ0tpZ1JlY2h2S09pZXJUaFpSdVN6YTkzZUVxdW80aiI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czo2MDoiaHR0cDovL2xvY2FsaG9zdC9sYXJhdmVsL3NncGFjMi9wdWJsaWMvcmVwb3J0ZXMtcHJvZ3JhbWFjaW9uIjt9czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDQ6Imh0dHA6Ly9sb2NhbGhvc3QvbGFyYXZlbC9zZ3BhYzIvcHVibGljL2xvZ2luIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1730817398),
+('eBcnbidSjS2qB97CeXU7fWl0BpCEIPKyFmgrFTrO', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiMkdJZkdtb3VXSk1QWWM3NDdPTmtSeW9MYW9lY2ZOR1E4TEZHZTRJNCI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czoxMDc6Imh0dHA6Ly9sb2NhbGhvc3QvbGFyYXZlbC9zZ3BhYzIvcHVibGljL3JlcG9ydGVzLXByb2dyYW1hY2lvbi9zZW1hbmFsP2ZlY2hhX2luaWNpbz0yMDI0LTExLTA0Jmluc3RydWN0b3JfaWQ9Ijt9czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDQ6Imh0dHA6Ly9sb2NhbGhvc3QvbGFyYXZlbC9zZ3BhYzIvcHVibGljL2xvZ2luIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1730815432),
+('GKi1zoa7Eqpjoz5G0NHq6vPI8IuMWtLpYLvZSYSl', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiRFdEb0JBOEd5b3laRnRobHRNVEtPcE5ic0lWY1ZCVnJ6Sk8yTElPdyI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czoxMDc6Imh0dHA6Ly9sb2NhbGhvc3QvbGFyYXZlbC9zZ3BhYzIvcHVibGljL3JlcG9ydGVzLXByb2dyYW1hY2lvbi9zZW1hbmFsP2ZlY2hhX2luaWNpbz0yMDI0LTExLTA0Jmluc3RydWN0b3JfaWQ9Ijt9czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDQ6Imh0dHA6Ly9sb2NhbGhvc3QvbGFyYXZlbC9zZ3BhYzIvcHVibGljL2xvZ2luIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1730816642),
+('jDEfWrndxTsIghNkIf3nQsTL3lQREkWANnSaan3L', 10, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiQm0xZEpRU1pXYmhXVndZRWV6Z2RwV05xM1BMSUZuSERCRWpkMzVXQSI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjk3OiJodHRwOi8vbG9jYWxob3N0L2xhcmF2ZWwvc2dwYWMyL3B1YmxpYy9yZXBvcnRlcy1wcm9ncmFtYWNpb24vZGlhcmlvP2FtYmllbnRlX2lkPSZmZWNoYT0yMDI0LTExLTA1Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTA7czo0OiJhdXRoIjthOjE6e3M6MjE6InBhc3N3b3JkX2NvbmZpcm1lZF9hdCI7aToxNzMwODEzNzg3O319', 1730813794),
+('MQSDUYh1rQVA1vcAi9dlsEM5NZLfa4HmzpQHDXyn', 10, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiMnhOYmh6aFdpem9ZMmpQRnFZdmk1T0d3UlBIMGNUV2VXWU5OYmdTOSI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjExNToiaHR0cDovL2xvY2FsaG9zdC9sYXJhdmVsL3RyYWJham9fZmluYWwvcHVibGljL3JlcG9ydGVzLXByb2dyYW1hY2lvbi9tZW5zdWFsP2FtYmllbnRlX2lkPSZpbnN0cnVjdG9yX2lkPSZtZXM9MjAyNC0xMSI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjEwO3M6NDoiYXV0aCI7YToxOntzOjIxOiJwYXNzd29yZF9jb25maXJtZWRfYXQiO2k6MTczMDgxNjc5Nzt9fQ==', 1730817304),
+('qBr6ybSlKq3B82alMECFPTDfzhhDFrubTJP3j2Nk', 10, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiYVJkMHNlMGJRaUtMTzlsUW1PbUJ3MFlwYlhyMjI5bzhqakkxQnAwbSI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjY3OiJodHRwOi8vbG9jYWxob3N0L2xhcmF2ZWwvdHJhYmFqb19maW5hbC9wdWJsaWMvcmVwb3J0ZXMtcHJvZ3JhbWFjaW9uIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTA7czo0OiJhdXRoIjthOjE6e3M6MjE6InBhc3N3b3JkX2NvbmZpcm1lZF9hdCI7aToxNzMwODE2MjI2O319', 1730816249),
+('U7aOyRDTQ2FHhp3HXj2Gtm3mJ4puwdmqCa5zjGnr', 10, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiY1FtbjVudzZkbEc5NFcwSFVzWmRaRG56dDVxMW1kaFN0Q0pqSndxMSI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjEwNDoiaHR0cDovL2xvY2FsaG9zdC9sYXJhdmVsL3RyYWJham9fZmluYWwvcHVibGljL3JlcG9ydGVzLXByb2dyYW1hY2lvbi9kaWFyaW8/YW1iaWVudGVfaWQ9JmZlY2hhPTIwMjQtMTEtMDUiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxMDtzOjQ6ImF1dGgiO2E6MTp7czoyMToicGFzc3dvcmRfY29uZmlybWVkX2F0IjtpOjE3MzA4MTI2NzU7fX0=', 1730813769),
+('vU9iPbJOuRveHbC3qYgqT4UO1oyVXm7N4uTGhP8y', 10, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiVmxZRXZqZnIzTDNRZnpyamlKOU1EWHBOeURYeURSREthZFdOOXZyRSI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjEwNDoiaHR0cDovL2xvY2FsaG9zdC9sYXJhdmVsL3RyYWJham9fZmluYWwvcHVibGljL3JlcG9ydGVzLXByb2dyYW1hY2lvbi9kaWFyaW8/YW1iaWVudGVfaWQ9JmZlY2hhPTIwMjQtMTEtMDUiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxMDtzOjQ6ImF1dGgiO2E6MTp7czoyMToicGFzc3dvcmRfY29uZmlybWVkX2F0IjtpOjE3MzA4MTQ1MDU7fX0=', 1730815376),
+('YcdPorhb10DwVWex2QwmOXpX8Nwxxn95qXuBzogl', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiOEVRTmw5Wk1BOHFDcWpKMUYyVWoxd1BtOFBWODlPc2NSNk05TWdEVSI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czoxMTQ6Imh0dHA6Ly9sb2NhbGhvc3QvbGFyYXZlbC90cmFiYWpvX2ZpbmFsL3B1YmxpYy9yZXBvcnRlcy1wcm9ncmFtYWNpb24vc2VtYW5hbD9mZWNoYV9pbmljaW89MjAyNC0xMS0wNCZpbnN0cnVjdG9yX2lkPSI7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjUxOiJodHRwOi8vbG9jYWxob3N0L2xhcmF2ZWwvdHJhYmFqb19maW5hbC9wdWJsaWMvbG9naW4iO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1730847853);
 
 -- --------------------------------------------------------
 
@@ -707,7 +707,6 @@ INSERT INTO `tipo_ambientes` (`id`, `nombre`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) NOT NULL,
@@ -721,20 +720,12 @@ CREATE TABLE `users` (
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `role_id`, `created_at`, `updated_at`) VALUES
-(10, 'Luis Carlos Correa Arrieta', 'pcapacho24@gmail.com', NULL, '$2y$12$/qQSAk4ptfySwchPFcBj1.Wob0EcDaZVpZZknpCx.cMecx5ant7ta', NULL, 1, '2024-10-01 20:34:50', '2024-10-02 03:09:34'),
-(11, 'juaco', 'juaco@gmail.com', NULL, '$2y$12$Pd5leTLwRG5GLHhdgIQuJO7bMSdf3Om9gRpAcQhq4PZuysimxl09q', NULL, 3, '2024-10-01 23:00:50', '2024-10-01 23:00:50'),
-(12, 'Sebastian Montiel', 'montiieel3@gmail.com', NULL, '$2y$12$PyT4Rg89rGVcAdgyd2bjSeKosA95jM6AsmbtZDdjTMQ8/NgusHiwK', NULL, 3, '2024-10-01 23:09:42', '2024-10-28 07:21:02'),
-(13, 'jhonny mosquera', 'jhonnymosquera16@gmail.com', NULL, '$2y$12$0xw0LzvTZD5ZSItgXF96IuCjYFKc1KxXRtOmA26.o1BeVv1V3bXjm', NULL, 3, '2024-10-01 23:52:54', '2024-10-01 23:52:54'),
-(14, 'daniela gomez', 'daniela@gmail.com', NULL, '$2y$12$F4o.sAuKmCn3tAZuOsSBSeU1skw.8XS.FOYYPJ/XkIjr39u0s.6By', NULL, 3, '2024-10-02 01:18:59', '2024-10-28 07:21:38'),
-(15, 'Jair Martinez', 'mjairstiven@gmail.com', NULL, '$2y$12$ICNuu4zHmUfIMi9KAMWjwuS35HpNDrbXjO9DU8QK8BLUxeaqDyk.a', NULL, 3, '2024-10-02 03:26:08', '2024-10-28 07:21:52'),
-(16, 'Sandra Mora', 'sandmorbe@gmail.com', NULL, '$2y$12$vwDj70EshPXcYnuPKeBr7uDTLAEK5M8rJrNourii/gRk2Av6LnYGe', NULL, 3, '2024-10-05 09:53:21', '2024-10-13 18:34:07'),
-(17, 'cindy gualtero', 'cjgualtero@sena.edu.co', NULL, '$2y$12$8R61meaTq5m/whAGt8BuIO56wqGzDAL2JNdD/HFDj.K7I9uiHYFgW', NULL, 2, '2024-10-08 03:15:29', '2024-10-28 06:35:37'),
-(19, 'alexandra torres', 'ale@gmail.com', NULL, '$2y$12$oFazcT/EO9XUBdG6amoPKOgiKwglHsMSI.oc7Dd4oRDeeGmyHWNpW', NULL, 3, '2024-10-08 23:43:44', '2024-10-28 07:22:18'),
-(24, 'andres acosta', 'pcapacho24@hotmail.com', NULL, '$2y$12$3h2kNft9SH1ciAP3E4Xz/OVOn3OAXv7rJP0NjZcGZc3rGFti.7sky', NULL, 3, '2024-10-13 10:54:01', '2024-10-28 07:22:33'),
-(25, 'andres romero', 'pcapacho25@gmail.com', NULL, '$2y$12$sDPdwkVmEqrJABzpkXW3EemwwtjniAA/AjPsFm8u3P7ffk9BIr/N.', NULL, 3, '2024-10-14 05:45:09', '2024-10-28 07:22:52'),
-(26, 'lcCordoba', 'luiscarlosc@gmail.com', NULL, '$2y$12$Yf6BlCvppw29qkXMIUcYoep1xFVzE4f7P5iSnOcl2PwRxrI.pEqsW', NULL, 3, '2024-10-22 20:30:41', '2024-10-22 20:30:41'),
-(27, 'manuela Mora', 'manuelas4@gmail.com', NULL, '$2y$12$l/9HMHBJjy84kYGB5.eC9OtXxAS7ajn59AjZFpzcC1ZPa8VWAqZvq', NULL, 2, '2024-10-22 20:42:32', '2024-10-22 22:02:45');
+INSERT INTO `users` (`id`, `email`, `email_verified_at`, `password`, `remember_token`, `role_id`, `created_at`, `updated_at`) VALUES
+(10, 'pcapacho24@gmail.com', NULL, '$2y$12$/qQSAk4ptfySwchPFcBj1.Wob0EcDaZVpZZknpCx.cMecx5ant7ta', NULL, 1, '2024-10-01 20:34:50', '2024-10-02 03:09:34'),
+(11, 'juaco@gmail.com', NULL, '$2y$12$Pd5leTLwRG5GLHhdgIQuJO7bMSdf3Om9gRpAcQhq4PZuysimxl09q', NULL, 3, '2024-10-01 23:00:50', '2024-10-01 23:00:50'),
+(17, 'cjgualtero@sena.edu.co', NULL, '$2y$12$8R61meaTq5m/whAGt8BuIO56wqGzDAL2JNdD/HFDj.K7I9uiHYFgW', NULL, 2, '2024-10-08 03:15:29', '2024-10-28 06:35:37'),
+(27, 'manuelas4@gmail.com', NULL, '$2y$12$l/9HMHBJjy84kYGB5.eC9OtXxAS7ajn59AjZFpzcC1ZPa8VWAqZvq', NULL, 2, '2024-10-22 20:42:32', '2024-10-22 22:02:45'),
+(31, 'sandmorbe@gmail.com', NULL, '$2y$12$1HNpH4X1z0cDCy8119Ad0.PKLzMvUrnPDpU6.OpMVkYWmPIe4CiSm', NULL, 3, '2024-11-02 13:36:33', '2024-11-02 13:36:33');
 
 --
 -- Índices para tablas volcadas
@@ -764,7 +755,8 @@ ALTER TABLE `ambiente_programacions`
   ADD KEY `ambiente_programacions_ficha_id_foreign` (`ficha_id`),
   ADD KEY `ambiente_programacions_jornada_id_foreign` (`jornada_id`),
   ADD KEY `ambiente_programacions_competencia_id_foreign` (`competencia_id`),
-  ADD KEY `ambiente_programacions_persona_id_foreign` (`persona_id`);
+  ADD KEY `ambiente_programacions_persona_id_foreign` (`persona_id`),
+  ADD KEY `resultado_aprendizaje_id` (`resultado_aprendizaje_id`);
 
 --
 -- Indices de la tabla `cache`
@@ -777,6 +769,13 @@ ALTER TABLE `cache`
 --
 ALTER TABLE `cache_locks`
   ADD PRIMARY KEY (`key`);
+
+--
+-- Indices de la tabla `cedulas_autorizadas`
+--
+ALTER TABLE `cedulas_autorizadas`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `cedulas_autorizadas_documento_unique` (`documento`);
 
 --
 -- Indices de la tabla `competencias`
@@ -801,15 +800,21 @@ ALTER TABLE `contratos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `estados_novedad`
---
-ALTER TABLE `estados_novedad`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indices de la tabla `estado_ambiente`
 --
 ALTER TABLE `estado_ambiente`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `estado_novedad`
+--
+ALTER TABLE `estado_novedad`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `estado_recurso`
+--
+ALTER TABLE `estado_recurso`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -827,7 +832,8 @@ ALTER TABLE `fichas`
   ADD UNIQUE KEY `fichas_codigo_ficha_unique` (`codigo_ficha`),
   ADD KEY `fichas_jornada_id_foreign` (`jornada_id`),
   ADD KEY `fichas_programa_formacion_id_foreign` (`programa_formacion_id`),
-  ADD KEY `fichas_red_conocimiento_id_foreign` (`red_conocimiento_id`);
+  ADD KEY `fichas_red_conocimiento_id_foreign` (`red_conocimiento_id`),
+  ADD KEY `instructor_lider` (`instructor_lider`);
 
 --
 -- Indices de la tabla `grupo_sanguineos`
@@ -869,10 +875,12 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `novedades`
+-- Indices de la tabla `novedad`
 --
-ALTER TABLE `novedades`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `novedad`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `estado_novedad` (`estado`),
+  ADD KEY `id_recurso` (`id_recurso`);
 
 --
 -- Indices de la tabla `password_reset_tokens`
@@ -965,7 +973,13 @@ ALTER TABLE `ambientes`
 -- AUTO_INCREMENT de la tabla `ambiente_programacions`
 --
 ALTER TABLE `ambiente_programacions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=524722;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=524729;
+
+--
+-- AUTO_INCREMENT de la tabla `cedulas_autorizadas`
+--
+ALTER TABLE `cedulas_autorizadas`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `competencias`
@@ -986,22 +1000,28 @@ ALTER TABLE `contratos`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de la tabla `estados_novedad`
---
-ALTER TABLE `estados_novedad`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `estado_ambiente`
 --
 ALTER TABLE `estado_ambiente`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
+-- AUTO_INCREMENT de la tabla `estado_novedad`
+--
+ALTER TABLE `estado_novedad`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `estado_recurso`
+--
+ALTER TABLE `estado_recurso`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de la tabla `fichas`
 --
 ALTER TABLE `fichas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `instructor_red_conocimiento`
@@ -1019,19 +1039,19 @@ ALTER TABLE `jornadas`
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
--- AUTO_INCREMENT de la tabla `novedades`
+-- AUTO_INCREMENT de la tabla `novedad`
 --
-ALTER TABLE `novedades`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `novedad`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `personas`
 --
 ALTER TABLE `personas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de la tabla `programa__formacions`
@@ -1043,7 +1063,7 @@ ALTER TABLE `programa__formacions`
 -- AUTO_INCREMENT de la tabla `recurso`
 --
 ALTER TABLE `recurso`
-  MODIFY `id_recurso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32337;
+  MODIFY `id_recurso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `red_conocimientos`
@@ -1055,7 +1075,7 @@ ALTER TABLE `red_conocimientos`
 -- AUTO_INCREMENT de la tabla `resultado_aprendizajes`
 --
 ALTER TABLE `resultado_aprendizajes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_ambientes`
@@ -1067,7 +1087,7 @@ ALTER TABLE `tipo_ambientes`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- Restricciones para tablas volcadas
@@ -1088,6 +1108,7 @@ ALTER TABLE `ambiente_programacions`
   ADD CONSTRAINT `ambiente_programacions_ambiente_id_foreign` FOREIGN KEY (`ambiente_id`) REFERENCES `ambientes` (`id`),
   ADD CONSTRAINT `ambiente_programacions_competencia_id_foreign` FOREIGN KEY (`competencia_id`) REFERENCES `competencias` (`id`),
   ADD CONSTRAINT `ambiente_programacions_ficha_id_foreign` FOREIGN KEY (`ficha_id`) REFERENCES `fichas` (`id`),
+  ADD CONSTRAINT `ambiente_programacions_ibfk_1` FOREIGN KEY (`resultado_aprendizaje_id`) REFERENCES `resultado_aprendizajes` (`id`),
   ADD CONSTRAINT `ambiente_programacions_jornada_id_foreign` FOREIGN KEY (`jornada_id`) REFERENCES `jornadas` (`id`),
   ADD CONSTRAINT `ambiente_programacions_persona_id_foreign` FOREIGN KEY (`persona_id`) REFERENCES `personas` (`id`);
 
@@ -1102,8 +1123,8 @@ ALTER TABLE `competencia_instructor`
 -- Filtros para la tabla `fichas`
 --
 ALTER TABLE `fichas`
+  ADD CONSTRAINT `fichas_ibfk_1` FOREIGN KEY (`instructor_lider`) REFERENCES `personas` (`id`),
   ADD CONSTRAINT `fichas_jornada_id_foreign` FOREIGN KEY (`jornada_id`) REFERENCES `jornadas` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fichas_programa_formacion_id_foreign` FOREIGN KEY (`programa_formacion_id`) REFERENCES `programa__formacions` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `fichas_red_conocimiento_id_foreign` FOREIGN KEY (`red_conocimiento_id`) REFERENCES `red_conocimientos` (`id`) ON DELETE CASCADE;
 
 --
@@ -1112,6 +1133,13 @@ ALTER TABLE `fichas`
 ALTER TABLE `instructor_red_conocimiento`
   ADD CONSTRAINT `instructor_red_conocimiento_persona_id_foreign` FOREIGN KEY (`persona_id`) REFERENCES `personas` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `instructor_red_conocimiento_red_conocimiento_id_foreign` FOREIGN KEY (`red_conocimiento_id`) REFERENCES `red_conocimientos` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `novedad`
+--
+ALTER TABLE `novedad`
+  ADD CONSTRAINT `novedad_ibfk_1` FOREIGN KEY (`estado`) REFERENCES `estado_novedad` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `novedad_ibfk_2` FOREIGN KEY (`id_recurso`) REFERENCES `recurso` (`id_recurso`);
 
 --
 -- Filtros para la tabla `personas`
@@ -1124,6 +1152,13 @@ ALTER TABLE `personas`
 --
 ALTER TABLE `programa__formacions`
   ADD CONSTRAINT `programa__formacions_red_conocimiento_id_foreign` FOREIGN KEY (`red_conocimiento_id`) REFERENCES `red_conocimientos` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `recurso`
+--
+ALTER TABLE `recurso`
+  ADD CONSTRAINT `recurso_ibfk_1` FOREIGN KEY (`id_ambiente`) REFERENCES `ambientes` (`id`),
+  ADD CONSTRAINT `recurso_ibfk_2` FOREIGN KEY (`estado`) REFERENCES `estado_recurso` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

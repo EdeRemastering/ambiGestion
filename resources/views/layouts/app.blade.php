@@ -46,10 +46,10 @@ $user = Auth::user();
 $persona = Personas::where('user_id', $user->id)->first();
 @endphp
 
-            <a href="{{ route('personas.settings', $persona->id ) }}" style="text-decoration: none; color: inherit;">Ajustes</a>
+            <a href="{{ route('personas.settings', $persona->id ) }}" style="text-decoration: none; color: inherit;" class="btn btn-success">Ajustes</a>
         </button>
             <div class="dropdown-divider"></div>
-            <button id="modoOscuroToggle" class="dropdown-item">Cambiar Tema</button>
+            <button id="modoOscuroToggle" class="dropdown-item">Cambiar Tema <br> (experimental)</button>
             <div class="dropdown-divider"></div>
             <form action="{{ route('logout') }}" method="POST" style="display:inline;">
                 @csrf
