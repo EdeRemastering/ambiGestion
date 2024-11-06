@@ -111,6 +111,9 @@ $persona = Personas::where('user_id', $user->id)->first();
         <a href="{{ route('personas.index') }}" class="opcion-barra-navegacion {{ Request::is('*personas*') ? 'active' : '' }}">
             <i class="bi bi-person"></i> <span class="texto-barra-lateral">Persona</span>
         </a>
+        <a href="{{ route('import.form') }}" class="opcion-barra-navegacion {{ Request::is('/import') ? 'active' : '' }}">
+            <i class="bi bi-file-import me-2"></i><span class="texto-barra-lateral">Importar Documentos</span>
+        </a>
 
     @elseif(auth()->user()->hasRole('instructor'))
         <a href="{{ route('reportes-programacion.instructor.diario') }}" class="opcion-barra-navegacion {{ Request::is('*instructor/diario*') ? 'active' : '' }}">
@@ -122,9 +125,7 @@ $persona = Personas::where('user_id', $user->id)->first();
         <a href="{{ route('reportes-programacion.instructor.mensual') }}" class="opcion-barra-navegacion {{ Request::is('*instructor/mensual*') ? 'active' : '' }}">
             <i class="bi bi-calendar-month"></i> <span class="texto-barra-lateral">Reporte Mensual</span>
         </a>
-        <a href="{{ route('personas.index') }}" class="opcion-barra-navegacion {{ Request::is('*personas*') ? 'active' : '' }}">
-            <i class="bi bi-person"></i> <span class="texto-barra-lateral">Persona</span>
-        </a>
+     
 
     @elseif(auth()->user()->hasRole('aprendiz'))
         <a href="{{ route('reportes-programacion.aprendiz.diario') }}" class="opcion-barra-navegacion {{ Request::is('*aprendiz/diario*') ? 'active' : '' }}">
@@ -136,9 +137,7 @@ $persona = Personas::where('user_id', $user->id)->first();
         <a href="{{ route('reportes-programacion.aprendiz.mensual') }}" class="opcion-barra-navegacion {{ Request::is('*aprendiz/mensual*') ? 'active' : '' }}">
             <i class="bi bi-calendar-month"></i> <span class="texto-barra-lateral">Reporte Mensual</span>
         </a>
-        <a href="{{ route('personas.index') }}" class="opcion-barra-navegacion {{ Request::is('*personas*') ? 'active' : '' }}">
-            <i class="bi bi-person"></i> <span class="texto-barra-lateral">Persona</span>
-        </a>
+
     @endif
 @endauth
 

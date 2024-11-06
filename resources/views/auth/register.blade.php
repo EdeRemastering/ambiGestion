@@ -13,21 +13,6 @@
 <div class="contenedor-registro">
     <h1>Registro</h1>
     
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
 
     <form method="POST" action="{{ route('register') }}" id="registerForm">
         @csrf
@@ -179,6 +164,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let timeoutId;
     let documentoValidado = false;
     let tipoDocumentoVerificado = '';
+    const baseURL = `${window.location.origin}/laravel/trabajo_final/public`;
+
 
     function mostrarCamposSegunRol(tipo) {
         const tipoContratoContainer = document.getElementById('tipo_contrato_container');
@@ -213,7 +200,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         try {
-            const response = await fetch(`/verificar-documento/${documento}`);
+            const response = await fetch(`${baseURL}/verificar-documento/${documento}`);
             const data = await response.json();
 
             if (data.valido) {
@@ -383,55 +370,5 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 </script>
-<style>
-    .invalid-feedback {
-        color: #dc3545;
-        font-size: 0.875em;
-        margin-top: 0.25rem;
-    }
-
-    .is-invalid {
-        border-color: #dc3545 !important;
-        background-color: #fff8f8 !important;
-    }
-
-    .is-valid {
-        border-color: #198754 !important;
-        background-color: #f8fff9 !important;
-    }
-
-    .alert {
-        padding: 1rem;
-        margin-bottom: 1rem;
-        border-radius: 0.25rem;
-    }
-
-    .alert-success {
-        color: #0f5132;
-        background-color: #d1e7dd;
-        border-color: #badbcc;
-    }
-
-    .alert-danger {
-        color: #842029;
-        background-color: #f8d7da;
-        border-color: #f5c2c7;
-    }
-
-    .form-text {
-        color: #6c757d;
-        font-size: 0.875em;
-        margin-top: 0.25rem;
-    }
-
-    #submitButton:disabled {
-        opacity: 0.65;
-        cursor: not-allowed;
-    }
-
-    select[multiple] {
-        height: 100px;
-    }
-</style>
 </body>
 </html>

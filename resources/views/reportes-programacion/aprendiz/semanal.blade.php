@@ -1,13 +1,11 @@
 @extends('layouts.app')
+@section('titulo', 'Mis clases (semanal)')
 
 @section('content')
 <div class="container mx-auto px-4 py-6">
     {{-- Encabezado tipo planilla --}}
     <div class="text-center mb-8">
-        <h1 class="text-xl font-bold uppercase">Servicio Nacional de Aprendizaje SENA</h1>
-        <h2 class="text-lg">Centro de Servicios y Gestión Empresarial</h2>
-        <h3 class="text-lg font-bold mt-4">Reporte Semanal de Programación</h3>
-        
+
         {{-- Información de la Ficha --}}
         <div class="mt-4 bg-gray-50 p-4 border border-gray-300 rounded-lg">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">

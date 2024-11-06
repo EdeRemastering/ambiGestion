@@ -32,6 +32,7 @@ Route::middleware([CheckPersonaRegistration::class])->group(function () {
     // Otras rutas protegidas
 });
 
+
 Route::get('/verificar-documento/{documento}', [App\Http\Controllers\Auth\RegisterController::class, 'verificarDocumento'])
     ->name('verificar.documento');
 
@@ -252,14 +253,12 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 
 Route::prefix('reportes-programacion')->middleware(['auth'])->group(function () {
     // Rutas para instructor
-    Route::middleware('role:instructor')->group(function () {
         Route::get('/instructor/diario', [ReporteProgramacionController::class, 'diario'])
             ->name('reportes-programacion.instructor.diario');
         Route::get('/instructor/semanal', [ReporteProgramacionController::class, 'semanal'])
             ->name('reportes-programacion.instructor.semanal');
         Route::get('/instructor/mensual', [ReporteProgramacionController::class, 'mensual'])
             ->name('reportes-programacion.instructor.mensual');
-    });
 
     Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/admin/importar', [ImportController::class, 'showImportForm'])->name('import.form');
@@ -269,14 +268,13 @@ Route::prefix('reportes-programacion')->middleware(['auth'])->group(function () 
 
    
     // Rutas para aprendiz
-    Route::middleware('role:aprendiz')->group(function () {
         Route::get('/aprendiz/diario', [ReporteProgramacionController::class, 'diario'])
             ->name('reportes-programacion.aprendiz.diario');
         Route::get('/aprendiz/semanal', [ReporteProgramacionController::class, 'semanal'])
             ->name('reportes-programacion.aprendiz.semanal');
         Route::get('/aprendiz/mensual', [ReporteProgramacionController::class, 'mensual'])
             ->name('reportes-programacion.aprendiz.mensual');
-    });
+
 
     Route::get('/diario/excel', [ReporteProgramacionController::class, 'exportarDiarioExcel'])
     ->name('reportes-programacion.diario.excel');

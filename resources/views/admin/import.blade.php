@@ -7,9 +7,9 @@
 
         <!-- Estadísticas -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-            <div class="bg-blue-100 p-4 rounded-lg">
-                <h3 class="text-lg font-semibold text-blue-800">Total Instructores</h3>
-                <p class="text-3xl font-bold text-blue-600">{{ $totalInstructores }}</p>
+            <div class="bg-green-100 p-4 rounded-lg">
+                <h3 class="text-lg font-semibold text-green-800">Total Instructores</h3>
+                <p class="text-3xl font-bold text-green-600">{{ $totalInstructores }}</p>
             </div>
             <div class="bg-green-100 p-4 rounded-lg">
                 <h3 class="text-lg font-semibold text-green-800">Total Aprendices</h3>
@@ -39,7 +39,7 @@
 
                 <div class="flex justify-between items-center">
                     <button type="submit" 
-                            class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">
+                            class="btn btn-success">
                         Importar Documentos
                     </button>
                     
@@ -102,16 +102,7 @@ documento,tipo
     </div>
 </div>
 
-@if(session('success'))
-    <div id="success-alert" class="fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg">
-        {{ session('success') }}
-    </div>
-@endif
 
-@if(session('error'))
-    <div id="error-alert" class="fixed bottom-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg">
-        {{ session('error') }}
-    </div>
 @endif
 
 <script>
